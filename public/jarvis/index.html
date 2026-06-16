@@ -1,0 +1,1403 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COMMAND CENTER</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="jarvis.css?v=4" />
+</head>
+<body>
+
+<!-- SRW Nav bar -->
+<style>
+  .op-nav{background:#0f172a;display:flex;align-items:center;padding:0 16px;height:44px;border-bottom:2px solid #d4a017;position:sticky;top:0;z-index:9999;overflow-x:auto;scrollbar-width:none;}
+  .op-nav::-webkit-scrollbar{display:none;}
+  .op-nav-brand{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#fff;margin-right:16px;white-space:nowrap;flex-shrink:0;}
+  .op-nav-tab{display:flex;align-items:center;gap:5px;padding:0 11px;height:44px;color:rgba(255,255,255,.55);text-decoration:none;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;flex-shrink:0;transition:color .15s,background .15s;}
+  .op-nav-tab:hover{color:#fff;background:rgba(255,255,255,.06);}
+  .op-nav-tab.active{color:#00d4ff;border-bottom-color:#00d4ff;}
+  .op-nav-dot-j{width:5px;height:5px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:jnp 1.5s infinite;}
+  @keyframes jnp{0%,100%{opacity:1}50%{opacity:.35}}
+</style>
+<nav class="op-nav">
+  <span class="op-nav-brand">SRW</span>
+  <a href="../home.html" class="op-nav-tab"><span class="op-nav-dot-j"></span>Hub</a>
+  <a href="../index.html" class="op-nav-tab"><span class="op-nav-dot-j"></span>Private Label</a>
+  <a href="../tiktok.html" class="op-nav-tab"><span class="op-nav-dot-j"></span>TikTok</a>
+  <a href="../moonbites.html" class="op-nav-tab"><span class="op-nav-dot-j"></span>MoonBites</a>
+  <a href="/jarvis/" class="op-nav-tab active"><span class="op-nav-dot-j" style="background:#00d4ff;"></span>JARVIS</a>
+  <a href="../launch-plan.html" class="op-nav-tab"><span class="op-nav-dot-j"></span>Launch Plan</a>
+  <a href="../designs.html" class="op-nav-tab"><span class="op-nav-dot-j"></span>Designs</a>
+  <a href="../settings.html" class="op-nav-tab">Settings</a>
+</nav>
+
+<!-- JARVIS BOOT OVERLAY — fires on every page load/refresh -->
+<div id="j-boot-overlay">
+  <div class="j-boot-reactor">
+    <div class="j-boot-ring1"></div>
+    <div class="j-boot-ring2"></div>
+    <div class="j-boot-core"></div>
+  </div>
+  <div class="j-boot-title">J.A.R.V.I.S.</div>
+  <div class="j-boot-log" id="j-boot-log"></div>
+  <div class="j-boot-progress-wrap">
+    <div class="j-boot-progress-fill" id="j-boot-bar"></div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div id="stats-bar">
+  <div class="stat-item"><span class="stat-label">TASKS</span><span class="stat-value" id="sb-tasks">0/0</span></div>
+  <div class="stat-divider"></div>
+  <div class="stat-item"><span class="stat-label">CALORIES</span><span class="stat-value" id="sb-calories">0/2000</span></div>
+  <div class="stat-divider"></div>
+  <div class="stat-item"><span class="stat-label">STEPS</span><span class="stat-value" id="sb-steps">0/10000</span></div>
+  <div class="stat-divider"></div>
+  <div class="stat-item"><span class="stat-label">SLEEP</span><span class="stat-value" id="sb-sleep">--h</span></div>
+  <div class="stat-divider"></div>
+  <div class="stat-item"><span class="stat-label">STREAK</span><span class="stat-value streak-val" id="sb-streak">0d</span></div>
+  <div class="stat-spacer"></div>
+  <div id="live-clock"></div>
+  <button class="icon-btn" id="settings-btn" title="Settings">&#9881;</button>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="main-nav">
+  <button class="nav-tab active" data-tab="jarvis">JARVIS</button>
+  <button class="nav-tab" data-tab="command">DAILY TASKS</button>
+  <button class="nav-tab" data-tab="business">BUSINESS</button>
+  <button class="nav-tab" data-tab="training">TRAINING</button>
+  <button class="nav-tab" data-tab="nutrition">NUTRITION</button>
+  <button class="nav-tab" data-tab="analytics">ANALYTICS</button>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main id="app-main">
+
+  <!-- ===== TAB: COMMAND CENTER ===== -->
+  <section class="tab-panel" id="tab-command">
+    <div class="cmd-grid">
+
+      <!-- TASKS -->
+      <div class="panel" id="panel-tasks">
+        <div class="panel-header">
+          <span class="panel-title">DAILY TASKS</span>
+          <span class="panel-date" id="today-date"></span>
+        </div>
+        <div class="task-progress-wrap">
+          <div class="task-progress-bar"><div class="task-progress-fill" id="task-progress-fill"></div></div>
+          <span class="task-progress-label" id="task-progress-label">0 / 0 complete</span>
+        </div>
+        <div id="task-list"></div>
+        <div id="add-task-form" class="add-form hidden">
+          <input type="text" id="new-task-name" placeholder="Task name..." />
+          <select id="new-task-priority">
+            <option value="CRITICAL">CRITICAL</option>
+            <option value="HIGH">HIGH</option>
+            <option value="NORMAL" selected>NORMAL</option>
+          </select>
+          <select id="new-task-category">
+            <option value="Business">Business</option>
+            <option value="Admin">Admin</option>
+            <option value="Creative">Creative</option>
+            <option value="Finance">Finance</option>
+            <option value="Personal">Personal</option>
+          </select>
+          <input type="number" id="new-task-time" placeholder="Min" min="1" max="480" />
+          <div class="form-btns">
+            <button class="btn-primary" id="save-task-btn">ADD</button>
+            <button class="btn-ghost" id="cancel-task-btn">CANCEL</button>
+          </div>
+        </div>
+        <button class="btn-add-task" id="add-task-btn">+ ADD TASK</button>
+
+        <!-- Yesterday archive -->
+        <div class="yesterday-panel" id="yesterday-panel">
+          <button class="yesterday-toggle" id="yesterday-toggle">YESTERDAY <span>&#9660;</span></button>
+          <div id="yesterday-tasks" class="hidden"></div>
+        </div>
+      </div>
+
+      <!-- DAILY GOALS -->
+      <div class="panel" id="panel-goals">
+        <div class="panel-header">
+          <span class="panel-title">DAILY HABITS</span>
+          <button class="btn-sm" id="add-habit-btn">+ ADD</button>
+        </div>
+        <div id="habit-list"></div>
+        <div id="add-habit-form" class="add-form hidden">
+          <input type="text" id="new-habit-name" placeholder="Habit name..." />
+          <div class="form-btns">
+            <button class="btn-primary" id="save-habit-btn">ADD</button>
+            <button class="btn-ghost" id="cancel-habit-btn">CANCEL</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MONTHLY GOALS -->
+      <div class="panel" id="panel-monthly">
+        <div class="panel-header">
+          <span class="panel-title">MONTHLY GOALS — <span id="month-name"></span></span>
+          <button class="btn-sm" id="add-monthly-btn">+ ADD</button>
+        </div>
+        <div id="monthly-goal-list"></div>
+        <div id="add-monthly-form" class="add-form hidden">
+          <input type="text" id="new-monthly-title" placeholder="Goal title..." />
+          <input type="text" id="new-monthly-desc" placeholder="Description..." />
+          <input type="date" id="new-monthly-due" />
+          <div class="form-btns">
+            <button class="btn-primary" id="save-monthly-btn">ADD</button>
+            <button class="btn-ghost" id="cancel-monthly-btn">CANCEL</button>
+          </div>
+        </div>
+        <!-- Calendar strip -->
+        <div class="cal-strip-wrap">
+          <div class="cal-strip" id="cal-strip"></div>
+        </div>
+      </div>
+
+      <!-- COMMANDER STREAK -->
+      <div class="panel panel-streak" id="panel-streak">
+        <div class="panel-title">COMMANDER STREAK</div>
+        <div class="streak-display" id="streak-display">0</div>
+        <div class="streak-label">DAYS</div>
+        <div class="streak-checks" id="streak-checks"></div>
+        <div class="streak-milestones" id="streak-milestones"></div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- ===== TAB: TRAINING ===== -->
+  <section class="tab-panel" id="tab-training">
+
+    <!-- Training sub-navigation -->
+    <div class="business-subnav">
+      <button class="subnav-tab active" data-subtab="workout">TRAINING</button>
+      <button class="subnav-tab" data-subtab="recovery">RECOVERY</button>
+    </div>
+
+    <!-- TRAINING sub-tab -->
+    <div class="subtab-panel active" id="subtab-workout">
+    <div class="training-grid">
+
+      <!-- Week schedule -->
+      <div class="panel panel-full-width" id="panel-week-sched">
+        <div class="panel-header">
+          <span class="panel-title">WEEKLY SPLIT</span>
+          <button class="btn-sm" id="edit-split-btn">EDIT SPLIT</button>
+        </div>
+        <div class="week-sched" id="week-sched"></div>
+      </div>
+
+      <!-- Today's workout -->
+      <div class="panel panel-workout" id="panel-workout">
+        <div class="panel-header">
+          <span class="panel-title" id="workout-title">TODAY'S WORKOUT</span>
+          <div class="workout-header-btns">
+            <button class="btn-sm" id="start-workout-btn">START</button>
+            <button class="btn-primary" id="finish-workout-btn" style="display:none">FINISH WORKOUT</button>
+          </div>
+        </div>
+        <div id="workout-timer" class="workout-timer hidden">
+          <span class="timer-label">SESSION TIME</span>
+          <span id="workout-elapsed">00:00:00</span>
+        </div>
+        <div id="exercise-list"></div>
+      </div>
+
+      <!-- Exercise Library -->
+      <div class="panel" id="panel-library">
+        <div class="panel-header">
+          <span class="panel-title">EXERCISE LIBRARY</span>
+          <button class="btn-sm" id="add-exercise-btn">+ ADD</button>
+        </div>
+        <div id="exercise-library-list"></div>
+      </div>
+
+      <!-- 1RM Calculator -->
+      <div class="panel panel-1rm">
+        <div class="panel-title">1RM CALCULATOR</div>
+        <div class="rm-form">
+          <input type="number" id="rm-weight" placeholder="Weight (kg)" />
+          <input type="number" id="rm-reps" placeholder="Reps" />
+          <button class="btn-primary" id="rm-calc-btn">CALCULATE</button>
+        </div>
+        <div id="rm-result" class="rm-result"></div>
+      </div>
+
+    </div>
+    </div><!-- /subtab-workout -->
+
+    <!-- RECOVERY sub-tab -->
+    <div class="subtab-panel" id="subtab-recovery">
+    <div class="recovery-grid">
+
+      <!-- Sleep log -->
+      <div class="panel panel-sleep">
+        <div class="panel-header">
+          <span class="panel-title">SLEEP TRACKER</span>
+        </div>
+        <div class="sleep-form">
+          <div class="sleep-inputs">
+            <div class="form-group">
+              <label>BEDTIME</label>
+              <input type="time" id="sleep-bedtime" />
+            </div>
+            <div class="form-group">
+              <label>WAKE TIME</label>
+              <input type="time" id="sleep-waketime" />
+            </div>
+            <div class="form-group">
+              <label>QUALITY (1-5)</label>
+              <input type="number" id="sleep-quality" min="1" max="5" />
+            </div>
+          </div>
+          <input type="text" id="sleep-notes" placeholder="Notes (stress, screens, alcohol...)" />
+          <button class="btn-primary" id="log-sleep-btn">LOG SLEEP</button>
+        </div>
+        <div class="sleep-chart-wrap">
+          <svg id="sleep-chart" width="100%" height="120"></svg>
+        </div>
+        <div class="sleep-stats" id="sleep-stats"></div>
+      </div>
+
+      <!-- Whoop -->
+      <div class="panel panel-whoop">
+        <div class="panel-header">
+          <span class="panel-title">WHOOP RECOVERY</span>
+          <a class="btn-sm" href="https://app.whoop.com" target="_blank">OPEN WHOOP &#8599;</a>
+        </div>
+        <div class="whoop-score-display" id="whoop-score-display">
+          <div class="recovery-gauge-wrap">
+            <svg id="recovery-gauge" viewBox="0 0 200 130" width="200" height="130"></svg>
+            <div class="gauge-score" id="gauge-score">--</div>
+            <div class="gauge-status" id="gauge-status">NO DATA</div>
+          </div>
+        </div>
+        <div class="whoop-form">
+          <div class="whoop-inputs">
+            <div class="form-group"><label>RECOVERY %</label><input type="number" id="whoop-recovery" min="0" max="100" /></div>
+            <div class="form-group"><label>HRV (ms)</label><input type="number" id="whoop-hrv" /></div>
+            <div class="form-group"><label>RHR (bpm)</label><input type="number" id="whoop-rhr" /></div>
+            <div class="form-group"><label>RESP RATE</label><input type="number" id="whoop-resp" step="0.1" /></div>
+          </div>
+          <button class="btn-primary" id="log-whoop-btn">LOG WHOOP DATA</button>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <div class="panel panel-steps">
+        <div class="panel-header">
+          <span class="panel-title">STEPS</span>
+          <a class="btn-sm" href="ms-health://" target="_blank">HEALTH APP &#8599;</a>
+        </div>
+        <div class="steps-big" id="steps-big">0</div>
+        <div class="steps-target">/ <span id="steps-target-disp">10,000</span> goal</div>
+        <div class="steps-bar-wrap"><div class="steps-bar"><div class="steps-bar-fill" id="steps-bar-fill"></div></div></div>
+        <div class="steps-input-row">
+          <input type="number" id="steps-input" placeholder="Enter steps..." />
+          <button class="btn-primary" id="log-steps-btn">LOG</button>
+        </div>
+        <svg id="steps-chart" width="100%" height="80"></svg>
+      </div>
+
+      <!-- Composite recovery score -->
+      <div class="panel panel-composite">
+        <div class="panel-title">COMPOSITE RECOVERY</div>
+        <div class="composite-score" id="composite-score">--</div>
+        <div class="composite-label">/100</div>
+        <div class="composite-breakdown" id="composite-breakdown"></div>
+      </div>
+
+      <!-- Mindset -->
+      <div class="panel panel-mindset">
+        <div class="panel-header">
+          <span class="panel-title">MINDSET LOG</span>
+        </div>
+        <div class="mindset-form">
+          <div class="form-group">
+            <label>MOOD (1-5)</label>
+            <div class="mood-stars" id="mood-stars"></div>
+          </div>
+          <textarea id="mindset-journal" placeholder="Quick brain dump..." rows="2"></textarea>
+          <input type="text" id="mindset-win" placeholder="One win today..." />
+          <input type="text" id="mindset-improve" placeholder="One thing to improve..." />
+          <button class="btn-primary" id="log-mindset-btn">SAVE</button>
+        </div>
+      </div>
+
+    </div>
+    </div><!-- /subtab-recovery -->
+
+  </section>
+
+  <!-- ===== TAB: NUTRITION ===== -->
+  <section class="tab-panel" id="tab-nutrition">
+    <div class="nutrition-grid">
+
+      <!-- Macro rings -->
+      <div class="panel panel-macros">
+        <div class="panel-header">
+          <span class="panel-title">TODAY'S MACROS</span>
+          <span class="phase-badge" id="phase-badge">CUTTING</span>
+        </div>
+        <div class="macro-rings" id="macro-rings">
+          <div class="macro-ring-wrap" data-macro="calories">
+            <svg class="ring-svg" viewBox="0 0 100 100">
+              <circle class="ring-bg" cx="50" cy="50" r="42" />
+              <circle class="ring-fill calories-ring" cx="50" cy="50" r="42" id="ring-calories" />
+            </svg>
+            <div class="ring-label">
+              <span class="ring-val" id="cal-val">0</span>
+              <span class="ring-unit">KCAL</span>
+              <span class="ring-target" id="cal-target">/2000</span>
+            </div>
+          </div>
+          <div class="macro-ring-wrap" data-macro="protein">
+            <svg class="ring-svg" viewBox="0 0 100 100">
+              <circle class="ring-bg" cx="50" cy="50" r="42" />
+              <circle class="ring-fill protein-ring" cx="50" cy="50" r="42" id="ring-protein" />
+            </svg>
+            <div class="ring-label">
+              <span class="ring-val" id="pro-val">0</span>
+              <span class="ring-unit">PROTEIN</span>
+              <span class="ring-target" id="pro-target">/200g</span>
+            </div>
+          </div>
+          <div class="macro-ring-wrap" data-macro="carbs">
+            <svg class="ring-svg" viewBox="0 0 100 100">
+              <circle class="ring-bg" cx="50" cy="50" r="42" />
+              <circle class="ring-fill carbs-ring" cx="50" cy="50" r="42" id="ring-carbs" />
+            </svg>
+            <div class="ring-label">
+              <span class="ring-val" id="carb-val">0</span>
+              <span class="ring-unit">CARBS</span>
+              <span class="ring-target" id="carb-target">/100g</span>
+            </div>
+          </div>
+          <div class="macro-ring-wrap" data-macro="fat">
+            <svg class="ring-svg" viewBox="0 0 100 100">
+              <circle class="ring-bg" cx="50" cy="50" r="42" />
+              <circle class="ring-fill fat-ring" cx="50" cy="50" r="42" id="ring-fat" />
+            </svg>
+            <div class="ring-label">
+              <span class="ring-val" id="fat-val">0</span>
+              <span class="ring-unit">FAT</span>
+              <span class="ring-target" id="fat-target">/75g</span>
+            </div>
+          </div>
+        </div>
+        <!-- Deficit tracker -->
+        <div class="deficit-strip">
+          <span class="deficit-label">DEFICIT TODAY</span>
+          <span class="deficit-val" id="deficit-val">-- kcal</span>
+          <span class="deficit-proj" id="deficit-proj"></span>
+        </div>
+        <!-- Water tracker -->
+        <div class="water-tracker">
+          <span class="water-label">WATER</span>
+          <div class="water-cups" id="water-cups"></div>
+          <button class="btn-water" id="add-water-btn">+ 250ml</button>
+          <span class="water-val" id="water-val">0 / 3000ml</span>
+        </div>
+      </div>
+
+      <!-- Meal log -->
+      <div class="panel panel-meals">
+        <div class="panel-header">
+          <span class="panel-title">MEAL LOG</span>
+          <button class="btn-sm" id="add-meal-btn">+ LOG MEAL</button>
+        </div>
+        <div id="meal-sections">
+          <div class="meal-group" data-group="Breakfast"><div class="meal-group-header">BREAKFAST</div><div class="meal-group-items" id="meals-Breakfast"></div></div>
+          <div class="meal-group" data-group="Lunch"><div class="meal-group-header">LUNCH</div><div class="meal-group-items" id="meals-Lunch"></div></div>
+          <div class="meal-group" data-group="Dinner"><div class="meal-group-header">DINNER</div><div class="meal-group-items" id="meals-Dinner"></div></div>
+          <div class="meal-group" data-group="Snacks"><div class="meal-group-header">SNACKS</div><div class="meal-group-items" id="meals-Snacks"></div></div>
+        </div>
+      </div>
+
+      <!-- Meal presets + Lifesum -->
+      <div class="panel panel-presets">
+        <div class="panel-header">
+          <span class="panel-title">QUICK ADD</span>
+          <button class="btn-sm" id="add-preset-btn">+ PRESET</button>
+        </div>
+        <div id="preset-list"></div>
+        <div class="lifesum-block">
+          <a class="btn-lifesum" href="https://lifesum.com" target="_blank">OPEN LIFESUM &#8599;</a>
+        </div>
+      </div>
+
+      <!-- Weekly meal planner -->
+      <div class="panel panel-meal-plan">
+        <div class="panel-header">
+          <span class="panel-title">WEEKLY MEAL PLANNER</span>
+          <button class="btn-sm" id="gen-week-btn">GENERATE WEEK</button>
+        </div>
+        <div id="meal-planner-grid"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== TAB: BUSINESS ===== -->
+  <section class="tab-panel" id="tab-business">
+
+    <!-- Business sub-navigation -->
+    <div class="business-subnav">
+      <button class="subnav-tab active" data-subtab="amazon">AMAZON</button>
+      <button class="subnav-tab" data-subtab="ads">PPC ADS</button>
+      <button class="subnav-tab" data-subtab="shopify">SHOPIFY</button>
+      <button class="subnav-tab" data-subtab="tiktok">TIKTOK</button>
+    </div>
+
+    <!-- AMAZON sub-tab (FBA content) -->
+    <div class="subtab-panel active" id="subtab-amazon">
+    <div class="fba-grid">
+
+      <!-- COL 1: PURCHASE LIST -->
+      <div class="fba-col fba-col-left">
+
+        <!-- Purchase priority list -->
+        <div class="panel fba-purchase-panel">
+          <div class="panel-header">
+            <span class="panel-title">PURCHASE PRIORITY LIST</span>
+            <div style="display:flex;gap:6px;align-items:center">
+              <span class="fba-stat" id="fba-buy-stat">0/0 sourced</span>
+              <button class="btn-sm" id="add-buy-btn">+ ADD</button>
+            </div>
+          </div>
+          <div class="fba-buy-progress-wrap">
+            <div class="task-progress-bar"><div class="task-progress-fill" id="fba-buy-progress-fill"></div></div>
+          </div>
+          <div id="fba-buy-form" class="add-form hidden">
+            <input type="text" id="fba-buy-name" placeholder="Brand / Product name..." />
+            <div style="display:flex;gap:6px">
+              <select id="fba-buy-priority">
+                <option value="URGENT">URGENT</option>
+                <option value="HIGH">HIGH</option>
+                <option value="MEDIUM" selected>MEDIUM</option>
+                <option value="LOW">LOW</option>
+              </select>
+              <input type="text" id="fba-buy-category" placeholder="Category (e.g. Supplements)" />
+              <input type="number" id="fba-buy-budget" placeholder="Budget £" step="0.01" />
+            </div>
+            <input type="text" id="fba-buy-notes" placeholder="Notes (ASIN, supplier, margin estimate...)" />
+            <div class="form-btns">
+              <button class="btn-primary" id="save-buy-btn">ADD</button>
+              <button class="btn-ghost" id="cancel-buy-btn">CANCEL</button>
+            </div>
+          </div>
+          <div id="fba-buy-list"></div>
+        </div>
+
+        <!-- Outreach pipeline -->
+        <div class="panel fba-pipeline-panel">
+          <div class="panel-header">
+            <span class="panel-title">OUTREACH PIPELINE</span>
+            <div style="display:flex;gap:6px">
+              <span class="fba-stat" id="fba-pipeline-stat">0 active</span>
+            </div>
+          </div>
+          <div class="pipeline-cols" id="pipeline-cols">
+            <div class="pipeline-stage" data-stage="TO CONTACT">
+              <div class="pipeline-stage-header">TO CONTACT</div>
+              <div class="pipeline-stage-items" id="pipe-TO CONTACT"></div>
+            </div>
+            <div class="pipeline-stage" data-stage="CONTACTED">
+              <div class="pipeline-stage-header">CONTACTED</div>
+              <div class="pipeline-stage-items" id="pipe-CONTACTED"></div>
+            </div>
+            <div class="pipeline-stage" data-stage="REPLIED">
+              <div class="pipeline-stage-header">REPLIED</div>
+              <div class="pipeline-stage-items" id="pipe-REPLIED"></div>
+            </div>
+            <div class="pipeline-stage" data-stage="DEAL">
+              <div class="pipeline-stage-header" style="color:var(--success)">DEAL</div>
+              <div class="pipeline-stage-items" id="pipe-DEAL"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- COL 2: BRAND CONTACTS SPREADSHEET -->
+      <div class="fba-col fba-col-mid">
+        <div class="panel fba-contacts-panel">
+          <div class="panel-header">
+            <span class="panel-title">BRAND CONTACTS</span>
+            <div style="display:flex;gap:6px">
+              <input type="text" id="fba-contact-search" placeholder="Search..." class="fba-search-input" />
+              <button class="btn-sm" id="add-contact-btn">+ ADD</button>
+              <button class="btn-sm" id="export-contacts-csv-btn">CSV &#8595;</button>
+            </div>
+          </div>
+          <div class="fba-contacts-wrap">
+            <table class="fba-table" id="fba-contacts-table">
+              <thead>
+                <tr>
+                  <th>BRAND</th>
+                  <th>CONTACT NAME</th>
+                  <th>EMAIL</th>
+                  <th>PHONE</th>
+                  <th>WEBSITE</th>
+                  <th>DISTRIBUTOR</th>
+                  <th>STATUS</th>
+                  <th>NOTES</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="fba-contacts-body"></tbody>
+            </table>
+          </div>
+          <div class="fba-contacts-footer" id="fba-contacts-footer">0 brands</div>
+        </div>
+      </div>
+
+      <!-- COL 3: STOREFRONTS + SCRAPER -->
+      <div class="fba-col fba-col-right">
+
+        <!-- Storefronts to scrape -->
+        <div class="panel fba-storefronts-panel">
+          <div class="panel-header">
+            <span class="panel-title">STOREFRONTS TO SCRAPE</span>
+            <button class="btn-sm" id="add-storefront-btn">+ ADD</button>
+          </div>
+          <div id="sf-add-form" class="add-form hidden">
+            <input type="url" id="sf-url-input" placeholder="Amazon storefront URL..." />
+            <input type="text" id="sf-label-input" placeholder="Label (optional, e.g. 'Gym Supplements Seller')" />
+            <div class="form-btns">
+              <button class="btn-primary" id="save-sf-btn">ADD</button>
+              <button class="btn-ghost" id="cancel-sf-btn">CANCEL</button>
+            </div>
+          </div>
+          <div id="storefront-list"></div>
+          <div class="scraper-actions">
+            <button class="btn-primary" id="export-queue-btn">&#9660; EXPORT QUEUE FILE</button>
+            <button class="btn-ghost" id="gen-scrape-prompt-btn">PROMPT</button>
+            <button class="btn-ghost" id="clear-scraped-btn">CLEAR SCRAPED</button>
+          </div>
+          <div class="scraper-run-box" id="scraper-run-box" style="display:none">
+            <div class="scraper-run-title">QUEUE SAVED &#10003;</div>
+            <div class="scraper-run-cmd">node scraper.js</div>
+            <div class="scraper-run-hint">Move <code>scrape-queue.json</code> to your app folder, then run the command above in a terminal.</div>
+          </div>
+        </div>
+
+        <!-- Scraper instructions -->
+        <div class="panel fba-scraper-panel">
+          <div class="panel-header">
+            <span class="panel-title">SCRAPER INTEL</span>
+            <span class="scraper-badge">AI-POWERED</span>
+          </div>
+          <div class="scraper-info">
+            <div class="scraper-info-row">
+              <div class="scraper-info-icon">&#9654;</div>
+              <div>Add storefront URLs above, then click <strong>Generate Claude Scrape Prompt</strong> — it builds a ready-to-run Claude Code prompt that visits each storefront, extracts every brand, finds their contact info, and formats it as a CSV to paste into the contacts table.</div>
+            </div>
+            <div class="scraper-info-row">
+              <div class="scraper-info-icon">&#9654;</div>
+              <div>Copy the generated prompt into a <strong>Claude Code terminal session</strong> in this folder. Claude will output a CSV which you can import via the CSV import button.</div>
+            </div>
+            <div class="scraper-info-row">
+              <div class="scraper-info-icon">&#9654;</div>
+              <div><strong>Pro tip:</strong> Sort storefronts by niche before scraping so contacts auto-group by category in the spreadsheet.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px">
+            <button class="btn-ghost" id="import-contacts-csv-btn">IMPORT CSV</button>
+            <input type="file" id="import-contacts-file" accept=".csv" class="hidden" />
+          </div>
+        </div>
+
+        <!-- Quick stats -->
+        <div class="panel fba-kpi-panel">
+          <div class="panel-title">FBA INTEL</div>
+          <div class="fba-kpi-grid" id="fba-kpi-grid"></div>
+        </div>
+
+      </div>
+    </div>
+    </div><!-- /subtab-amazon -->
+
+    <!-- ADS sub-tab -->
+    <div class="subtab-panel" id="subtab-ads">
+      <div class="ppc-container">
+
+        <!-- Upload panel -->
+        <div class="panel ppc-upload-panel">
+          <div class="panel-header">
+            <span class="panel-title">PPC OPTIMISATION ANALYSIS</span>
+            <span class="ppc-last-run" id="ppc-last-run"></span>
+            <a class="btn-sm" href="https://advertising.amazon.co.uk" target="_blank" rel="noopener">AMAZON ADS &#8599;</a>
+          </div>
+          <div class="ppc-how-to">
+            In Amazon Ads → <strong>Reports</strong> → Create Report → Sponsored Products → <strong>Search Term</strong> → Last 7 days → Download CSV
+          </div>
+          <div class="ppc-upload-zone" id="ppc-upload-zone">
+            <div class="ppc-upload-icon">&#8679;</div>
+            <div class="ppc-upload-label">Drop Search Term Report CSV here</div>
+            <div class="ppc-upload-sub">or click to browse</div>
+            <input type="file" id="ppc-file-input" accept=".csv,.xlsx,.xls" />
+          </div>
+          <div id="ppc-file-name" class="ppc-file-name"></div>
+          <div class="ppc-upload-actions">
+            <button class="btn-primary" id="ppc-analyse-btn" style="display:none">&#9654; RUN ANALYSIS</button>
+          </div>
+          <div class="ppc-error" id="ppc-error"></div>
+        </div>
+
+        <!-- Results (hidden until analysis runs) -->
+        <div id="ppc-results" class="hidden">
+
+          <!-- Weekly 7-day reminder banner -->
+          <div class="ppc-reminder" id="ppc-reminder"></div>
+
+          <!-- Section 1: Campaign Health -->
+          <div class="ppc-section">
+            <div class="ppc-section-hd" data-sec="ppc-s1">
+              <span>1 — CAMPAIGN HEALTH CHECK</span>
+              <span class="ppc-badge" id="ppc-s1-badge"></span>
+              <span class="ppc-chevron">&#9660;</span>
+            </div>
+            <div class="ppc-section-bd" id="ppc-s1"></div>
+          </div>
+
+          <!-- Section 2: Negative Keywords -->
+          <div class="ppc-section">
+            <div class="ppc-section-hd" data-sec="ppc-s2">
+              <span>2 — NEGATIVE KEYWORDS TO ADD</span>
+              <span class="ppc-badge" id="ppc-s2-badge"></span>
+              <span class="ppc-chevron">&#9660;</span>
+            </div>
+            <div class="ppc-section-bd" id="ppc-s2"></div>
+          </div>
+
+          <!-- Section 3: Winners -->
+          <div class="ppc-section">
+            <div class="ppc-section-hd" data-sec="ppc-s3">
+              <span>3 — WINNING TERMS TO HARVEST</span>
+              <span class="ppc-badge" id="ppc-s3-badge"></span>
+              <span class="ppc-chevron">&#9660;</span>
+            </div>
+            <div class="ppc-section-bd" id="ppc-s3"></div>
+          </div>
+
+          <!-- Section 4: Bid Recommendations -->
+          <div class="ppc-section">
+            <div class="ppc-section-hd" data-sec="ppc-s4">
+              <span>4 — BID RECOMMENDATIONS</span>
+              <span class="ppc-badge" id="ppc-s4-badge"></span>
+              <span class="ppc-chevron">&#9660;</span>
+            </div>
+            <div class="ppc-section-bd" id="ppc-s4"></div>
+          </div>
+
+          <!-- Section 5: Product Level -->
+          <div class="ppc-section">
+            <div class="ppc-section-hd" data-sec="ppc-s5">
+              <span>5 — PRODUCT LEVEL ANALYSIS</span>
+              <span class="ppc-badge" id="ppc-s5-badge"></span>
+              <span class="ppc-chevron">&#9660;</span>
+            </div>
+            <div class="ppc-section-bd" id="ppc-s5"></div>
+          </div>
+
+          <!-- Section 6: Budget -->
+          <div class="ppc-section">
+            <div class="ppc-section-hd" data-sec="ppc-s6">
+              <span>6 — BUDGET RECOMMENDATIONS</span>
+              <span class="ppc-badge" id="ppc-s6-badge"></span>
+              <span class="ppc-chevron">&#9660;</span>
+            </div>
+            <div class="ppc-section-bd" id="ppc-s6"></div>
+          </div>
+
+          <!-- Section 7: Cannibalisation -->
+          <div class="ppc-section">
+            <div class="ppc-section-hd" data-sec="ppc-s7">
+              <span>7 — CANNIBALISATION CHECK</span>
+              <span class="ppc-badge" id="ppc-s7-badge"></span>
+              <span class="ppc-chevron">&#9660;</span>
+            </div>
+            <div class="ppc-section-bd" id="ppc-s7"></div>
+          </div>
+
+          <!-- Section 8: Structure -->
+          <div class="ppc-section">
+            <div class="ppc-section-hd" data-sec="ppc-s8">
+              <span>8 — CAMPAIGN STRUCTURE</span>
+              <span class="ppc-badge" id="ppc-s8-badge"></span>
+              <span class="ppc-chevron">&#9660;</span>
+            </div>
+            <div class="ppc-section-bd" id="ppc-s8"></div>
+          </div>
+
+          <!-- Section 9: Priority Actions -->
+          <div class="ppc-section ppc-section-priority">
+            <div class="ppc-section-hd" data-sec="ppc-s9">
+              <span>9 — WEEKLY PRIORITY ACTION LIST</span>
+              <span class="ppc-badge" id="ppc-s9-badge"></span>
+              <span class="ppc-chevron">&#9660;</span>
+            </div>
+            <div class="ppc-section-bd" id="ppc-s9"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SHOPIFY sub-tab -->
+    <div class="subtab-panel" id="subtab-shopify">
+      <div class="business-placeholder">
+        <div class="placeholder-icon">&#9749;</div>
+        <div class="placeholder-title">SHOPIFY</div>
+        <div class="placeholder-text">Shopify store management coming soon.</div>
+      </div>
+    </div>
+
+    <!-- TIKTOK sub-tab -->
+    <div class="subtab-panel" id="subtab-tiktok">
+      <div class="business-placeholder">
+        <div class="placeholder-icon">&#9654;</div>
+        <div class="placeholder-title">TIKTOK SHOP</div>
+        <div class="placeholder-text">TikTok Shop management coming soon.</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== TAB: ANALYTICS ===== -->
+  <section class="tab-panel" id="tab-analytics">
+    <div class="analytics-grid">
+
+      <div class="panel panel-an-tasks">
+        <div class="panel-title">TASK COMPLETION (30 DAYS)</div>
+        <svg id="chart-tasks-30" width="100%" height="120"></svg>
+      </div>
+
+      <div class="panel panel-an-volume">
+        <div class="panel-title">TRAINING VOLUME</div>
+        <svg id="chart-volume" width="100%" height="120"></svg>
+      </div>
+
+      <div class="panel panel-an-macros">
+        <div class="panel-title">MACRO ADHERENCE</div>
+        <svg id="chart-macros" width="100%" height="120"></svg>
+      </div>
+
+      <div class="panel panel-an-sleep">
+        <div class="panel-title">SLEEP TREND</div>
+        <svg id="chart-sleep-trend" width="100%" height="120"></svg>
+      </div>
+
+      <div class="panel panel-an-weight">
+        <div class="panel-header">
+          <span class="panel-title">BODY WEIGHT</span>
+          <div class="weight-input-row">
+            <input type="number" id="weight-input" placeholder="kg" step="0.1" />
+            <button class="btn-sm" id="log-weight-btn">LOG</button>
+          </div>
+        </div>
+        <svg id="chart-weight" width="100%" height="120"></svg>
+      </div>
+
+      <div class="panel panel-an-goals">
+        <div class="panel-title">GOAL HIT RATE</div>
+        <div class="goal-stats" id="goal-stats"></div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== TAB: JARVIS OS ===== -->
+  <section class="tab-panel active" id="tab-jarvis">
+
+    <!-- JARVIS Top Bar -->
+    <div class="j-topbar">
+      <div class="j-logo">J.A.R.V.I.S<span class="j-logo-sub">JUST A RATHER VERY INTELLIGENT SYSTEM</span></div>
+      <div class="j-topnav" id="j-topnav">
+        <button class="j-nav-btn active" data-jview="command">COMMAND</button>
+        <button class="j-nav-btn" data-jview="briefing">BRIEFING</button>
+        <button class="j-nav-btn" data-jview="ops">OPS</button>
+      </div>
+      <div class="j-topbar-right">
+        <div class="j-online-dot"></div>
+        <span class="j-online-lbl">ONLINE</span>
+        <div class="j-clock" id="j-topbar-clock"></div>
+        <button class="j-icon-sm" id="j-settings-open-btn" title="Profile">&#9881;</button>
+      </div>
+    </div>
+
+    <!-- 3-Panel Shell -->
+    <div class="j-shell">
+
+      <!-- LEFT PANEL -->
+      <div class="j-left-panel">
+        <div class="j-panel-label">QUICK COMMANDS</div>
+        <div class="j-quick-actions">
+          <button class="j-quick-btn" data-cmd="Give me today's business briefing. Amazon FBA performance and the top 3 actions I should take today. Be concise."><span>&#128188;</span> Daily Brief</button>
+          <button class="j-quick-btn" data-cmd="Review my Amazon PPC campaigns. What optimisations should I make this week?"><span>&#128202;</span> PPC Review</button>
+          <button class="j-quick-btn" data-cmd="Sourcing intelligence. Which supplier categories should I focus on this week?"><span>&#128269;</span> Sourcing Intel</button>
+          <button class="j-quick-btn" data-cmd="Margin analysis on my best-performing FBA products. Which have the highest ROI?"><span>&#129518;</span> Margin Check</button>
+          <button class="j-quick-btn" data-cmd="What new wholesale categories should I explore on Amazon given my current FBA setup?"><span>&#128230;</span> Wholesale Ideas</button>
+          <button class="j-quick-btn" data-cmd="Draft a concise professional wholesale account enquiry email for: "><span>&#9993;&#65039;</span> Draft Message</button>
+        </div>
+        <div class="j-panel-label" style="margin-top:20px">METRICS</div>
+        <div class="j-metrics-list">
+          <div class="j-metric-card">
+            <div class="j-metric-val">FBA</div>
+            <div class="j-metric-lbl">PRIMARY CHANNEL</div>
+            <div class="j-metric-sub">Stamps + Wholesale</div>
+          </div>
+          <div class="j-metric-card">
+            <div class="j-metric-val" id="j-metric-proj-val">&#8212;</div>
+            <div class="j-metric-lbl">ACTIVE PROJECTS</div>
+            <div class="j-metric-sub" id="j-metric-proj-sub">&#8212;</div>
+          </div>
+          <div class="j-metric-card">
+            <div class="j-metric-val" id="j-metric-pipe-val">&#8212;</div>
+            <div class="j-metric-lbl">CRM PIPELINE</div>
+            <div class="j-metric-sub" id="j-metric-pipe-sub">&#8212;</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTRE PANEL -->
+      <div class="j-main-panel">
+        <div class="j-scan-line"></div>
+
+        <!-- COMMAND view -->
+        <div class="j-view active" id="j-view-command">
+          <div class="j-chat-messages" id="j-chat-messages">
+            <div class="j-msg j-msg-jarvis">
+              <div class="j-avatar">J</div>
+              <div class="j-bubble">
+                <div class="j-bubble-sender">JARVIS</div>
+                Good day. All systems operational and your business context has been indexed.<br><br>
+                Amazon FBA operations, supplier contacts, and project data are all on record. Ready to assist with intelligence, sourcing, drafting, or whatever requires your attention first.<br><br>
+                Where shall we begin, sir?
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BRIEFING view -->
+        <div class="j-view" id="j-view-briefing">
+          <div class="j-view-inner">
+            <div class="j-view-title">EXECUTIVE BRIEFING</div>
+            <div id="j-briefing-content" class="j-briefing-body"></div>
+          </div>
+        </div>
+
+        <!-- OPS view -->
+        <div class="j-view" id="j-view-ops">
+          <div class="j-view-inner">
+            <div class="j-view-title">OPERATIONS OVERVIEW</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
+              <div>
+                <div class="j-panel-label">ACTIVE PROJECTS</div>
+                <div id="j-ops-projects" style="margin-top:8px"></div>
+              </div>
+              <div>
+                <div class="j-panel-label">STRATEGIC GOALS</div>
+                <div id="j-ops-goals" style="margin-top:8px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="j-right-panel">
+        <div class="j-sys-card">
+          <div class="j-sys-title">SYSTEM STATUS</div>
+          <div class="j-sys-row"><span class="j-sys-lbl">AI Core</span><div class="j-sys-bar"><div class="j-sys-fill" id="j-pb-ai" style="width:0%"></div></div><span class="j-sys-val">98%</span></div>
+          <div class="j-sys-row"><span class="j-sys-lbl">Memory</span><div class="j-sys-bar"><div class="j-sys-fill j-sys-warn" id="j-pb-mem" style="width:0%"></div></div><span class="j-sys-val">72%</span></div>
+          <div class="j-sys-row"><span class="j-sys-lbl">Network</span><div class="j-sys-bar"><div class="j-sys-fill" id="j-pb-net" style="width:0%"></div></div><span class="j-sys-val">100%</span></div>
+        </div>
+        <div class="j-sys-card">
+          <div class="j-sys-title">PRIORITY TASKS</div>
+          <div id="j-right-tasks"></div>
+        </div>
+        <div class="j-sys-card">
+          <div class="j-sys-title">VOICE MODE</div>
+          <div class="j-voice-desc">Click the mic to speak your command. JARVIS will respond in text and optionally read responses aloud.</div>
+          <label class="j-voice-toggle"><input type="checkbox" id="j-tts-toggle"> Speak responses aloud</label>
+        </div>
+        <div class="j-sys-card">
+          <div class="j-sys-title">ADD TASK</div>
+          <div style="display:flex;gap:6px">
+            <input type="text" class="j-task-input-field" id="j-new-task-input" placeholder="New task..." />
+            <button class="j-add-task-btn" id="j-add-task-btn">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INPUT BAR -->
+    <div class="j-input-area">
+      <button class="j-icon-btn j-mic-idle" id="j-mic-btn" title="Voice input">&#127908;</button>
+      <input type="text" class="j-chat-input-field" id="j-chat-input" placeholder="Issue a command, sir..." />
+      <button class="j-icon-btn" id="j-chat-send-btn" title="Send">&#9658;</button>
+    </div>
+    <div class="j-input-hint">ENTER to send &nbsp;&#183;&nbsp; SHIFT+ENTER new line &nbsp;&#183;&nbsp; Mic for voice</div>
+
+  </section><!-- /tab-jarvis -->
+
+</main>
+
+<!-- JARVIS: PROJECT MODAL -->
+<div id="j-project-modal" class="j-modal-overlay hidden">
+  <div class="j-modal">
+    <div class="j-modal-title">
+      <span id="j-proj-modal-title">PROJECT</span>
+      <button class="j-modal-close-btn" id="j-pm-close-btn">×</button>
+    </div>
+    <input type="hidden" id="j-pm-id" />
+    <div class="j-form-row"><label>Project Name</label><input type="text" id="j-pm-name" placeholder="e.g. Amazon FBA Scale-Up" /></div>
+    <div class="j-form-row"><label>Description</label><textarea id="j-pm-desc" rows="2" placeholder="What is this project about?"></textarea></div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Owner</label><input type="text" id="j-pm-owner" placeholder="e.g. Archie" /></div>
+      <div class="j-form-row"><label>Deadline</label><input type="date" id="j-pm-deadline" /></div>
+    </div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Status</label>
+        <select id="j-pm-status">
+          <option value="planning">Planning</option>
+          <option value="in_progress">In Progress</option>
+          <option value="at_risk">At Risk</option>
+          <option value="on_hold">On Hold</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+      <div class="j-form-row"><label>Priority</label>
+        <select id="j-pm-priority">
+          <option value="critical">Critical</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="j-form-row"><label>Progress % (0–100)</label><input type="number" id="j-pm-progress" min="0" max="100" /></div>
+    <div class="j-form-row"><label>KPIs (one per line)</label><textarea id="j-pm-kpis" rows="2" placeholder="e.g. £50k/month revenue"></textarea></div>
+    <div class="j-form-row"><label>Risks (one per line)</label><textarea id="j-pm-risks" rows="2" placeholder="e.g. Supplier delays"></textarea></div>
+    <div class="j-form-row"><label>Tags (comma-separated)</label><input type="text" id="j-pm-tags" placeholder="e.g. Amazon, Revenue" /></div>
+    <div class="j-modal-footer">
+      <button class="j-btn-danger" id="j-pm-delete-btn" style="display:none;margin-right:auto">DELETE</button>
+      <button class="j-btn-ghost" id="j-pm-close-btn2" onclick="document.getElementById('j-project-modal').classList.add('hidden')">CANCEL</button>
+      <button class="j-btn-primary" id="j-pm-save-btn">SAVE PROJECT</button>
+    </div>
+  </div>
+</div>
+
+<!-- JARVIS: CLIENT MODAL -->
+<div id="j-client-modal" class="j-modal-overlay hidden">
+  <div class="j-modal">
+    <div class="j-modal-title">
+      <span id="j-client-modal-title">CLIENT</span>
+      <button class="j-modal-close-btn" id="j-cm-close-btn">×</button>
+    </div>
+    <input type="hidden" id="j-cm-id" />
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Name</label><input type="text" id="j-cm-name" placeholder="Contact name" /></div>
+      <div class="j-form-row"><label>Company</label><input type="text" id="j-cm-company" placeholder="Company name" /></div>
+    </div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Email</label><input type="email" id="j-cm-email" placeholder="email@company.com" /></div>
+      <div class="j-form-row"><label>Phone</label><input type="tel" id="j-cm-phone" placeholder="+44..." /></div>
+    </div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Deal Value £</label><input type="number" id="j-cm-value" placeholder="0" /></div>
+      <div class="j-form-row"><label>Status</label>
+        <select id="j-cm-status">
+          <option value="prospect">Prospect</option>
+          <option value="active">Active</option>
+          <option value="negotiating">Negotiating</option>
+          <option value="churned">Churned</option>
+        </select>
+      </div>
+    </div>
+    <div class="j-form-row"><label>Pipeline Stage</label>
+      <select id="j-cm-stage">
+        <option value="lead">Lead</option>
+        <option value="proposal">Proposal</option>
+        <option value="negotiation">Negotiation</option>
+        <option value="closed_won">Closed Won</option>
+        <option value="closed_lost">Closed Lost</option>
+      </select>
+    </div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Next Action</label><input type="text" id="j-cm-next-action" placeholder="e.g. Send trade terms" /></div>
+      <div class="j-form-row"><label>Due Date</label><input type="date" id="j-cm-next-date" /></div>
+    </div>
+    <div class="j-form-row"><label>Notes</label><textarea id="j-cm-notes" rows="3" placeholder="MOQ, terms, Companies House number, background..."></textarea></div>
+    <div class="j-modal-footer">
+      <button class="j-btn-danger" id="j-cm-delete-btn" style="display:none;margin-right:auto">DELETE</button>
+      <button class="j-btn-ghost" onclick="document.getElementById('j-client-modal').classList.add('hidden')">CANCEL</button>
+      <button class="j-btn-primary" id="j-cm-save-btn">SAVE CLIENT</button>
+    </div>
+  </div>
+</div>
+
+<!-- JARVIS: GOAL MODAL -->
+<div id="j-goal-modal" class="j-modal-overlay hidden">
+  <div class="j-modal">
+    <div class="j-modal-title">
+      <span id="j-goal-modal-title">GOAL</span>
+      <button class="j-modal-close-btn" id="j-gm-close-btn">×</button>
+    </div>
+    <input type="hidden" id="j-gm-id" />
+    <div class="j-form-row"><label>Goal Title</label><input type="text" id="j-gm-title" placeholder="e.g. Hit £25k/month revenue" /></div>
+    <div class="j-form-row"><label>Description</label><textarea id="j-gm-desc" rows="2" placeholder="What does achieving this look like?"></textarea></div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Time Horizon</label>
+        <select id="j-gm-horizon">
+          <option value="1year">1 Year</option>
+          <option value="3year">3 Years</option>
+          <option value="5year">5 Years</option>
+        </select>
+      </div>
+      <div class="j-form-row"><label>Category</label>
+        <select id="j-gm-category">
+          <option value="revenue">Revenue</option>
+          <option value="growth">Growth</option>
+          <option value="strategic">Strategic</option>
+          <option value="operations">Operations</option>
+          <option value="personal">Personal</option>
+        </select>
+      </div>
+    </div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Target Date</label><input type="date" id="j-gm-target-date" /></div>
+      <div class="j-form-row"><label>Progress % (0–100)</label><input type="number" id="j-gm-progress" min="0" max="100" /></div>
+    </div>
+    <div class="j-form-row"><label>Milestones (one per line)</label><textarea id="j-gm-milestones" rows="3" placeholder="First £5k month&#10;First £10k month&#10;First £25k month"></textarea></div>
+    <div class="j-modal-footer">
+      <button class="j-btn-danger" id="j-gm-delete-btn" style="display:none;margin-right:auto">DELETE</button>
+      <button class="j-btn-ghost" onclick="document.getElementById('j-goal-modal').classList.add('hidden')">CANCEL</button>
+      <button class="j-btn-primary" id="j-gm-save-btn">SAVE GOAL</button>
+    </div>
+  </div>
+</div>
+
+<!-- JARVIS: KNOWLEDGE MODAL -->
+<div id="j-knowledge-modal" class="j-modal-overlay hidden">
+  <div class="j-modal j-modal-wide">
+    <div class="j-modal-title">
+      <span id="j-knowledge-modal-title">KNOWLEDGE</span>
+      <button class="j-modal-close-btn" id="j-km-close-btn">×</button>
+    </div>
+    <input type="hidden" id="j-km-id" />
+    <div class="j-form-row"><label>Title</label><input type="text" id="j-km-title" placeholder="e.g. Baifumei Wholesale Process" /></div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Category</label>
+        <select id="j-km-category">
+          <option value="sop">SOP</option>
+          <option value="research">Research</option>
+          <option value="meeting_notes">Meeting Notes</option>
+          <option value="decision">Decision</option>
+          <option value="lesson">Lesson Learned</option>
+          <option value="competitor">Competitor Intel</option>
+          <option value="market">Market Research</option>
+        </select>
+      </div>
+      <div class="j-form-row"><label>Tags (comma-separated)</label><input type="text" id="j-km-tags" placeholder="e.g. Sourcing, K-Beauty" /></div>
+    </div>
+    <div class="j-form-row"><label>Content</label><textarea id="j-km-content" rows="8" placeholder="Full content, notes, steps, findings..."></textarea></div>
+    <div class="j-modal-footer">
+      <button class="j-btn-danger" id="j-km-delete-btn" style="display:none;margin-right:auto">DELETE</button>
+      <button class="j-btn-ghost" onclick="document.getElementById('j-knowledge-modal').classList.add('hidden')">CANCEL</button>
+      <button class="j-btn-primary" id="j-km-save-btn">SAVE</button>
+    </div>
+  </div>
+</div>
+
+<!-- JARVIS: SETTINGS MODAL -->
+<div id="j-settings-modal" class="j-modal-overlay hidden">
+  <div class="j-modal">
+    <div class="j-modal-title">
+      <span>JARVIS PROFILE &amp; SETTINGS</span>
+      <button class="j-modal-close-btn" id="j-set-close-btn">×</button>
+    </div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Company Name</label><input type="text" id="j-set-company" placeholder="Your company name" /></div>
+      <div class="j-form-row"><label>Your Name</label><input type="text" id="j-set-founder" placeholder="e.g. Archie" /></div>
+    </div>
+    <div class="j-form-2col">
+      <div class="j-form-row"><label>Industry</label><input type="text" id="j-set-industry" placeholder="e.g. E-Commerce / Amazon FBA" /></div>
+      <div class="j-form-row"><label>Monthly Revenue Target £</label><input type="number" id="j-set-rev-target" placeholder="25000" /></div>
+    </div>
+    <div class="j-form-row"><label>Mission</label><input type="text" id="j-set-mission" placeholder="What are you building?" /></div>
+    <div class="j-form-row">
+      <label>Claude API Key (for AI Chat)</label>
+      <input type="password" id="j-set-api-key" placeholder="sk-ant-..." autocomplete="off" />
+    </div>
+    <div style="font-size:10px;color:var(--text-muted);margin-top:-8px;margin-bottom:12px">Get your API key at console.anthropic.com. Key is stored locally in your browser only.</div>
+    <div class="j-modal-footer">
+      <button class="j-btn-ghost" id="j-set-close-btn2" onclick="document.getElementById('j-settings-modal').classList.add('hidden')">CANCEL</button>
+      <button class="j-btn-primary" id="j-set-save-btn">SAVE SETTINGS</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD / EDIT CONTACT MODAL -->
+<div id="contact-modal" class="modal-overlay hidden">
+  <div class="modal-box modal-contact">
+    <div class="modal-title" id="contact-modal-title">ADD BRAND CONTACT</div>
+    <div class="contact-form-grid">
+      <div class="settings-row"><label>Brand Name</label><input type="text" id="c-brand" placeholder="e.g. Myprotein" /></div>
+      <div class="settings-row"><label>Contact Name</label><input type="text" id="c-contact" placeholder="e.g. John Smith" /></div>
+      <div class="settings-row"><label>Email</label><input type="email" id="c-email" placeholder="trade@brand.com" /></div>
+      <div class="settings-row"><label>Phone</label><input type="tel" id="c-phone" placeholder="+44..." /></div>
+      <div class="settings-row"><label>Website</label><input type="url" id="c-website" placeholder="https://..." /></div>
+      <div class="settings-row"><label>Distributor</label><input type="text" id="c-distributor" placeholder="e.g. Crescent Direct" /></div>
+      <div class="settings-row"><label>Category</label><input type="text" id="c-category" placeholder="e.g. Supplements, Pet, Beauty" /></div>
+      <div class="settings-row"><label>Status</label>
+        <select id="c-status">
+          <option value="TO CONTACT">TO CONTACT</option>
+          <option value="CONTACTED">CONTACTED</option>
+          <option value="REPLIED">REPLIED</option>
+          <option value="DEAL">DEAL</option>
+          <option value="PASS">PASS</option>
+        </select>
+      </div>
+      <div class="settings-row"><label>Notes</label><input type="text" id="c-notes" placeholder="MOQ, terms, lead time..." /></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="save-contact-btn">SAVE</button>
+      <button class="btn-ghost" id="close-contact-btn">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCRAPE PROMPT MODAL -->
+<div id="scrape-prompt-modal" class="modal-overlay hidden">
+  <div class="modal-box modal-scrape">
+    <div class="modal-title">CLAUDE CODE SCRAPE PROMPT</div>
+    <p style="font-size:11px;color:var(--text-muted);margin-bottom:8px">Copy this entire prompt and paste it into a Claude Code terminal session. Claude will visit each storefront, extract brand info and contact details, and output a CSV you can import back here.</p>
+    <textarea id="scrape-prompt-text" class="scrape-prompt-textarea" readonly></textarea>
+    <div class="modal-footer">
+      <button class="btn-primary" id="copy-scrape-prompt-btn">COPY PROMPT</button>
+      <button class="btn-ghost" id="close-scrape-prompt-btn">CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOCUS MODE OVERLAY -->
+<div id="focus-overlay" class="hidden">
+  <div id="focus-content">
+    <div id="focus-header">
+      <span id="focus-mode-label">FOCUS MODE</span>
+      <button id="exit-focus-btn">EXIT [ESC]</button>
+    </div>
+    <div id="focus-timer">
+      <div id="focus-timer-display">25:00</div>
+      <div id="focus-timer-phase">WORK SESSION</div>
+      <div class="focus-timer-btns">
+        <button class="btn-primary" id="focus-start-btn">START</button>
+        <button class="btn-ghost" id="focus-reset-btn">RESET</button>
+      </div>
+    </div>
+    <div id="focus-tasks"></div>
+  </div>
+</div>
+
+<!-- MORNING BRIEF MODAL -->
+<div id="morning-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-title">MORNING BRIEF — <span id="mb-date"></span></div>
+    <div id="mb-content"></div>
+    <button class="btn-primary" id="mb-dismiss">ENGAGE [ENTER]</button>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div id="settings-modal" class="modal-overlay hidden">
+  <div class="modal-box modal-settings">
+    <div class="modal-title">SETTINGS</div>
+    <div class="settings-sections">
+      <div class="settings-section">
+        <div class="settings-section-title">NUTRITION TARGETS</div>
+        <div class="settings-row"><label>Calories</label><input type="number" id="set-calories" /></div>
+        <div class="settings-row"><label>Protein (g)</label><input type="number" id="set-protein" /></div>
+        <div class="settings-row"><label>Carbs (g)</label><input type="number" id="set-carbs" /></div>
+        <div class="settings-row"><label>Fat (g)</label><input type="number" id="set-fat" /></div>
+        <div class="settings-row"><label>Phase</label>
+          <select id="set-phase"><option value="CUTTING">CUTTING</option><option value="BULKING">BULKING</option><option value="MAINTENANCE">MAINTENANCE</option></select>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">ACTIVITY TARGETS</div>
+        <div class="settings-row"><label>Daily Steps</label><input type="number" id="set-steps" /></div>
+        <div class="settings-row"><label>Sleep Target (h)</label><input type="number" id="set-sleep" step="0.5" /></div>
+        <div class="settings-row"><label>Wake Time</label><input type="time" id="set-wake" /></div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">THEME ACCENT</div>
+        <div class="accent-swatches" id="accent-swatches">
+          <button class="swatch active" data-color="#00d4ff" style="background:#00d4ff"></button>
+          <button class="swatch" data-color="#0091ff" style="background:#0091ff"></button>
+          <button class="swatch" data-color="#00ff88" style="background:#00ff88"></button>
+          <button class="swatch" data-color="#8b5cf6" style="background:#8b5cf6"></button>
+          <button class="swatch" data-color="#ff6600" style="background:#ff6600"></button>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">DATA</div>
+        <div class="settings-btns">
+          <button class="btn-ghost" id="export-data-btn">EXPORT JSON</button>
+          <button class="btn-ghost" id="import-data-btn">IMPORT JSON</button>
+          <button class="btn-danger" id="clear-data-btn">CLEAR ALL DATA</button>
+        </div>
+        <input type="file" id="import-file" accept=".json" class="hidden" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="save-settings-btn">SAVE SETTINGS</button>
+      <button class="btn-ghost" id="close-settings-btn">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD MEAL MODAL -->
+<div id="meal-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-title">LOG MEAL</div>
+    <div class="settings-row"><label>Meal Name</label><input type="text" id="meal-name" placeholder="e.g. Chicken & Rice" /></div>
+    <div class="settings-row"><label>Group</label>
+      <select id="meal-group-sel">
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Dinner">Dinner</option>
+        <option value="Snacks">Snacks</option>
+      </select>
+    </div>
+    <div class="settings-row"><label>Calories</label><input type="number" id="meal-cal" placeholder="kcal" /></div>
+    <div class="settings-row"><label>Protein (g)</label><input type="number" id="meal-pro" /></div>
+    <div class="settings-row"><label>Carbs (g)</label><input type="number" id="meal-carb" /></div>
+    <div class="settings-row"><label>Fat (g)</label><input type="number" id="meal-fat-in" /></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="save-meal-btn">LOG MEAL</button>
+      <button class="btn-ghost" id="close-meal-btn">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD PRESET MODAL -->
+<div id="preset-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-title">ADD MEAL PRESET</div>
+    <div class="settings-row"><label>Name</label><input type="text" id="preset-name" placeholder="e.g. Protein Shake" /></div>
+    <div class="settings-row"><label>Group</label>
+      <select id="preset-group-sel">
+        <option value="Breakfast">Breakfast</option>
+        <option value="Lunch">Lunch</option>
+        <option value="Dinner">Dinner</option>
+        <option value="Snacks">Snacks</option>
+      </select>
+    </div>
+    <div class="settings-row"><label>Calories</label><input type="number" id="preset-cal" /></div>
+    <div class="settings-row"><label>Protein (g)</label><input type="number" id="preset-pro" /></div>
+    <div class="settings-row"><label>Carbs (g)</label><input type="number" id="preset-carb" /></div>
+    <div class="settings-row"><label>Fat (g)</label><input type="number" id="preset-fat-in" /></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="save-preset-btn">SAVE PRESET</button>
+      <button class="btn-ghost" id="close-preset-btn">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT SPLIT MODAL -->
+<div id="split-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-title">EDIT WEEKLY SPLIT</div>
+    <div id="split-editor"></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="save-split-btn">SAVE</button>
+      <button class="btn-ghost" id="close-split-btn">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD EXERCISE MODAL -->
+<div id="exercise-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-title">ADD EXERCISE</div>
+    <div class="settings-row"><label>Name</label><input type="text" id="ex-name" /></div>
+    <div class="settings-row"><label>Muscle Group</label>
+      <select id="ex-muscle">
+        <option value="Chest">Chest</option>
+        <option value="Back">Back</option>
+        <option value="Shoulders">Shoulders</option>
+        <option value="Biceps">Biceps</option>
+        <option value="Triceps">Triceps</option>
+        <option value="Legs">Legs</option>
+        <option value="Core">Core</option>
+        <option value="Cardio">Cardio</option>
+      </select>
+    </div>
+    <div class="settings-row"><label>Default Sets</label><input type="number" id="ex-sets" value="3" /></div>
+    <div class="settings-row"><label>Default Reps</label><input type="number" id="ex-reps" value="10" /></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="save-exercise-btn">ADD</button>
+      <button class="btn-ghost" id="close-exercise-btn">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<!-- KEYBOARD SHORTCUTS OVERLAY -->
+<div id="shortcuts-overlay" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-title">KEYBOARD SHORTCUTS</div>
+    <div class="shortcuts-grid">
+      <div class="shortcut-row"><kbd>1-5</kbd><span>Switch tabs</span></div>
+      <div class="shortcut-row"><kbd>T</kbd><span>New task</span></div>
+      <div class="shortcut-row"><kbd>F</kbd><span>Focus mode</span></div>
+      <div class="shortcut-row"><kbd>?</kbd><span>Show shortcuts</span></div>
+      <div class="shortcut-row"><kbd>ESC</kbd><span>Close modal / exit focus</span></div>
+      <div class="shortcut-row"><kbd>ENTER</kbd><span>Confirm / dismiss modal</span></div>
+    </div>
+    <button class="btn-ghost" id="close-shortcuts-btn">CLOSE</button>
+  </div>
+</div>
+
+<!-- LEVEL UP MODAL -->
+<div id="levelup-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-title">&#9650; LEVEL UP HABIT</div>
+    <div id="levelup-content"></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="levelup-confirm-btn">LEVEL UP</button>
+      <button class="btn-ghost" id="levelup-dismiss-btn">NOT YET</button>
+    </div>
+  </div>
+</div>
+
+<!-- WEEKLY REVIEW MODAL -->
+<div id="weekly-review-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-title">WEEKLY REVIEW</div>
+    <div id="weekly-review-questions"></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="save-weekly-review-btn">SUBMIT REVIEW</button>
+    </div>
+  </div>
+</div>
+
+<script src="contacts-live.js"></script>
+<script src="ppc.js"></script>
+<script src="app.js"></script>
+<script src="jarvis.js?v=6"></script>
+</body>
+</html>

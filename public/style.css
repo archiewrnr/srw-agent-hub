@@ -1095,3 +1095,62 @@ main {
     flex-wrap: wrap;
   }
 }
+
+/* ── Shared operator nav bar (all pages) ── */
+.op-nav {
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 46px;
+  border-bottom: 2px solid var(--amber, #d4a017);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  overflow-x: auto;
+  gap: 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.op-nav::-webkit-scrollbar { display: none; }
+.op-nav-brand {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-right: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.op-nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 13px;
+  height: 46px;
+  color: rgba(255,255,255,.5);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color .15s, background .15s;
+}
+.op-nav-tab:hover { color: #fff; background: rgba(255,255,255,.06); }
+.op-nav-tab.active { color: var(--amber, #d4a017); border-bottom-color: var(--amber, #d4a017); }
+.op-nav-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #334155;
+  flex-shrink: 0;
+}
+.op-nav-dot.live {
+  background: #22c55e;
+  animation: navpulse 1.5s infinite;
+}
+@keyframes navpulse { 0%,100%{opacity:1} 50%{opacity:.35} }

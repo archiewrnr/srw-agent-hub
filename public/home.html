@@ -3,305 +3,259 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SRW Distribution — Agent Hub</title>
+  <title>SRW — Agent Hub</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .hub-header {
-      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-gradient-end) 100%);
-      color: #fff;
-      padding: 36px 40px 32px;
-      border-bottom: 3px solid var(--amber);
+    * { box-sizing: border-box; }
+    body { background: #0b0f1a; margin: 0; font-family: system-ui, -apple-system, sans-serif; color: #fff; }
+    main { max-width: 960px; margin: 0 auto; padding: 36px 24px 72px; }
+
+    /* ── NEW WORK hero ── */
+    .nw-hero { margin-bottom: 10px; }
+    .nw-eyebrow {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
+      color: #d4a017; margin: 0 0 10px;
     }
-    .hub-header h1 {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      margin: 0 0 4px;
-      text-transform: uppercase;
+    .nw-headline {
+      font-size: 42px; font-weight: 900; color: #fff; margin: 0 0 6px; letter-spacing: -0.02em; line-height: 1.05;
     }
-    .hub-header p {
-      font-size: 13px;
-      opacity: 0.65;
-      margin: 0;
-      letter-spacing: 0.03em;
+    .nw-date { font-size: 13px; color: rgba(255,255,255,0.35); margin: 0 0 28px; }
+
+    /* ── Status strip ── */
+    .status-strip { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
+    .sc {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 8px 14px; font-size: 12px; display: flex; align-items: center; gap: 7px;
     }
-    .hub-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-      padding: 40px;
-      max-width: 1100px;
-      margin: 0 auto;
+    .sc .v { font-weight: 800; color: #fff; }
+    .sc .l { color: rgba(255,255,255,0.4); }
+    .sc-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; flex-shrink: 0; animation: pulse 1.5s infinite; }
+
+    /* ── Finding cards ── */
+    .findings { display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .fc {
+      background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 20px 22px;
     }
-    .agent-card {
-      background: var(--card);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      border: 1.5px solid var(--border);
-      overflow: hidden;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-      display: flex;
-      flex-direction: column;
+    .fc.green { border-color: rgba(34,197,94,0.35); background: rgba(34,197,94,0.05); }
+    .fc.amber { border-color: rgba(212,160,23,0.35); background: rgba(212,160,23,0.05); }
+    .fc.purple { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.07); }
+    .fc-tag {
+      font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 20px; display: inline-block; margin-bottom: 12px;
     }
-    .agent-card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-3px);
+    .tag-new { background: #22c55e; color: #fff; }
+    .tag-confirmed { background: #d4a017; color: #000; }
+    .tag-watch { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); }
+    .tag-agent { background: #8b5cf6; color: #fff; }
+    .fc-title { font-size: 16px; font-weight: 800; color: #fff; margin: 0 0 8px; }
+    .fc-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.55; margin: 0 0 12px; }
+    .fc-why {
+      font-size: 12px; color: rgba(255,255,255,0.4); border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 10px; margin: 0; line-height: 1.5;
     }
-    .agent-card.coming-soon {
-      opacity: 0.6;
-      cursor: default;
+    .fc-why strong { color: #d4a017; }
+    .fc-btn {
+      display: inline-block; margin-top: 12px; padding: 9px 18px; border-radius: 8px;
+      font-size: 12.5px; font-weight: 700; text-decoration: none; color: #fff; background: #8b5cf6;
     }
-    .agent-card.coming-soon:hover {
-      box-shadow: var(--shadow);
-      transform: none;
+
+    /* ── Section label ── */
+    .sl {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); margin: 0 0 14px;
     }
-    .agent-card-header {
-      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-gradient-end) 100%);
-      padding: 22px 24px 18px;
-      color: #fff;
+
+    /* ── Agent tiles ── */
+    .agent-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 12px; margin-bottom: 0; }
+    .agent-tile {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 16px; text-decoration: none; color: #fff;
+      transition: background 0.15s, transform 0.15s; display: block;
     }
-    .agent-card-header .agent-icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-    .agent-card-header h2 {
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin: 0 0 4px;
-    }
-    .agent-card-header p {
-      font-size: 12px;
-      opacity: 0.7;
-      margin: 0;
-    }
-    .agent-status-pill {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 20px;
-      margin-top: 10px;
-    }
-    .agent-status-pill.live {
-      background: #22c55e;
-      color: #fff;
-    }
-    .agent-status-pill.soon {
-      background: rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.8);
-    }
-    .agent-card-body {
-      padding: 20px 24px;
-      flex: 1;
-    }
-    .agent-card-body ul {
-      margin: 0;
-      padding: 0 0 0 16px;
-      list-style: disc;
-    }
-    .agent-card-body ul li {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 5px;
-      line-height: 1.45;
-    }
-    .agent-stat-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-    .agent-stat {
-      background: var(--bg);
-      border-radius: 8px;
-      padding: 8px 12px;
-      flex: 1;
-      text-align: center;
-    }
-    .agent-stat .stat-val {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--brand);
-    }
-    .agent-stat .stat-lbl {
-      font-size: 10px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .agent-card-footer {
-      padding: 14px 24px;
-      border-top: 1px solid var(--border);
-    }
-    .agent-launch-btn {
-      display: block;
-      width: 100%;
-      padding: 11px;
-      background: var(--brand);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-      cursor: pointer;
-      letter-spacing: 0.03em;
-      transition: background 0.15s ease;
-    }
-    .agent-launch-btn:hover {
-      background: var(--brand-gradient-end);
-    }
-    .agent-launch-btn.disabled {
-      background: var(--border);
-      color: var(--muted);
-      cursor: not-allowed;
-    }
-    .scan-status-live {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 8px;
-      text-align: center;
-    }
-    .scan-dot {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #22c55e;
-      margin-right: 5px;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity: 1; }
-      50% { opacity: 0.4; }
+    .agent-tile:hover { background: rgba(255,255,255,0.09); transform: translateY(-2px); }
+    .agent-tile.dim { opacity: 0.38; pointer-events: none; }
+    .at-icon { font-size: 22px; margin-bottom: 8px; }
+    .at-name { font-size: 13px; font-weight: 800; margin-bottom: 3px; }
+    .at-sub { font-size: 11px; color: rgba(255,255,255,0.38); margin-bottom: 10px; }
+    .at-status { font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+    .at-dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; flex-shrink: 0; animation: pulse 1.5s infinite; }
+    .at-dot.off { background: #334155; animation: none; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    @media(max-width:580px) {
+      .nw-headline { font-size: 28px; }
+      .status-strip { gap: 7px; }
     }
   </style>
 </head>
 <body>
-  <header class="hub-header">
-    <h1>SRW Distribution — Agent Hub</h1>
-    <p>Your autonomous business agents. Always on, always working.</p>
-  </header>
 
-  <main class="hub-grid">
+  <nav class="op-nav">
+    <span class="op-nav-brand">SRW</span>
+    <a href="home.html" class="op-nav-tab active"><span class="op-nav-dot live"></span>Hub</a>
+    <a href="index.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Private Label</a>
+    <a href="tiktok.html" class="op-nav-tab"><span class="op-nav-dot live"></span>TikTok</a>
+    <a href="moonbites.html" class="op-nav-tab"><span class="op-nav-dot live"></span>MoonBites</a>
+    <a href="/jarvis/" class="op-nav-tab"><span class="op-nav-dot live"></span>JARVIS</a>
+    <a href="launch-plan.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Launch Plan</a>
+    <a href="designs.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Designs</a>
+    <a href="settings.html" class="op-nav-tab"><span class="op-nav-dot"></span>Settings</a>
+  </nav>
 
-    <!-- Agent 1: Private Label Product Sourcer -->
-    <div class="agent-card">
-      <div class="agent-card-header">
-        <div class="agent-icon">🔍</div>
-        <h2>Private Label Product Sourcer</h2>
-        <p>Earth &amp; Essence · Amazon UK</p>
-        <span class="agent-status-pill live">● Live</span>
-      </div>
-      <div class="agent-card-body">
-        <div class="agent-stat-row" id="sourcerStats">
-          <div class="agent-stat">
-            <div class="stat-val" id="totalOpps">—</div>
-            <div class="stat-lbl">Opportunities</div>
-          </div>
-          <div class="agent-stat">
-            <div class="stat-val" id="topScore">—</div>
-            <div class="stat-lbl">Top Score</div>
-          </div>
-          <div class="agent-stat">
-            <div class="stat-val" id="launchRounds">11</div>
-            <div class="stat-lbl">Rounds Done</div>
-          </div>
-        </div>
-        <ul>
-          <li>Scans 536+ Amazon UK supplement niches</li>
-          <li>Ranks by demand vs competition score</li>
-          <li>Generates 4K packaging concepts via Higgsfield</li>
-          <li>11 launch-plan rounds written up &amp; growing</li>
-        </ul>
-      </div>
-      <div class="agent-card-footer">
-        <a href="index.html" class="agent-launch-btn">Open Dashboard →</a>
-        <div class="scan-status-live" id="scanStatusLine"><span class="scan-dot"></span>Loading scan status…</div>
-      </div>
+  <main>
+
+    <!-- Hero -->
+    <div class="nw-hero">
+      <p class="nw-eyebrow">Earth &amp; Essence · Agent Hub</p>
+      <h1 class="nw-headline">🆕 NEW WORK</h1>
+      <p class="nw-date" id="todayDate">—</p>
     </div>
 
-    <!-- Agent 2: Productivity Tracker -->
-    <div class="agent-card coming-soon">
-      <div class="agent-card-header">
-        <div class="agent-icon">📊</div>
-        <h2>Productivity Tracker</h2>
-        <p>Business Operations &amp; KPIs</p>
-        <span class="agent-status-pill soon">Coming Soon</span>
-      </div>
-      <div class="agent-card-body">
-        <ul>
-          <li>Track daily/weekly business KPIs</li>
-          <li>Monitor Amazon listing performance</li>
-          <li>Review velocity &amp; sales velocity alerts</li>
-          <li>Automated daily performance summaries</li>
-        </ul>
-      </div>
-      <div class="agent-card-footer">
-        <span class="agent-launch-btn disabled">Coming Soon</span>
-      </div>
+    <!-- Status chips -->
+    <div class="status-strip">
+      <div class="sc"><span class="sc-dot"></span><span class="v">536+</span><span class="l">niches scanned</span></div>
+      <div class="sc"><span class="v">12</span><span class="l">rounds written up</span></div>
+      <div class="sc"><span class="v" id="sTopScore">—</span><span class="l">top score</span></div>
+      <div class="sc"><span class="v">06:00</span><span class="l">daily scan</span></div>
+      <div class="sc" id="sLastScan"><span class="v">—</span><span class="l">last ran</span></div>
     </div>
 
-    <!-- Agent 3: Wholesale Opportunities -->
-    <div class="agent-card coming-soon">
-      <div class="agent-card-header">
-        <div class="agent-icon">🏭</div>
-        <h2>Wholesale Opportunities</h2>
-        <p>B2B Sourcing &amp; Supplier Intelligence</p>
-        <span class="agent-status-pill soon">Coming Soon</span>
+    <!-- Latest findings in plain English -->
+    <div class="findings">
+
+      <div class="fc green">
+        <span class="fc-tag tag-new">Round 12 · Latest find</span>
+        <p class="fc-title">Cayenne Pepper Drops</p>
+        <p class="fc-desc">Two completely different Amazon searches — "pepper drops liquid extract" and "cayenne pepper drops" — both led to the same three small sellers. Same competitors appearing twice = real niche, zero brand dominating it yet. Their biggest seller has around 50 reviews. Your Soursop drops are the exact same bottle format, so you already know the product inside out.</p>
+        <p class="fc-why"><strong>In short:</strong> 400+ people a month are searching for this, three tiny sellers are quietly taking the money, and nobody big has moved in. Classic ground-floor window.</p>
       </div>
-      <div class="agent-card-body">
-        <ul>
-          <li>Source wholesale supplier leads</li>
-          <li>MOQ &amp; pricing comparison engine</li>
-          <li>Supplier vetting &amp; contact tracking</li>
-          <li>Margin analysis vs retail benchmarks</li>
-        </ul>
+
+      <div class="fc amber">
+        <span class="fc-tag tag-confirmed">Also Round 12 · Double-confirmed</span>
+        <p class="fc-title">Sacha Inchi Oil</p>
+        <p class="fc-desc">Same double-confirmation pattern — two search terms pointing to the same weak sellers. Sacha inchi is an omega-3 oil from Peru with growing UK interest. The sellers currently listing it are small, poorly branded, and underselling the product. Easy territory for Earth &amp; Essence's premium positioning.</p>
+        <p class="fc-why"><strong>In short:</strong> Proven buyer demand, no credible UK brand has claimed it. Oils are simple to private-label and fit your existing range perfectly.</p>
       </div>
-      <div class="agent-card-footer">
-        <span class="agent-launch-btn disabled">Coming Soon</span>
+
+      <div class="fc">
+        <span class="fc-tag tag-watch">Highest score right now</span>
+        <p class="fc-title" id="topApiTitle">Loading…</p>
+        <p class="fc-desc" id="topApiDesc">Fetching live data from the database…</p>
+        <p class="fc-why" id="topApiWhy"></p>
       </div>
+
+      <div class="fc purple">
+        <span class="fc-tag tag-agent">New agent · just built</span>
+        <p class="fc-title">MoonBites Ad Generator</p>
+        <p class="fc-desc">Looks at what's actually working on Meta right now for sleep supplement brands — the scroll-stopping hooks, the ad formats, the copy angles — then rebuilds those same ads with your MoonBites photos using Higgsfield AI. New creative ready to test, without starting from a blank page.</p>
+        <a href="moonbites.html" class="fc-btn">Open Ad Generator →</a>
+      </div>
+
+    </div>
+
+    <!-- Agent tiles -->
+    <p class="sl">All Agents</p>
+    <div class="agent-strip">
+
+      <a href="index.html" class="agent-tile">
+        <div class="at-icon">🔍</div>
+        <div class="at-name">Private Label</div>
+        <div class="at-sub">Amazon UK · 536+ niches</div>
+        <div class="at-status"><span class="at-dot"></span><span style="color:#86efac;">Live · scans at 6am</span></div>
+      </a>
+
+      <a href="tiktok.html" class="agent-tile">
+        <div class="at-icon">🎬</div>
+        <div class="at-name">TikTok Content</div>
+        <div class="at-sub">Jessie AI · 34 days</div>
+        <div class="at-status"><span class="at-dot" style="background:#f87171;"></span><span style="color:#fca5a5;">Live · daily</span></div>
+      </a>
+
+      <a href="moonbites.html" class="agent-tile">
+        <div class="at-icon">🌙</div>
+        <div class="at-name">MoonBites Ads</div>
+        <div class="at-sub">Meta · Higgsfield AI</div>
+        <div class="at-status"><span class="at-dot" style="background:#8b5cf6;"></span><span style="color:#c4b5fd;">Ready to run</span></div>
+      </a>
+
+      <a href="/jarvis/" class="agent-tile">
+        <div class="at-icon">⚡</div>
+        <div class="at-name">JARVIS</div>
+        <div class="at-sub">Tasks · Nutrition · Training</div>
+        <div class="at-status"><span class="at-dot" style="background:#00d4ff;"></span><span style="color:#7dd3fc;">Live</span></div>
+      </a>
+
+      <a href="launch-plan.html" class="agent-tile">
+        <div class="at-icon">📋</div>
+        <div class="at-name">Launch Plan</div>
+        <div class="at-sub">12 rounds · growing</div>
+        <div class="at-status"><span class="at-dot"></span><span style="color:#86efac;">Updated</span></div>
+      </a>
+
+      <div class="agent-tile dim">
+        <div class="at-icon">🏭</div>
+        <div class="at-name">Wholesale</div>
+        <div class="at-sub">B2B sourcing</div>
+        <div class="at-status"><span class="at-dot off"></span><span style="color:rgba(255,255,255,0.25);">Building soon</span></div>
+      </div>
+
     </div>
 
   </main>
 
   <script>
-    async function loadSourcerStats() {
+    document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+
+    function fmtTime(ts) {
+      if (!ts) return '—';
+      const d = new Date(ts);
+      const today = new Date(); today.setHours(0,0,0,0);
+      const yesterday = new Date(today); yesterday.setDate(today.getDate()-1);
+      const dt = new Date(ts); dt.setHours(0,0,0,0);
+      const time = d.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+      if (+dt === +today) return 'Today ' + time;
+      if (+dt === +yesterday) return 'Yesterday ' + time;
+      return d.toLocaleDateString('en-GB', {day:'numeric', month:'short'}) + ' ' + time;
+    }
+
+    async function load() {
       try {
-        const [statusRes, oppsRes] = await Promise.all([
+        const [sRes, oRes] = await Promise.all([
           fetch('/api/scan/status'),
-          fetch('/api/opportunities?categoryKey=earth_essence&limit=1&sort=opportunity_score')
+          fetch('/api/opportunities?categoryKey=earth_essence&limit=3&sort=opportunity_score')
         ]);
-        const status = await statusRes.json();
-        const opps = await oppsRes.json();
+        const status = await sRes.json();
+        const opps = await oRes.json();
+        const list = Array.isArray(opps) ? opps : (opps.opportunities || []);
+        const top = list[0];
 
-        const total = opps.total || (opps.opportunities || []).length;
-        const top = (opps.opportunities || opps)[0];
-
-        document.getElementById('totalOpps').textContent = status.recentRuns?.find(r => r.status === 'completed')
-          ? '536+' : '536+';
-        document.getElementById('topScore').textContent = top ? top.opportunity_score.toFixed(1) : '—';
-
-        const running = status.anyRunning;
-        const lastRun = status.recentRuns?.find(r => r.status === 'completed');
-        const scanLine = document.getElementById('scanStatusLine');
-        if (running) {
-          scanLine.innerHTML = '<span class="scan-dot"></span>Scan running now…';
-        } else if (lastRun) {
-          const d = new Date(lastRun.finished_at);
-          scanLine.innerHTML = `Last scan completed ${d.toLocaleDateString('en-GB', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}`;
-        } else {
-          scanLine.textContent = 'No scans completed yet';
+        if (top) {
+          document.getElementById('sTopScore').textContent = top.opportunity_score.toFixed(1);
+          const name = top.niche_keyword.replace(/\b\w/g, c => c.toUpperCase());
+          document.getElementById('topApiTitle').textContent = name;
+          const avgRev = top.avg_competitor_reviews ? Math.round(top.avg_competitor_reviews) : null;
+          const acc = top.accessible_listings;
+          let desc = `Top-ranked niche in the full database right now.`;
+          if (avgRev !== null) desc += ` Sellers currently listing it have an average of just ${avgRev} reviews — easily beatable for a new brand.`;
+          if (acc) desc += ` ${acc} of the existing listings are vulnerable on price, reviews, or branding.`;
+          document.getElementById('topApiDesc').textContent = desc;
+          document.getElementById('topApiWhy').innerHTML = `<strong>Score: ${top.opportunity_score.toFixed(1)}/100</strong> — demand is real, the competition is weak.`;
         }
-      } catch (e) {
-        document.getElementById('scanStatusLine').textContent = 'Could not load status';
+
+        const last = status.recentRuns?.find(r => r.status === 'completed');
+        if (last) {
+          document.getElementById('sLastScan').innerHTML = `<span class="v">${fmtTime(last.finished_at)}</span><span class="l">last scan</span>`;
+        }
+      } catch(e) {
+        document.getElementById('topApiTitle').textContent = 'Server offline';
+        document.getElementById('topApiDesc').textContent = 'Start the local server to see live opportunity data.';
       }
     }
-    loadSourcerStats();
+
+    load();
+    setInterval(load, 30000);
   </script>
 </body>
 </html>

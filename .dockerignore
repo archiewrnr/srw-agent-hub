@@ -1,0 +1,12 @@
+node_modules
+data
+.env
+*.log
+.git
+.claude
+tmp-*.json
+packaging-designs
+moonbites-ref.jpg
+public/designs/*.png
+public/designs/*.jpg
+public/designs/*.webp

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoonBites Ad Generator — SRW</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body { background: #0b0010; margin: 0; font-family: system-ui, -apple-system, sans-serif; color: #fff; }
+    main { max-width: 1000px; margin: 0 auto; padding: 36px 24px 72px; }
+
+    /* ── Hero ── */
+    .mb-hero { margin-bottom: 32px; }
+    .mb-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #8b5cf6; margin: 0 0 10px; }
+    .mb-headline { font-size: 36px; font-weight: 900; color: #fff; margin: 0 0 8px; letter-spacing: -0.02em; }
+    .mb-sub { font-size: 14px; color: rgba(255,255,255,0.5); margin: 0 0 20px; line-height: 1.5; max-width: 560px; }
+
+    /* How it works */
+    .how-row { display: flex; gap: 12px; margin-bottom: 36px; flex-wrap: wrap; }
+    .how-step {
+      flex: 1; min-width: 200px; background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2);
+      border-radius: 12px; padding: 16px 18px;
+    }
+    .how-n { font-size: 11px; font-weight: 900; color: #8b5cf6; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .how-t { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .how-d { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+    /* ── Section label ── */
+    .sl { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin: 0 0 16px; }
+
+    /* ── Template cards ── */
+    .template-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .tc {
+      background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .tc:hover { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.05); }
+
+    /* ── Reference image strip ── */
+    .tc-refs {
+      display: flex; gap: 0; height: 90px; overflow: hidden;
+    }
+    .tc-ref {
+      flex: 1; position: relative; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .tc-ref-divider { width: 2px; background: #0b0010; flex-shrink: 0; z-index: 1; }
+    .tc-ref-label {
+      position: absolute; bottom: 6px; left: 0; right: 0; text-align: center;
+      font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.9); text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+    .tc-ref-icon { font-size: 28px; opacity: 0.4; }
+    .tc-ref.inspire { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+    .tc-ref.product { background: linear-gradient(135deg, #1a0a2e, #2d1b4e); }
+    .tc-arrow {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 24px; height: 24px; background: rgba(139,92,246,0.8); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 11px; z-index: 2;
+      box-shadow: 0 0 0 3px #0b0010;
+    }
+
+    .tc-top { padding: 14px 18px 12px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .tc-format {
+      font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 20px; display: inline-block; margin-bottom: 10px;
+    }
+    .fmt-video { background: #ef4444; color: #fff; }
+    .fmt-static { background: #3b82f6; color: #fff; }
+    .fmt-ugc { background: #22c55e; color: #fff; }
+    .fmt-carousel { background: #f59e0b; color: #000; }
+    .tc-name { font-size: 15px; font-weight: 800; color: #fff; margin: 0 0 6px; }
+    .tc-why { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; margin: 0; }
+    .tc-body { padding: 14px 18px; flex: 1; }
+    .tc-hook-label { font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #8b5cf6; margin-bottom: 5px; }
+    .tc-hook { font-size: 13px; color: rgba(255,255,255,0.8); font-style: italic; line-height: 1.45; margin: 0 0 12px; }
+    .tc-prompt-label { font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 5px; }
+    .tc-prompt {
+      font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.5; margin: 0;
+      background: rgba(0,0,0,0.3); border-radius: 6px; padding: 8px 10px;
+      font-family: monospace; white-space: pre-wrap; word-break: break-word;
+    }
+    .tc-footer { padding: 12px 18px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; gap: 8px; }
+    .tc-btn {
+      flex: 1; padding: 9px 0; border-radius: 8px; font-size: 12px; font-weight: 700;
+      text-align: center; cursor: pointer; border: none; transition: background 0.15s;
+    }
+    .btn-gen { background: #8b5cf6; color: #fff; }
+    .btn-gen:hover { background: #7c3aed; }
+    .btn-copy { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+    .btn-copy:hover { background: rgba(255,255,255,0.14); }
+
+    /* ── Copied toast ── */
+    #toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: #22c55e; color: #fff; padding: 10px 20px; border-radius: 8px;
+      font-size: 13px; font-weight: 700; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 999;
+    }
+    #toast.show { opacity: 1; }
+
+    /* ── Brand assets ── */
+    .assets-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 40px; }
+    .asset-thumb {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; overflow: hidden; aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .asset-thumb span { font-size: 11px; color: rgba(255,255,255,0.3); text-align: center; padding: 12px; }
+
+    /* ── Gallery ── */
+    .gallery-empty {
+      background: rgba(139,92,246,0.05); border: 1.5px dashed rgba(139,92,246,0.3);
+      border-radius: 14px; padding: 40px 24px; text-align: center; margin-bottom: 40px;
+    }
+    .gallery-empty h3 { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.5); margin: 0 0 8px; }
+    .gallery-empty p { font-size: 13px; color: rgba(255,255,255,0.3); margin: 0; line-height: 1.5; }
+    .gallery-empty code {
+      display: inline-block; margin-top: 14px; background: rgba(139,92,246,0.15);
+      color: #c4b5fd; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-family: monospace;
+    }
+
+    @media(max-width:580px) {
+      .mb-headline { font-size: 26px; }
+      .how-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="op-nav">
+    <span class="op-nav-brand">SRW</span>
+    <a href="home.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Hub</a>
+    <a href="index.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Private Label</a>
+    <a href="tiktok.html" class="op-nav-tab"><span class="op-nav-dot live"></span>TikTok</a>
+    <a href="moonbites.html" class="op-nav-tab active"><span class="op-nav-dot live"></span>MoonBites</a>
+    <a href="/jarvis/" class="op-nav-tab"><span class="op-nav-dot live"></span>JARVIS</a>
+    <a href="launch-plan.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Launch Plan</a>
+    <a href="designs.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Designs</a>
+    <a href="settings.html" class="op-nav-tab"><span class="op-nav-dot"></span>Settings</a>
+  </nav>
+
+  <main>
+
+    <!-- Hero -->
+    <div class="mb-hero">
+      <p class="mb-eyebrow">🌙 MoonBites · Meta Ad Generator</p>
+      <h1 class="mb-headline">Steal What's Working. Make It Yours.</h1>
+      <p class="mb-sub">These are the 6 highest-performing ad formats for sleep supplement brands on Meta right now. Each one comes with the exact Higgsfield prompt to recreate it using your MoonBites photos. Click "Generate" and Claude will run it for you.</p>
+    </div>
+
+    <!-- How it works -->
+    <div class="how-row">
+      <div class="how-step">
+        <div class="how-n">Step 1 · Research</div>
+        <div class="how-t">Scour Meta's winning ads</div>
+        <div class="how-d">Claude analyses the Meta Ad Library and top-performing sleep supplement ads to extract what formats, hooks, and visuals are getting the most engagement.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-n">Step 2 · Pick a template</div>
+        <div class="how-t">Choose your ad format</div>
+        <div class="how-d">Pick from the 6 proven formats below. Each one tells you exactly why it works and what hook to lead with.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-n">Step 3 · Generate</div>
+        <div class="how-t">Higgsfield makes it real</div>
+        <div class="how-d">Click "Generate" and Claude runs your MoonBites photos through Higgsfield Nano Banana Pro to create a polished 4K ad image ready for Meta.</div>
+      </div>
+    </div>
+
+    <!-- Winning templates -->
+    <p class="sl">6 Proven Meta Ad Formats · Sleep Supplements</p>
+    <div class="template-grid">
+
+      <!-- 1: 3am Hook -->
+      <div class="tc">
+        <div class="tc-refs">
+          <div class="tc-ref inspire"><span class="tc-ref-icon">🌙</span><span class="tc-ref-label">Competitor style</span></div>
+          <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
+          <div class="tc-ref product"><span class="tc-ref-icon">🫙</span><span class="tc-ref-label">Your product</span></div>
+        </div>
+        <div class="tc-top">
+          <span class="tc-format fmt-video">Video / Reel</span>
+          <p class="tc-name">The 3AM Hook</p>
+          <p class="tc-why">The #1 scroll-stopper for sleep brands. Opens on a dark bedroom clock showing 3:00am. Immediately qualifies the right viewer and creates instant empathy before you've said a word about the product.</p>
+        </div>
+        <div class="tc-body">
+          <div class="tc-hook-label">Opening line</div>
+          <p class="tc-hook">"It's 3am and you're wide awake again. Racing thoughts, can't switch off. You've tried everything."</p>
+          <div class="tc-prompt-label">Higgsfield prompt</div>
+          <p class="tc-prompt" id="p1">Cinematic close-up of a bedside table at night. Warm lamp glow. MoonBites Sleep Gummies jar front and centre, star-shaped red gummies spilling out. Digital clock showing 03:00 in background. Rich purple and deep navy tones. Photorealistic 4K. No text overlay. Product label clearly readable.</p>
+        </div>
+        <div class="tc-footer">
+          <button class="tc-btn btn-gen" onclick="generate(1)">Generate with Higgsfield</button>
+          <button class="tc-btn btn-copy" onclick="copyPrompt('p1')">Copy prompt</button>
+        </div>
+      </div>
+
+      <!-- 2: UGC Testimonial -->
+      <div class="tc">
+        <div class="tc-refs">
+          <div class="tc-ref inspire"><span class="tc-ref-icon">📱</span><span class="tc-ref-label">Competitor style</span></div>
+          <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
+          <div class="tc-ref product"><span class="tc-ref-icon">🫙</span><span class="tc-ref-label">Your product</span></div>
+        </div>
+        <div class="tc-top">
+          <span class="tc-format fmt-ugc">UGC Style</span>
+          <p class="tc-name">The Honest Review</p>
+          <p class="tc-why">Lo-fi phone-style content outperforms polished ads on Meta by 2-3x for supplement brands. Looks like a genuine recommendation from a real person, not an ad. Trust is the currency here.</p>
+        </div>
+        <div class="tc-body">
+          <div class="tc-hook-label">Opening line</div>
+          <p class="tc-hook">"Okay I have to tell you about these gummies because I slept 8 hours for the first time in months."</p>
+          <div class="tc-prompt-label">Higgsfield prompt</div>
+          <p class="tc-prompt" id="p2">Bright morning light, cosy bedroom setting. MoonBites Sleep Gummies jar on rumpled bed with scatter of strawberry gummies. Warm natural lighting, slightly soft focus, lifestyle feel. Photorealistic 4K. Clean white and neutral tones contrasting with deep purple jar. No text. Product label fully visible.</p>
+        </div>
+        <div class="tc-footer">
+          <button class="tc-btn btn-gen" onclick="generate(2)">Generate with Higgsfield</button>
+          <button class="tc-btn btn-copy" onclick="copyPrompt('p2')">Copy prompt</button>
+        </div>
+      </div>
+
+      <!-- 3: Melatonin switcher -->
+      <div class="tc">
+        <div class="tc-refs">
+          <div class="tc-ref inspire"><span class="tc-ref-icon">💊</span><span class="tc-ref-label">Competitor style</span></div>
+          <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
+          <div class="tc-ref product"><span class="tc-ref-icon">🌿</span><span class="tc-ref-label">Natural alternative</span></div>
+        </div>
+        <div class="tc-top">
+          <span class="tc-format fmt-static">Static Image</span>
+          <p class="tc-name">The Melatonin Alternative</p>
+          <p class="tc-why">Targets people who've already tried melatonin — the highest-intent audience in the sleep supplement market. They've already decided to buy, they just need a better option. Melatonin-free is your biggest USP.</p>
+        </div>
+        <div class="tc-body">
+          <div class="tc-hook-label">Opening line</div>
+          <p class="tc-hook">"Melatonin made me wake up groggy. These don't. Natural botanical blend, no melatonin, no grogginess."</p>
+          <div class="tc-prompt-label">Higgsfield prompt</div>
+          <p class="tc-prompt" id="p3">Split-scene product comparison. Left half: dark, gloomy lighting with a generic white pill bottle labelled "Melatonin". Right half: warm, inviting night scene with MoonBites Sleep Gummies jar glowing, star-shaped red gummies, moon and stars aesthetic. Photorealistic 4K. No text overlay. High contrast between sides.</p>
+        </div>
+        <div class="tc-footer">
+          <button class="tc-btn btn-gen" onclick="generate(3)">Generate with Higgsfield</button>
+          <button class="tc-btn btn-copy" onclick="copyPrompt('p3')">Copy prompt</button>
+        </div>
+      </div>
+
+      <!-- 4: Benefits reveal -->
+      <div class="tc">
+        <div class="tc-refs">
+          <div class="tc-ref inspire"><span class="tc-ref-icon">✨</span><span class="tc-ref-label">Competitor style</span></div>
+          <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
+          <div class="tc-ref product"><span class="tc-ref-icon">🫙</span><span class="tc-ref-label">Your product</span></div>
+        </div>
+        <div class="tc-top">
+          <span class="tc-format fmt-video">Video</span>
+          <p class="tc-name">The Benefits Reveal</p>
+          <p class="tc-why">Product hero shot with animated text pop-ins. Works especially well on Instagram/Facebook feeds where it autoplays. Each benefit builds on the last. High completion rate = cheaper cost per result.</p>
+        </div>
+        <div class="tc-body">
+          <div class="tc-hook-label">Opening line</div>
+          <p class="tc-hook">"Deep sleep. Calm racing mind. Wake up refreshed. This is what MoonBites does."</p>
+          <div class="tc-prompt-label">Higgsfield prompt</div>
+          <p class="tc-prompt" id="p4">Epic product hero shot. MoonBites Sleep Gummies jar centred, lit from below with ethereal purple and gold light rays. Scattered red star-shaped gummies around base. Deep space background with subtle constellation patterns. Cinematic, luxury supplement aesthetic. Photorealistic 4K. No text. Label fully readable. Dramatic studio lighting.</p>
+        </div>
+        <div class="tc-footer">
+          <button class="tc-btn btn-gen" onclick="generate(4)">Generate with Higgsfield</button>
+          <button class="tc-btn btn-copy" onclick="copyPrompt('p4')">Copy prompt</button>
+        </div>
+      </div>
+
+      <!-- 5: Night routine -->
+      <div class="tc">
+        <div class="tc-refs">
+          <div class="tc-ref inspire"><span class="tc-ref-icon">🍵</span><span class="tc-ref-label">Competitor style</span></div>
+          <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
+          <div class="tc-ref product"><span class="tc-ref-icon">🫙</span><span class="tc-ref-label">Your product</span></div>
+        </div>
+        <div class="tc-top">
+          <span class="tc-format fmt-static">Static / Carousel</span>
+          <p class="tc-name">The Night Routine Stack</p>
+          <p class="tc-why">Places the product inside a desirable lifestyle. Shows the product as part of someone's evening ritual alongside tea, a journal, soft lighting. Aspirational without being unrelatable. Performs well with 25-44 female audience.</p>
+        </div>
+        <div class="tc-body">
+          <div class="tc-hook-label">Opening line</div>
+          <p class="tc-hook">"My wind-down routine: chamomile tea, 10 minutes of journalling, 2 MoonBites gummies. Asleep by 10."</p>
+          <div class="tc-prompt-label">Higgsfield prompt</div>
+          <p class="tc-prompt" id="p5">Cosy flat-lay shot from above. Wooden tray with MoonBites Sleep Gummies jar, ceramic mug of herbal tea with steam rising, open journal with pen, a few loose star-shaped red gummies. Soft warm candlelight from the side. Linen textures, earthy neutrals. Photorealistic 4K. No text. Product label visible.</p>
+        </div>
+        <div class="tc-footer">
+          <button class="tc-btn btn-gen" onclick="generate(5)">Generate with Higgsfield</button>
+          <button class="tc-btn btn-copy" onclick="copyPrompt('p5')">Copy prompt</button>
+        </div>
+      </div>
+
+      <!-- 6: Before/After -->
+      <div class="tc">
+        <div class="tc-refs">
+          <div class="tc-ref inspire"><span class="tc-ref-icon">😴</span><span class="tc-ref-label">Before · bad sleep</span></div>
+          <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
+          <div class="tc-ref product"><span class="tc-ref-icon">😊</span><span class="tc-ref-label">After · MoonBites</span></div>
+        </div>
+        <div class="tc-top">
+          <span class="tc-format fmt-carousel">Carousel</span>
+          <p class="tc-name">Day 1 vs Day 30</p>
+          <p class="tc-why">Social proof through transformation. Shows tired, restless sleep on day 1 vs. deeply rested, refreshed on day 30. Carousel format keeps people swiping, driving down cost per click. Best format for retargeting people who've visited the product page.</p>
+        </div>
+        <div class="tc-body">
+          <div class="tc-hook-label">Opening line</div>
+          <p class="tc-hook">"Day 1: 2 hours sleep, exhausted. Day 30: 8 hours straight. I didn't change anything except adding these."</p>
+          <div class="tc-prompt-label">Higgsfield prompt (slide 1 · before)</div>
+          <p class="tc-prompt" id="p6">Dark, moody bedroom scene. Crumpled sheets, digital clock showing 02:47am, harsh blue light from phone screen. Restless feeling. No product yet. Cinematic film grain aesthetic. 4K.</p>
+        </div>
+        <div class="tc-footer">
+          <button class="tc-btn btn-gen" onclick="generate(6)">Generate with Higgsfield</button>
+          <button class="tc-btn btn-copy" onclick="copyPrompt('p6')">Copy prompt</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Brand Assets -->
+    <p class="sl">Your Brand Assets · MoonBites</p>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px 22px;margin-bottom:40px;">
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);margin:0 0 10px;">These product images are what Higgsfield uses as references for all generations. Claude has already seen them.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#c4b5fd;font-weight:600;">✓ Product hero (white bg)</div>
+        <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#c4b5fd;font-weight:600;">✓ Benefits infographic</div>
+        <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#c4b5fd;font-weight:600;">✓ Comparison ad</div>
+        <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#c4b5fd;font-weight:600;">✓ How to use</div>
+        <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#c4b5fd;font-weight:600;">✓ Bedside lifestyle scene</div>
+        <div style="background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:8px;padding:6px 12px;font-size:11px;color:#c4b5fd;font-weight:600;">✓ Strawberry splash hero</div>
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <p class="sl">Generated Ads · Gallery</p>
+    <div class="gallery-empty" id="gallery">
+      <h3>No ads generated yet</h3>
+      <p>Click "Generate with Higgsfield" on any template above, or ask Claude directly in the chat.<br>Generated images will appear here once created.</p>
+      <code>Try: "Generate the 3AM Hook ad for MoonBites"</code>
+    </div>
+
+  </main>
+
+  <div id="toast">Prompt copied!</div>
+
+  <!-- Generate modal -->
+  <div id="modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;display:none;align-items:center;justify-content:center;">
+    <div style="background:#1a0a2e;border:1.5px solid rgba(139,92,246,0.4);border-radius:16px;max-width:520px;width:90%;padding:28px;">
+      <h2 style="font-size:18px;font-weight:800;margin:0 0 8px;">Generate this ad</h2>
+      <p style="font-size:13px;color:rgba(255,255,255,0.5);margin:0 0 16px;">Copy the message below and send it to Claude in a new chat to generate the image with Higgsfield Nano Banana Pro.</p>
+      <textarea id="modalPrompt" style="width:100%;height:140px;background:rgba(0,0,0,0.5);border:1px solid rgba(139,92,246,0.3);border-radius:8px;color:#fff;font-size:12px;padding:12px;font-family:monospace;resize:vertical;"></textarea>
+      <div style="display:flex;gap:10px;margin-top:14px;">
+        <button onclick="copyModal()" style="flex:1;background:#8b5cf6;color:#fff;border:none;padding:11px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">Copy &amp; Open Claude</button>
+        <button onclick="closeModal()" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);border:none;padding:11px 18px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PROMPTS = {
+      1: `Generate a MoonBites Sleep Gummies Meta ad image using the 3AM Hook format.\n\nHiggsfield prompt: Cinematic close-up of a bedside table at night. Warm lamp glow. MoonBites Sleep Gummies jar front and centre, star-shaped red gummies spilling out. Digital clock showing 03:00 in background. Rich purple and deep navy tones. Photorealistic 4K. No text overlay. Product label clearly readable.\n\nUse the MoonBites product reference images I shared earlier. Generate with Higgsfield Nano Banana Pro.`,
+      2: `Generate a MoonBites Sleep Gummies Meta ad image using the Honest Review UGC format.\n\nHiggsfield prompt: Bright morning light, cosy bedroom setting. MoonBites Sleep Gummies jar on rumpled bed with scatter of strawberry gummies. Warm natural lighting, slightly soft focus, lifestyle feel. Photorealistic 4K. Clean white and neutral tones contrasting with deep purple jar. No text. Product label fully visible.\n\nUse the MoonBites product reference images I shared earlier. Generate with Higgsfield Nano Banana Pro.`,
+      3: `Generate a MoonBites Sleep Gummies Meta ad image using the Melatonin Alternative format.\n\nHiggsfield prompt: Split-scene product comparison. Left half: dark, gloomy lighting with a generic white pill bottle labelled "Melatonin". Right half: warm, inviting night scene with MoonBites Sleep Gummies jar glowing, star-shaped red gummies, moon and stars aesthetic. Photorealistic 4K. No text overlay. High contrast between sides.\n\nUse the MoonBites product reference images I shared earlier. Generate with Higgsfield Nano Banana Pro.`,
+      4: `Generate a MoonBites Sleep Gummies Meta ad image using the Benefits Reveal hero format.\n\nHiggsfield prompt: Epic product hero shot. MoonBites Sleep Gummies jar centred, lit from below with ethereal purple and gold light rays. Scattered red star-shaped gummies around base. Deep space background with subtle constellation patterns. Cinematic, luxury supplement aesthetic. Photorealistic 4K. No text. Label fully readable. Dramatic studio lighting.\n\nUse the MoonBites product reference images I shared earlier. Generate with Higgsfield Nano Banana Pro.`,
+      5: `Generate a MoonBites Sleep Gummies Meta ad image using the Night Routine Stack format.\n\nHiggsfield prompt: Cosy flat-lay shot from above. Wooden tray with MoonBites Sleep Gummies jar, ceramic mug of herbal tea with steam rising, open journal with pen, a few loose star-shaped red gummies. Soft warm candlelight from the side. Linen textures, earthy neutrals. Photorealistic 4K. No text. Product label visible.\n\nUse the MoonBites product reference images I shared earlier. Generate with Higgsfield Nano Banana Pro.`,
+      6: `Generate a MoonBites Sleep Gummies Meta carousel ad — Slide 1 (the "before" scene).\n\nHiggsfield prompt: Dark, moody bedroom scene. Crumpled sheets, digital clock showing 02:47am, harsh blue light from phone screen. Restless feeling. No product yet. Cinematic film grain aesthetic. 4K.\n\nThen generate Slide 2 (the "after" scene): Peaceful morning bedroom. Sunlight through curtains, person stretching contentedly, MoonBites Sleep Gummies jar on the bedside table. Warm golden tones. 4K.\n\nUse the MoonBites product reference images I shared earlier. Generate both with Higgsfield Nano Banana Pro.`
+    };
+
+    function generate(n) {
+      document.getElementById('modalPrompt').value = PROMPTS[n];
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    function copyModal() {
+      navigator.clipboard.writeText(document.getElementById('modalPrompt').value);
+      showToast('Message copied! Paste it into Claude.');
+    }
+
+    function copyPrompt(id) {
+      const el = document.getElementById(id);
+      navigator.clipboard.writeText(el.textContent.trim());
+      showToast('Prompt copied!');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+  </script>
+
+</body>
+</html>

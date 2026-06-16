@@ -82,16 +82,25 @@ router.delete('/sellers/:id', (req, res) => {
 router.get('/settings', (req, res) => {
   res.json({
     scan_interval_hours: scheduler.getIntervalHours(),
+    scan_daily_hour: scheduler.getScanDailyHour(),
     keepa_configured: keepa.hasKeepaKey(),
   });
 });
 
 router.post('/settings', (req, res) => {
-  const { scan_interval_hours } = req.body || {};
+  const { scan_interval_hours, scan_daily_hour } = req.body || {};
   if (scan_interval_hours != null) {
     db.setSetting('scan_interval_hours', scan_interval_hours);
-    scheduler.applyIntervalChange();
   }
+  if (scan_daily_hour !== undefined) {
+    if (scan_daily_hour === null) {
+      db.setSetting('scan_daily_hour', null);
+    } else {
+      const h = Number(scan_daily_hour);
+      if (Number.isFinite(h) && h >= 0 && h <= 23) db.setSetting('scan_daily_hour', h);
+    }
+  }
+  scheduler.applyIntervalChange();
   res.json({ ok: true });
 });
 

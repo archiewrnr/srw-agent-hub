@@ -36,6 +36,14 @@ export function getIntervalHours() {
   return Math.max(1, Math.min(24, Number.isFinite(hours) ? hours : 6));
 }
 
+/** Returns the fixed hour-of-day (0-23) for a daily scheduled scan, or null if interval mode is used. */
+export function getScanDailyHour() {
+  const val = db.getSetting('scan_daily_hour');
+  if (val === null || val === undefined) return null;
+  const h = Number(val);
+  return Number.isFinite(h) && h >= 0 && h <= 23 ? h : null;
+}
+
 /** Runs a scan cycle for one category and updates its status. Assumes the caller holds the run lock. */
 async function runCategory(categoryKey) {
   const status = statusByCategory[categoryKey];
@@ -50,7 +58,7 @@ async function runCategory(categoryKey) {
   } finally {
     status.lastRun = Date.now();
     status.running = false;
-    status.nextRun = nextCronRunTime(getIntervalHours());
+    status.nextRun = nextCronRunTime();
     runningCategory = null;
   }
 }
@@ -78,9 +86,16 @@ export async function triggerScan(categoryKey) {
   return { started: true };
 }
 
-// Next hour-of-day boundary that is a multiple of `h` and strictly in the future.
-function nextCronRunTime(h) {
+// Returns the next scheduled run time in ms.
+function nextCronRunTime() {
+  const dailyHour = getScanDailyHour();
   const now = new Date();
+  if (dailyHour !== null) {
+    const next = new Date(now.getFullYear(), now.getMonth(), now.getDate(), dailyHour, 0, 0, 0);
+    if (next <= now) next.setDate(next.getDate() + 1);
+    return next.getTime();
+  }
+  const h = getIntervalHours();
   const next = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), 0, 0, 0);
   while (next.getHours() % h !== 0 || next <= now) {
     next.setHours(next.getHours() + 1);
@@ -90,8 +105,11 @@ function nextCronRunTime(h) {
 
 function scheduleTask() {
   if (cronTask) cronTask.stop();
-  const h = getIntervalHours();
-  cronTask = cron.schedule(`0 */${h} * * *`, async () => {
+  const dailyHour = getScanDailyHour();
+  const cronExpr = dailyHour !== null
+    ? `0 ${dailyHour} * * *`
+    : `0 */${getIntervalHours()} * * *`;
+  cronTask = cron.schedule(cronExpr, async () => {
     if (runningCategory != null) return;
     for (const key of Object.keys(CATEGORIES)) {
       await runCategory(key);
@@ -102,7 +120,7 @@ function scheduleTask() {
 /** Starts the recurring scan loop based on the configured interval. */
 export function startScheduler() {
   scheduleTask();
-  const nextRun = nextCronRunTime(getIntervalHours());
+  const nextRun = nextCronRunTime();
   for (const status of Object.values(statusByCategory)) {
     status.nextRun = nextRun;
   }
@@ -111,7 +129,7 @@ export function startScheduler() {
 /** Re-applies the schedule after the interval setting changes. */
 export function applyIntervalChange() {
   scheduleTask();
-  const nextRun = nextCronRunTime(getIntervalHours());
+  const nextRun = nextCronRunTime();
   for (const status of Object.values(statusByCategory)) {
     status.nextRun = nextRun;
   }

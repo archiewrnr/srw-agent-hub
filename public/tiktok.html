@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI TikTok Content — SRW Agent Hub</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    .op-nav {
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      height: 46px;
+      border-bottom: 2px solid #d4a017;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .op-nav-brand { font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: #fff; margin-right: 20px; white-space: nowrap; flex-shrink: 0; }
+    .op-nav-tab { display: flex; align-items: center; gap: 5px; padding: 0 12px; height: 46px; color: rgba(255,255,255,.55); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; flex-shrink: 0; }
+    .op-nav-tab:hover { color: #fff; }
+    .op-nav-tab.active { color: #ee2d55; border-bottom-color: #ee2d55; }
+
+    /* ── Header ── */
+    .tt-header {
+      background: linear-gradient(180deg, #111 0%, #000 100%);
+      padding: 24px 16px 20px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .tt-header-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .tt-logo {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, #ee2d55 0%, #010101 50%, #69c9d0 100%);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; flex-shrink: 0;
+    }
+    .tt-title h1 { font-size: 20px; font-weight: 800; }
+    .tt-title p { font-size: 12px; color: #888; margin-top: 2px; }
+    .tt-stats {
+      display: flex;
+      gap: 12px;
+    }
+    .tt-stat {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 10px 14px;
+      flex: 1;
+      text-align: center;
+    }
+    .tt-stat .tsv { font-size: 22px; font-weight: 900; color: #ee2d55; }
+    .tt-stat .tsl { font-size: 9px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: .07em; margin-top: 2px; }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #555;
+      padding: 18px 16px 8px;
+    }
+
+    /* ── Day grid ── */
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+      padding: 0 16px 40px;
+    }
+
+    @media (max-width: 400px) {
+      .day-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .day-card {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .15s, transform .15s;
+      position: relative;
+    }
+    .day-card:hover { border-color: #ee2d55; transform: scale(1.02); }
+    .day-card.today { border-color: #ee2d55; background: #150008; }
+    .day-card.recent { border-color: #333; }
+
+    .day-thumb {
+      aspect-ratio: 9/16;
+      max-height: 130px;
+      background: linear-gradient(135deg, #1a0010 0%, #0a0a1a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: #333;
+      overflow: hidden;
+    }
+    .day-card.today .day-thumb { background: linear-gradient(135deg, #2a0010 0%, #150020 100%); color: #ee2d55; }
+
+    .day-info {
+      padding: 8px 10px 10px;
+    }
+    .day-num {
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .day-date {
+      font-size: 10px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .day-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 20px;
+    }
+    .badge-new { background: #ee2d55; color: #fff; }
+    .badge-recent { background: rgba(105,201,208,.2); color: #69c9d0; border: 1px solid rgba(105,201,208,.3); }
+    .badge-posted { background: rgba(255,255,255,.06); color: #555; }
+
+    /* ── CTA ── */
+    .drive-cta {
+      margin: 4px 16px 24px;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .drive-cta a {
+      display: inline-block;
+      background: #ee2d55;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+    .drive-cta p { font-size: 12px; color: #888; }
+
+    /* ── Video count dots ── */
+    .video-dots { display: flex; gap: 3px; margin-top: 5px; flex-wrap: wrap; }
+    .vdot { width: 5px; height: 5px; border-radius: 50%; background: #333; }
+    .vdot.filled { background: #ee2d55; }
+  </style>
+</head>
+<body>
+
+  <nav class="op-nav">
+    <span class="op-nav-brand">SRW</span>
+    <a href="home.html" class="op-nav-tab">Hub</a>
+    <a href="index.html" class="op-nav-tab">Private Label</a>
+    <a href="tiktok.html" class="op-nav-tab active">TikTok</a>
+    <a href="moonbites.html" class="op-nav-tab">MoonBites</a>
+    <a href="/jarvis/" class="op-nav-tab">JARVIS</a>
+    <a href="launch-plan.html" class="op-nav-tab">Launch Plan</a>
+    <a href="designs.html" class="op-nav-tab">Designs</a>
+    <a href="settings.html" class="op-nav-tab">Settings</a>
+  </nav>
+
+  <!-- ── Header ── -->
+  <div class="tt-header">
+    <div class="tt-header-top">
+      <div class="tt-logo">🎬</div>
+      <div class="tt-title">
+        <h1>AI TikTok Content</h1>
+        <p>Jessie AI Character · Daily 9:16 Episodes</p>
+      </div>
+    </div>
+    <div class="tt-stats">
+      <div class="tt-stat">
+        <div class="tsv">34</div>
+        <div class="tsl">Days Generated</div>
+      </div>
+      <div class="tt-stat">
+        <div class="tsv" id="videosToday">–</div>
+        <div class="tsl">New Today</div>
+      </div>
+      <div class="tt-stat">
+        <div class="tsv">Daily</div>
+        <div class="tsl">Schedule</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Quick CTA ── -->
+  <div class="drive-cta">
+    <p>All videos ready in Google Drive. Click a day to open and download for posting.</p>
+    <a href="https://drive.google.com/drive/folders/1cEUEXW1plkapwaq1VyqCC05tYnUk4hG_" target="_blank" rel="noopener">Open Full TikTok AI Folder →</a>
+  </div>
+
+  <!-- ── Days grid ── -->
+  <div class="section-label">Content — Newest First</div>
+
+  <div class="day-grid" id="dayGrid">
+    <!-- Injected by JS -->
+  </div>
+
+  <script>
+    // All 34 days of content — mapped from Google Drive (sorted newest first)
+    const days = [
+      { day: 34, date: '2026-06-16', folderId: '1qVzbpqJm_g11bvJc0JfWu1lJqX-w3zI6', videos: 0 },
+      { day: 33, date: '2026-06-15', folderId: '1QTwZR3Q-cLYGNMTL9rb66LNpiNVPS1ze', videos: 0 },
+      { day: 32, date: '2026-06-14', folderId: '11HqJ3zT0a9Oik-IQ0la_MZ-WjOu0MBQ9', videos: 0 },
+      { day: 31, date: '2026-06-13', folderId: '1WF3m32FydTKRxyEQLUSc5UGV2nFz2HN7', videos: 0 },
+      { day: 30, date: '2026-06-12', folderId: '1CcQyKoVVm_sbddQcVZjCjsxrO8z4qAU_', videos: 0 },
+      { day: 29, date: '2026-06-11', folderId: '1Z9p4pI1u0PYRTJrBic5NgGMJvhdCMSFI', videos: 0 },
+      { day: 28, date: '2026-06-10', folderId: '1d9yzXs_zuNJJ0_xSRnC81lC2kNhlt_vB', videos: 0 },
+      { day: 27, date: '2026-06-09', folderId: '1lvy0w2wPdej9-lUyBr9auBFVaS4VOCMF', videos: 0 },
+      { day: 26, date: '2026-06-08', folderId: '1TpeIOQmRBxVIcBgwzME-itdjyjTs-Iqg', videos: 0 },
+      { day: 25, date: '2026-06-07', folderId: '1Yfj2kCxsUCy6vmjRq5ffhNZU1K145V9s', videos: 0 },
+      { day: 24, date: '2026-06-06', folderId: '1oApxRk5_-dfOOycrXNW470fW9J-PQBYN', videos: 0 },
+      { day: 23, date: '2026-06-05', folderId: '1Thrw3F5O66258O81W8xXNKVp0KcIlkKQ', videos: 0 },
+      { day: 22, date: '2026-06-04', folderId: '1d5Ew1TanN8g47ia2hiefL9pKhfn11A6l', videos: 0 },
+      { day: 21, date: '2026-06-02', folderId: '10aJAtJnBh2qS8JnsNnG5AV4twbysjUwG', videos: 0 },
+      { day: 20, date: '2026-05-31', folderId: '1s-yAP_nlDkMPJHHoFwOD8OrlDGTI9dLZ', videos: 0 },
+      { day: 19, date: '2026-05-30', folderId: '13fILD8YMseyz4TA2jlgIGdiH0cjSPqta', videos: 0 },
+      { day: 18, date: '2026-05-29', folderId: '1KObejkyMDHuY8-AT4JgH2gZ_aB6CMfV0', videos: 0 },
+      { day: 17, date: '2026-05-28', folderId: '1xu85gzCYWAgZU7FfLKwiuWgCzC3H_08I', videos: 5 },
+      { day: 16, date: '2026-05-27', folderId: '1lEYM21yceg0PrKq3ugUwoV2Or2sp6uZM', videos: 0 },
+      { day: 15, date: '2026-05-25', folderId: '1FhLG5V-6HHymnP4Vw5CG4uACAwUYbJ7z', videos: 5 },
+      { day: 14, date: '2026-05-24', folderId: '1SxPQJB7xjdmFHuAigdQotLrTXd3u2aRR', videos: 0 },
+      { day: 13, date: '2026-05-23', folderId: '1Whq8FBhu3VrVmETOCefdH9gHiKqMZU3U', videos: 0 },
+      { day: 12, date: '2026-05-22', folderId: '1L65HI553EP7gSCA4uJDhcHMiQg0BKWLU', videos: 0 },
+      { day: 11, date: '2026-05-20', folderId: '1lnlF-xQPgBV3YLlg7b5_2dqAON51B1Wi', videos: 0 },
+      { day: 10, date: '2026-05-19', folderId: '1wFHYX6rRPO-sGf8KIK8aJ81YBvziVIgR', videos: 1 },
+      { day: 9,  date: '2026-05-18', folderId: '1ew5PFaTD6WxiTp5ZWlDfIiwH9S55jHjz', videos: 3 },
+      { day: 8,  date: '2026-05-17', folderId: '1UPQuTXBIrlPwphL6OURiyatFWnbmBUer', videos: 3 },
+      { day: 7,  date: '2026-05-16', folderId: '1mIgR-ePVphCy6zkdFRnk6TZ9XBtbU_B0', videos: 1 },
+      { day: 6,  date: '2026-05-15', folderId: '1t4TwdQQfTMlRy4svBzomUYIsR6BCiW3z', videos: 0 },
+      { day: 5,  date: '2026-05-14', folderId: '1kzthlhKf3uqVHxETJRu4tReFiIWCrak9', videos: 0 },
+      { day: 4,  date: '2026-05-14', folderId: '1FBzispQiqr0JS9zC2hvwuCuyryaXflVq', videos: 1 },
+    ];
+
+    const todayStr = new Date().toISOString().slice(0,10);
+    const yesterdayStr = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+
+    // Update today's video count stat
+    const todayEntry = days.find(d => d.date === todayStr);
+    document.getElementById('videosToday').textContent = todayEntry?.videos ?? '0';
+
+    function fmtDate(str) {
+      const d = new Date(str + 'T12:00:00Z');
+      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    }
+
+    function badgeFor(d) {
+      if (d.date === todayStr) return '<span class="day-badge badge-new">NEW TODAY</span>';
+      if (d.date === yesterdayStr) return '<span class="day-badge badge-recent">YESTERDAY</span>';
+      if (d.date >= '2026-06-10') return '<span class="day-badge badge-recent">RECENT</span>';
+      return '<span class="day-badge badge-posted">POSTED</span>';
+    }
+
+    function dotsHtml(n) {
+      if (!n) return '';
+      const total = Math.max(n, 3);
+      return '<div class="video-dots">' +
+        Array.from({length: total}, (_, i) =>
+          `<span class="vdot${i < n ? ' filled' : ''}"></span>`
+        ).join('') +
+        '</div>';
+    }
+
+    function cardClass(d) {
+      if (d.date === todayStr) return 'day-card today';
+      if (d.date >= '2026-06-09') return 'day-card recent';
+      return 'day-card';
+    }
+
+    const grid = document.getElementById('dayGrid');
+    grid.innerHTML = days.map(d => `
+      <a class="${cardClass(d)}"
+         href="https://drive.google.com/drive/folders/${d.folderId}"
+         target="_blank" rel="noopener">
+        ${badgeFor(d)}
+        <div class="day-thumb">▶</div>
+        <div class="day-info">
+          <div class="day-num">Day ${d.day}</div>
+          <div class="day-date">${fmtDate(d.date)}</div>
+          ${dotsHtml(d.videos)}
+        </div>
+      </a>
+    `).join('');
+  </script>
+</body>
+</html>
