@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MoonBites Ad Generator — SRW</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#d4a017" />
   <link rel="stylesheet" href="style.css" />
   <style>
     * { box-sizing: border-box; }
@@ -334,12 +336,71 @@
     </div>
 
     <!-- Gallery -->
-    <p class="sl">Generated Ads · Gallery</p>
-    <div class="gallery-empty" id="gallery">
-      <h3>No ads generated yet</h3>
-      <p>Click "Generate with Higgsfield" on any template above, or ask Claude directly in the chat.<br>Generated images will appear here once created.</p>
-      <code>Try: "Generate the 3AM Hook ad for MoonBites"</code>
+    <p class="sl">Generated Ads · Gallery — 5 Live 4K Ads</p>
+    <div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:40px;">
+
+      <!-- Ad 1: Clean White Hero -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190601_f2f11102-b1fa-4e22-a66e-c08ed233ffc3.png"
+          alt="MoonBites Ad 1 — Clean White Hero"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:4px;">Static · Grunns-inspired</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Clean White Hero</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Product-only on white. Star gummies scattered. Studio lighting.</div>
+        </div>
+      </div>
+
+      <!-- Ad 2: Midnight Blue Dramatic -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190605_b14b3c96-2204-4b14-9c56-41a3991d614f.png"
+          alt="MoonBites Ad 2 — Midnight Blue Dramatic"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:4px;">Static · Ritual-inspired</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Midnight Sky</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Purple/gold glow, constellation patterns, luxury aesthetic.</div>
+        </div>
+      </div>
+
+      <!-- Ad 3: Botanical Flat-Lay -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190610_41b0dcd7-ce25-473a-90f0-3160891ac348.png"
+          alt="MoonBites Ad 3 — Botanical Flat-Lay"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:4px;">Static · AG1-inspired</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Botanical Flat-Lay</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Chamomile, lavender, strawberries on linen. Golden-hour light.</div>
+        </div>
+      </div>
+
+      <!-- Ad 4: Ingredient Explosion -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190615_947ed374-139a-4510-b6c0-f9117d853558.png"
+          alt="MoonBites Ad 4 — Ingredient Explosion"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#ef4444;margin-bottom:4px;">Static · Scroll-stopper</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Ingredient Explosion</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Botanicals bursting outward. Navy vignette. Thumb-stopping energy.</div>
+        </div>
+      </div>
+
+      <!-- Ad 5: Cosy Bedside Lifestyle -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190618_85908ed1-3412-49cf-a59d-69695f638ab6.png"
+          alt="MoonBites Ad 5 — Cosy Bedside Lifestyle"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:4px;">Static · Lifestyle / Aspirational</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Cosy Night Routine</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Bedside table, warm lamp, herbal tea. Emotion over product specs.</div>
+        </div>
+      </div>
+
     </div>
+    <p style="font-size:11px;color:rgba(255,255,255,0.28);text-align:center;margin-bottom:40px;">5 ads generated · Higgsfield Nano Banana Pro 4K 1:1 · Inspired by Grunns Greens, AG1, Ritual Vitamins</p>
 
   </main>
 

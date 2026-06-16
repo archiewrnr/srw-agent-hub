@@ -1,0 +1,22 @@
+{
+  "name": "SRW Agent Hub",
+  "short_name": "SRW Hub",
+  "description": "Earth & Essence operator command centre — Private Label, MoonBites, TikTok, JARVIS",
+  "start_url": "/home.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#d4a017",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/brand/earth-essence-logo.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    },
+    {
+      "src": "/brand/earth-essence-logo.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
+    }
+  ]
+}
