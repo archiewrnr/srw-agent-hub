@@ -7,6 +7,4 @@ data
 tmp-*.json
 packaging-designs
 moonbites-ref.jpg
-public/designs/*.png
-public/designs/*.jpg
-public/designs/*.webp
+# design images included in build

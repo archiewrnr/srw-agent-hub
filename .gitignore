@@ -4,8 +4,6 @@ data/
 *.log
 .claude/
 tmp-*.json
-public/designs/*.png
-public/designs/*.jpg
-public/designs/*.webp
+# design images now tracked (compressed to web size)
 packaging-designs/
 moonbites-ref.jpg
