@@ -1,0 +1,19 @@
+{
+  "name": "earth-essence-opportunity-finder",
+  "version": "1.0.0",
+  "description": "Local product-opportunity sourcing dashboard for Earth & Essence (Amazon UK private label research)",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "scan": "node -e \"import('./src/scanner.js').then(m => m.runScanCycle('earth_essence').then(() => process.exit(0)))\"",
+    "scan:pure-pleasure": "node -e \"import('./src/scanner.js').then(m => m.runScanCycle('pure_pleasure').then(() => process.exit(0)))\""
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3",
+    "playwright": "^1.47.0"
+  }
+}

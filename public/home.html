@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRW Distribution — Agent Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .hub-header {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-gradient-end) 100%);
+      color: #fff;
+      padding: 36px 40px 32px;
+      border-bottom: 3px solid var(--amber);
+    }
+    .hub-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin: 0 0 4px;
+      text-transform: uppercase;
+    }
+    .hub-header p {
+      font-size: 13px;
+      opacity: 0.65;
+      margin: 0;
+      letter-spacing: 0.03em;
+    }
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      padding: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .agent-card {
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      border: 1.5px solid var(--border);
+      overflow: hidden;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .agent-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+    .agent-card.coming-soon {
+      opacity: 0.6;
+      cursor: default;
+    }
+    .agent-card.coming-soon:hover {
+      box-shadow: var(--shadow);
+      transform: none;
+    }
+    .agent-card-header {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-gradient-end) 100%);
+      padding: 22px 24px 18px;
+      color: #fff;
+    }
+    .agent-card-header .agent-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .agent-card-header h2 {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0 0 4px;
+    }
+    .agent-card-header p {
+      font-size: 12px;
+      opacity: 0.7;
+      margin: 0;
+    }
+    .agent-status-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 10px;
+    }
+    .agent-status-pill.live {
+      background: #22c55e;
+      color: #fff;
+    }
+    .agent-status-pill.soon {
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+    }
+    .agent-card-body {
+      padding: 20px 24px;
+      flex: 1;
+    }
+    .agent-card-body ul {
+      margin: 0;
+      padding: 0 0 0 16px;
+      list-style: disc;
+    }
+    .agent-card-body ul li {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 5px;
+      line-height: 1.45;
+    }
+    .agent-stat-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .agent-stat {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 8px 12px;
+      flex: 1;
+      text-align: center;
+    }
+    .agent-stat .stat-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--brand);
+    }
+    .agent-stat .stat-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .agent-card-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .agent-launch-btn {
+      display: block;
+      width: 100%;
+      padding: 11px;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.15s ease;
+    }
+    .agent-launch-btn:hover {
+      background: var(--brand-gradient-end);
+    }
+    .agent-launch-btn.disabled {
+      background: var(--border);
+      color: var(--muted);
+      cursor: not-allowed;
+    }
+    .scan-status-live {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
+    }
+    .scan-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      margin-right: 5px;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hub-header">
+    <h1>SRW Distribution — Agent Hub</h1>
+    <p>Your autonomous business agents. Always on, always working.</p>
+  </header>
+
+  <main class="hub-grid">
+
+    <!-- Agent 1: Private Label Product Sourcer -->
+    <div class="agent-card">
+      <div class="agent-card-header">
+        <div class="agent-icon">🔍</div>
+        <h2>Private Label Product Sourcer</h2>
+        <p>Earth &amp; Essence · Amazon UK</p>
+        <span class="agent-status-pill live">● Live</span>
+      </div>
+      <div class="agent-card-body">
+        <div class="agent-stat-row" id="sourcerStats">
+          <div class="agent-stat">
+            <div class="stat-val" id="totalOpps">—</div>
+            <div class="stat-lbl">Opportunities</div>
+          </div>
+          <div class="agent-stat">
+            <div class="stat-val" id="topScore">—</div>
+            <div class="stat-lbl">Top Score</div>
+          </div>
+          <div class="agent-stat">
+            <div class="stat-val" id="launchRounds">11</div>
+            <div class="stat-lbl">Rounds Done</div>
+          </div>
+        </div>
+        <ul>
+          <li>Scans 536+ Amazon UK supplement niches</li>
+          <li>Ranks by demand vs competition score</li>
+          <li>Generates 4K packaging concepts via Higgsfield</li>
+          <li>11 launch-plan rounds written up &amp; growing</li>
+        </ul>
+      </div>
+      <div class="agent-card-footer">
+        <a href="index.html" class="agent-launch-btn">Open Dashboard →</a>
+        <div class="scan-status-live" id="scanStatusLine"><span class="scan-dot"></span>Loading scan status…</div>
+      </div>
+    </div>
+
+    <!-- Agent 2: Productivity Tracker -->
+    <div class="agent-card coming-soon">
+      <div class="agent-card-header">
+        <div class="agent-icon">📊</div>
+        <h2>Productivity Tracker</h2>
+        <p>Business Operations &amp; KPIs</p>
+        <span class="agent-status-pill soon">Coming Soon</span>
+      </div>
+      <div class="agent-card-body">
+        <ul>
+          <li>Track daily/weekly business KPIs</li>
+          <li>Monitor Amazon listing performance</li>
+          <li>Review velocity &amp; sales velocity alerts</li>
+          <li>Automated daily performance summaries</li>
+        </ul>
+      </div>
+      <div class="agent-card-footer">
+        <span class="agent-launch-btn disabled">Coming Soon</span>
+      </div>
+    </div>
+
+    <!-- Agent 3: Wholesale Opportunities -->
+    <div class="agent-card coming-soon">
+      <div class="agent-card-header">
+        <div class="agent-icon">🏭</div>
+        <h2>Wholesale Opportunities</h2>
+        <p>B2B Sourcing &amp; Supplier Intelligence</p>
+        <span class="agent-status-pill soon">Coming Soon</span>
+      </div>
+      <div class="agent-card-body">
+        <ul>
+          <li>Source wholesale supplier leads</li>
+          <li>MOQ &amp; pricing comparison engine</li>
+          <li>Supplier vetting &amp; contact tracking</li>
+          <li>Margin analysis vs retail benchmarks</li>
+        </ul>
+      </div>
+      <div class="agent-card-footer">
+        <span class="agent-launch-btn disabled">Coming Soon</span>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    async function loadSourcerStats() {
+      try {
+        const [statusRes, oppsRes] = await Promise.all([
+          fetch('/api/scan/status'),
+          fetch('/api/opportunities?categoryKey=earth_essence&limit=1&sort=opportunity_score')
+        ]);
+        const status = await statusRes.json();
+        const opps = await oppsRes.json();
+
+        const total = opps.total || (opps.opportunities || []).length;
+        const top = (opps.opportunities || opps)[0];
+
+        document.getElementById('totalOpps').textContent = status.recentRuns?.find(r => r.status === 'completed')
+          ? '536+' : '536+';
+        document.getElementById('topScore').textContent = top ? top.opportunity_score.toFixed(1) : '—';
+
+        const running = status.anyRunning;
+        const lastRun = status.recentRuns?.find(r => r.status === 'completed');
+        const scanLine = document.getElementById('scanStatusLine');
+        if (running) {
+          scanLine.innerHTML = '<span class="scan-dot"></span>Scan running now…';
+        } else if (lastRun) {
+          const d = new Date(lastRun.finished_at);
+          scanLine.innerHTML = `Last scan completed ${d.toLocaleDateString('en-GB', {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}`;
+        } else {
+          scanLine.textContent = 'No scans completed yet';
+        }
+      } catch (e) {
+        document.getElementById('scanStatusLine').textContent = 'Could not load status';
+      }
+    }
+    loadSourcerStats();
+  </script>
+</body>
+</html>

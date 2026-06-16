@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Earth &amp; Essence Opportunity Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1 id="brandTitle">Earth &amp; Essence</h1>
+      <p id="brandTagline">Settings</p>
+    </div>
+    <div class="category-toggle" id="categoryToggle"></div>
+    <a href="designs.html" class="settings-link">🎨 Packaging Designs</a>
+    <a href="index.html" class="settings-link">&larr; Back to dashboard</a>
+  </header>
+
+  <main class="settings-main">
+    <section class="panel">
+      <h2>Scan Interval</h2>
+      <p>How often the background scan loop runs (1&ndash;24 hours).</p>
+      <input type="number" id="intervalInput" min="1" max="24" />
+      <button id="saveIntervalBtn">Save</button>
+      <p id="intervalSaved" class="hint"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Tracked Storefronts</h2>
+      <p>Amazon UK seller IDs scanned every cycle.</p>
+      <ul id="sellerList"></ul>
+      <div class="add-row">
+        <input type="text" id="newSellerId" placeholder="Seller ID (e.g. A1234567890123)" />
+        <input type="text" id="newSellerLabel" placeholder="Label (optional)" />
+        <button id="addSellerBtn">Add</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Keepa API</h2>
+      <p id="keepaStatus">Checking…</p>
+      <p class="hint">Set <code>KEEPA_API_KEY</code> in the <code>.env</code> file (project root) and restart the server to enable Keepa-powered demand data (sales rank &amp; review history).</p>
+    </section>
+  </main>
+
+  <script src="settings.js"></script>
+</body>
+</html>

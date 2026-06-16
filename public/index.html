@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Earth &amp; Essence — Opportunity Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a href="home.html" style="color:rgba(255,255,255,0.55);font-size:11px;font-weight:600;letter-spacing:0.05em;text-decoration:none;display:block;margin-bottom:2px;">← AGENT HUB</a>
+      <h1 id="brandTitle">Earth &amp; Essence</h1>
+      <p id="brandTagline">Private Label Opportunity Finder</p>
+    </div>
+    <div class="category-toggle" id="categoryToggle"></div>
+    <div class="status-bar">
+      <span id="statusText">Loading status…</span>
+      <button id="runScanBtn">Run Scan Now</button>
+      <a href="launch-plan.html" class="settings-link">📋 Launch Plan</a>
+      <a href="designs.html" class="settings-link">🎨 Packaging Designs</a>
+      <a href="settings.html" class="settings-link">Settings</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="new-work-section">
+      <div class="new-work-header">
+        <h2>🆕 NEW WORK</h2>
+        <span class="new-work-sub">Updated daily — what's changed since you last checked</span>
+      </div>
+      <div id="newWorkList" class="new-work-list"></div>
+    </section>
+
+    <section class="my-products-section">
+      <h2>Already Launched</h2>
+      <div id="myProductsList" class="my-products-list"></div>
+    </section>
+
+    <section class="priority-section">
+      <h2>🎯 Top 3 Priorities — Easiest Wins, Highest Sales Potential</h2>
+      <div id="priorityList" class="priority-list"></div>
+    </section>
+
+    <div class="toolbar">
+      <div class="toolbar-controls">
+        <label>Sort by:
+          <select id="sortSelect">
+            <option value="opportunity_score">Opportunity Score (best first)</option>
+            <option value="demand_score">Demand</option>
+            <option value="competition_score">Competition (lowest first)</option>
+            <option value="updated_at">Recently Updated</option>
+          </select>
+        </label>
+        <input type="search" id="filterInput" placeholder="Filter by keyword…" />
+      </div>
+      <span id="resultCount"></span>
+    </div>
+    <div id="opportunityList" class="opportunity-list">
+      <p class="empty-state">No opportunities yet. Click "Run Scan Now" to start sourcing.</p>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
