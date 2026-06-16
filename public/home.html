@@ -10,66 +10,84 @@
   <style>
     * { box-sizing: border-box; }
     body { background: #0b0f1a; margin: 0; font-family: system-ui, -apple-system, sans-serif; color: #fff; }
-    main { max-width: 960px; margin: 0 auto; padding: 36px 24px 72px; }
+    main { max-width: 980px; margin: 0 auto; padding: 28px 20px 80px; }
 
-    /* ── NEW WORK hero ── */
-    .nw-hero { margin-bottom: 10px; }
-    .nw-eyebrow {
-      font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
-      color: #d4a017; margin: 0 0 10px;
-    }
-    .nw-headline {
-      font-size: 42px; font-weight: 900; color: #fff; margin: 0 0 6px; letter-spacing: -0.02em; line-height: 1.05;
-    }
-    .nw-date { font-size: 13px; color: rgba(255,255,255,0.35); margin: 0 0 28px; }
+    /* ── Section labels ── */
+    .sl { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin: 0 0 14px; display: block; }
 
-    /* ── Status strip ── */
-    .status-strip { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
-    .sc {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px; padding: 8px 14px; font-size: 12px; display: flex; align-items: center; gap: 7px;
+    /* ═══════════════════════════════
+       SECTION 1 — UPDATES BANNER
+    ═══════════════════════════════ */
+    .updates-bar {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1.5px solid #d4a017;
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    .sc .v { font-weight: 800; color: #fff; }
-    .sc .l { color: rgba(255,255,255,0.4); }
-    .sc-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; flex-shrink: 0; animation: pulse 1.5s infinite; }
+    .ub-badge {
+      background: #d4a017; color: #000; font-size: 10px; font-weight: 900;
+      letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px;
+      border-radius: 20px; white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+    }
+    .ub-text { flex: 1; min-width: 200px; }
+    .ub-title { font-size: 15px; font-weight: 800; color: #fff; margin: 0 0 6px; }
+    .ub-items { display: flex; gap: 8px; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; }
+    .ub-item {
+      font-size: 12px; color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.07);
+      border-radius: 6px; padding: 4px 10px;
+    }
+    .ub-item strong { color: #d4a017; }
 
-    /* ── Finding cards ── */
-    .findings { display: grid; grid-template-columns: repeat(auto-fill, minmax(275px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .fc {
+    /* ═══════════════════════════════
+       SECTION 2 — 48 HOUR STATS
+    ═══════════════════════════════ */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 28px; }
+    .stat-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 16px 18px;
+    }
+    .stat-num { font-size: 32px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 4px; }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.4; }
+    .stat-card.gold { border-color: rgba(212,160,23,0.4); background: rgba(212,160,23,0.07); }
+    .stat-card.purple { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.07); }
+    .stat-card.green { border-color: rgba(34,197,94,0.35); background: rgba(34,197,94,0.05); }
+    .stat-card.blue { border-color: rgba(59,130,246,0.4); background: rgba(59,130,246,0.07); }
+
+    /* ═══════════════════════════════
+       SECTION 3 — PRIORITY LAUNCHES
+    ═══════════════════════════════ */
+    .priority-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .pl-card {
       background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.1);
-      border-radius: 14px; padding: 20px 22px;
+      border-radius: 14px; overflow: hidden; text-decoration: none; color: #fff;
+      transition: border-color 0.15s, background 0.15s; display: block;
     }
-    .fc.green { border-color: rgba(34,197,94,0.35); background: rgba(34,197,94,0.05); }
-    .fc.amber { border-color: rgba(212,160,23,0.35); background: rgba(212,160,23,0.05); }
-    .fc.purple { border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.07); }
-    .fc-tag {
-      font-size: 9.5px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 3px 9px; border-radius: 20px; display: inline-block; margin-bottom: 12px;
+    .pl-card:hover { border-color: #d4a017; background: rgba(212,160,23,0.05); }
+    .pl-card img {
+      width: 100%; aspect-ratio: 1; object-fit: cover; display: block;
+      background: #1e293b;
     }
-    .tag-new { background: #22c55e; color: #fff; }
-    .tag-confirmed { background: #d4a017; color: #000; }
-    .tag-watch { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); }
-    .tag-agent { background: #8b5cf6; color: #fff; }
-    .fc-title { font-size: 16px; font-weight: 800; color: #fff; margin: 0 0 8px; }
-    .fc-desc { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.55; margin: 0 0 12px; }
-    .fc-why {
-      font-size: 12px; color: rgba(255,255,255,0.4); border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 10px; margin: 0; line-height: 1.5;
+    .pl-card-body { padding: 14px 16px; }
+    .pl-rank { font-size: 9.5px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: #d4a017; margin-bottom: 4px; }
+    .pl-name { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+    .pl-score { font-size: 12px; color: rgba(255,255,255,0.45); }
+    .pl-tag {
+      display: inline-block; font-size: 9px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 2px 8px; border-radius: 20px; margin-bottom: 6px;
     }
-    .fc-why strong { color: #d4a017; }
-    .fc-btn {
-      display: inline-block; margin-top: 12px; padding: 9px 18px; border-radius: 8px;
-      font-size: 12.5px; font-weight: 700; text-decoration: none; color: #fff; background: #8b5cf6;
-    }
+    .tag-ready { background: #22c55e; color: #fff; }
+    .tag-new { background: #3b82f6; color: #fff; }
+    .tag-design { background: #8b5cf6; color: #fff; }
 
-    /* ── Section label ── */
-    .sl {
-      font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
-      color: rgba(255,255,255,0.28); margin: 0 0 14px;
-    }
-
-    /* ── Agent tiles ── */
-    .agent-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 12px; margin-bottom: 0; }
+    /* ═══════════════════════════════
+       SECTION 4 — AGENT TILES
+    ═══════════════════════════════ */
+    .agent-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 12px; }
     .agent-tile {
       background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
       border-radius: 12px; padding: 16px; text-decoration: none; color: #fff;
@@ -86,9 +104,9 @@
 
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
-    @media(max-width:580px) {
-      .nw-headline { font-size: 28px; }
-      .status-strip { gap: 7px; }
+    @media(max-width:600px) {
+      .updates-bar { flex-direction: column; gap: 10px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -108,57 +126,117 @@
 
   <main>
 
-    <!-- Hero -->
-    <div class="nw-hero">
-      <p class="nw-eyebrow">Earth &amp; Essence · Agent Hub</p>
-      <h1 class="nw-headline">🆕 NEW WORK</h1>
-      <p class="nw-date" id="todayDate">—</p>
+    <!-- ── 1. UPDATES BANNER ── -->
+    <div class="updates-bar">
+      <span class="ub-badge">🆕 New Work</span>
+      <div class="ub-text">
+        <p class="ub-title">What's changed since you last checked — <span id="todayDate">today</span></p>
+        <ul class="ub-items">
+          <li class="ub-item"><strong>Round 13</strong> added — Lymphoria Wellness Drops (score 73.2, avg 16 reviews)</li>
+          <li class="ub-item"><strong>5 MoonBites ads</strong> generated in Higgsfield 4K</li>
+          <li class="ub-item"><strong>PWA installed</strong> — app now works as phone icon</li>
+          <li class="ub-item"><strong>536+</strong> niches tracked · <strong id="topScoreLabel">75.8</strong> top score</li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Status chips -->
-    <div class="status-strip">
-      <div class="sc"><span class="sc-dot"></span><span class="v">536+</span><span class="l">niches scanned</span></div>
-      <div class="sc"><span class="v">12</span><span class="l">rounds written up</span></div>
-      <div class="sc"><span class="v" id="sTopScore">—</span><span class="l">top score</span></div>
-      <div class="sc"><span class="v">06:00</span><span class="l">daily scan</span></div>
-      <div class="sc" id="sLastScan"><span class="v">—</span><span class="l">last ran</span></div>
+    <!-- ── 2. LAST 48 HOURS ── -->
+    <span class="sl">Completed in the last 48 hours</span>
+    <div class="stats-row">
+      <div class="stat-card gold">
+        <div class="stat-num">13</div>
+        <div class="stat-label">Launch plan rounds written up</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-num">34</div>
+        <div class="stat-label">AI TikTok scripts created</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-num">5</div>
+        <div class="stat-label">MoonBites static ads generated (4K)</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-num" id="oppCount">536+</div>
+        <div class="stat-label">Private label opportunities found &amp; scored</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">58</div>
+        <div class="stat-label">Packaging design mockups created</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Agents live and running</div>
+      </div>
     </div>
 
-    <!-- Latest findings in plain English -->
-    <div class="findings">
+    <!-- ── 3. PRIORITY LAUNCHES ── -->
+    <span class="sl">Priority launches — act on these first</span>
+    <div class="priority-grid">
 
-      <div class="fc green">
-        <span class="fc-tag tag-new">Round 12 · Latest find</span>
-        <p class="fc-title">Cayenne Pepper Drops</p>
-        <p class="fc-desc">Two completely different Amazon searches — "pepper drops liquid extract" and "cayenne pepper drops" — both led to the same three small sellers. Same competitors appearing twice = real niche, zero brand dominating it yet. Their biggest seller has around 50 reviews. Your Soursop drops are the exact same bottle format, so you already know the product inside out.</p>
-        <p class="fc-why"><strong>In short:</strong> 400+ people a month are searching for this, three tiny sellers are quietly taking the money, and nobody big has moved in. Classic ground-floor window.</p>
-      </div>
+      <a href="launch-plan.html#milk-thistle" class="pl-card">
+        <img src="/designs/milk-thistle-capsules-4k-v1.jpg" alt="Milk Thistle Capsules packaging" />
+        <div class="pl-card-body">
+          <span class="pl-tag tag-ready">Ready to manufacture</span>
+          <div class="pl-rank">#1 of 536 niches</div>
+          <div class="pl-name">Milk Thistle Capsules</div>
+          <div class="pl-score">Score 75.8 · 42 reviews on the top listing · 3,000+ sold/month</div>
+        </div>
+      </a>
 
-      <div class="fc amber">
-        <span class="fc-tag tag-confirmed">Also Round 12 · Double-confirmed</span>
-        <p class="fc-title">Sacha Inchi Oil</p>
-        <p class="fc-desc">Same double-confirmation pattern — two search terms pointing to the same weak sellers. Sacha inchi is an omega-3 oil from Peru with growing UK interest. The sellers currently listing it are small, poorly branded, and underselling the product. Easy territory for Earth &amp; Essence's premium positioning.</p>
-        <p class="fc-why"><strong>In short:</strong> Proven buyer demand, no credible UK brand has claimed it. Oils are simple to private-label and fit your existing range perfectly.</p>
-      </div>
+      <a href="launch-plan.html#berberine" class="pl-card">
+        <img src="/designs/berberine-complex-v1.jpg" alt="Berberine Complex packaging" />
+        <div class="pl-card-body">
+          <span class="pl-tag tag-ready">Ready to manufacture</span>
+          <div class="pl-rank">#2 of 536 niches</div>
+          <div class="pl-name">Berberine Complex Capsules</div>
+          <div class="pl-score">Score 73.5 · 50 reviews on top listing · 2,000+ sold/month</div>
+        </div>
+      </a>
 
-      <div class="fc">
-        <span class="fc-tag tag-watch">Highest score right now</span>
-        <p class="fc-title" id="topApiTitle">Loading…</p>
-        <p class="fc-desc" id="topApiDesc">Fetching live data from the database…</p>
-        <p class="fc-why" id="topApiWhy"></p>
-      </div>
+      <a href="launch-plan.html" class="pl-card">
+        <img src="/designs/lymphatic-support-capsules-v1-mockup.jpg" alt="Lymphatic Support Capsules" />
+        <div class="pl-card-body">
+          <span class="pl-tag tag-new">Zero-risk line extension</span>
+          <div class="pl-rank">#10 of 536 niches</div>
+          <div class="pl-name">Lymphatic Support Capsules</div>
+          <div class="pl-score">Score 69.1 · Same brand identity as your live drops</div>
+        </div>
+      </a>
 
-      <div class="fc purple">
-        <span class="fc-tag tag-agent">New agent · just built</span>
-        <p class="fc-title">MoonBites Ad Generator</p>
-        <p class="fc-desc">Looks at what's actually working on Meta right now for sleep supplement brands — the scroll-stopping hooks, the ad formats, the copy angles — then rebuilds those same ads with your MoonBites photos using Higgsfield AI. New creative ready to test, without starting from a blank page.</p>
-        <a href="moonbites.html" class="fc-btn">Open Ad Generator →</a>
-      </div>
+      <a href="launch-plan.html" class="pl-card">
+        <img src="/designs/aged-garlic-extract-twin-v1-mockup.jpg" alt="Aged Garlic Extract" />
+        <div class="pl-card-body">
+          <span class="pl-tag tag-design">Design ready</span>
+          <div class="pl-rank">#6 &amp; #9 of 536 niches</div>
+          <div class="pl-name">Aged Garlic Extract — Twin Launch</div>
+          <div class="pl-score">Score 69.9 · 22 reviews on top listing · 700+ sold/month</div>
+        </div>
+      </a>
+
+      <a href="launch-plan.html" class="pl-card">
+        <img src="/designs/sleep-calm-gummies-v1-mockup.jpg" alt="Sleep and Calm Gummies" />
+        <div class="pl-card-body">
+          <span class="pl-tag tag-new">4 niches, 1 product</span>
+          <div class="pl-rank">Round 6 flagship find</div>
+          <div class="pl-name">Sleep &amp; Calm Gummies</div>
+          <div class="pl-score">Captures melatonin, magnesium, passionflower &amp; L-theanine buyers</div>
+        </div>
+      </a>
+
+      <a href="launch-plan.html#rotundus" class="pl-card">
+        <img src="/designs/cyperus-rotundus-oil-v1-apothecary-mockup.jpg" alt="Cyperus Rotundus Oil" />
+        <div class="pl-card-body">
+          <span class="pl-tag tag-ready">5 designs ready</span>
+          <div class="pl-rank">#3 of 536 niches</div>
+          <div class="pl-name">Cyperus Rotundus Oil</div>
+          <div class="pl-score">Score 72.3 · 50% of listings are accessible · easiest entry</div>
+        </div>
+      </a>
 
     </div>
 
-    <!-- Agent tiles -->
-    <p class="sl">All Agents</p>
+    <!-- ── 4. ALL AGENTS ── -->
+    <span class="sl">All agents</span>
     <div class="agent-strip">
 
       <a href="index.html" class="agent-tile">
@@ -171,15 +249,15 @@
       <a href="tiktok.html" class="agent-tile">
         <div class="at-icon">🎬</div>
         <div class="at-name">TikTok Content</div>
-        <div class="at-sub">Jessie AI · 34 days</div>
+        <div class="at-sub">Jessie AI · 34 scripts</div>
         <div class="at-status"><span class="at-dot" style="background:#f87171;"></span><span style="color:#fca5a5;">Live · daily</span></div>
       </a>
 
       <a href="moonbites.html" class="agent-tile">
         <div class="at-icon">🌙</div>
         <div class="at-name">MoonBites Ads</div>
-        <div class="at-sub">Meta · Higgsfield AI</div>
-        <div class="at-status"><span class="at-dot" style="background:#8b5cf6;"></span><span style="color:#c4b5fd;">Ready to run</span></div>
+        <div class="at-sub">5 ads live · Higgsfield 4K</div>
+        <div class="at-status"><span class="at-dot" style="background:#8b5cf6;"></span><span style="color:#c4b5fd;">5 ads generated</span></div>
       </a>
 
       <a href="/jarvis/" class="agent-tile">
@@ -192,72 +270,34 @@
       <a href="launch-plan.html" class="agent-tile">
         <div class="at-icon">📋</div>
         <div class="at-name">Launch Plan</div>
-        <div class="at-sub">12 rounds · growing</div>
-        <div class="at-status"><span class="at-dot"></span><span style="color:#86efac;">Updated</span></div>
+        <div class="at-sub">13 rounds · growing</div>
+        <div class="at-status"><span class="at-dot"></span><span style="color:#86efac;">Updated today</span></div>
       </a>
 
-      <div class="agent-tile dim">
-        <div class="at-icon">🏭</div>
-        <div class="at-name">Wholesale</div>
-        <div class="at-sub">B2B sourcing</div>
-        <div class="at-status"><span class="at-dot off"></span><span style="color:rgba(255,255,255,0.25);">Building soon</span></div>
-      </div>
+      <a href="designs.html" class="agent-tile">
+        <div class="at-icon">🎨</div>
+        <div class="at-name">Designs</div>
+        <div class="at-sub">58 packaging mockups</div>
+        <div class="at-status"><span class="at-dot" style="background:#d4a017;"></span><span style="color:#fcd34d;">58 designs live</span></div>
+      </a>
 
     </div>
 
   </main>
 
   <script>
-    document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+    document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'});
 
-    function fmtTime(ts) {
-      if (!ts) return '—';
-      const d = new Date(ts);
-      const today = new Date(); today.setHours(0,0,0,0);
-      const yesterday = new Date(today); yesterday.setDate(today.getDate()-1);
-      const dt = new Date(ts); dt.setHours(0,0,0,0);
-      const time = d.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
-      if (+dt === +today) return 'Today ' + time;
-      if (+dt === +yesterday) return 'Yesterday ' + time;
-      return d.toLocaleDateString('en-GB', {day:'numeric', month:'short'}) + ' ' + time;
-    }
-
-    async function load() {
-      try {
-        const [sRes, oRes] = await Promise.all([
-          fetch('/api/scan/status'),
-          fetch('/api/opportunities?categoryKey=earth_essence&limit=3&sort=opportunity_score')
-        ]);
-        const status = await sRes.json();
-        const opps = await oRes.json();
-        const list = Array.isArray(opps) ? opps : (opps.opportunities || []);
-        const top = list[0];
-
-        if (top) {
-          document.getElementById('sTopScore').textContent = top.opportunity_score.toFixed(1);
-          const name = top.niche_keyword.replace(/\b\w/g, c => c.toUpperCase());
-          document.getElementById('topApiTitle').textContent = name;
-          const avgRev = top.avg_competitor_reviews ? Math.round(top.avg_competitor_reviews) : null;
-          const acc = top.accessible_listings;
-          let desc = `Top-ranked niche in the full database right now.`;
-          if (avgRev !== null) desc += ` Sellers currently listing it have an average of just ${avgRev} reviews — easily beatable for a new brand.`;
-          if (acc) desc += ` ${acc} of the existing listings are vulnerable on price, reviews, or branding.`;
-          document.getElementById('topApiDesc').textContent = desc;
-          document.getElementById('topApiWhy').innerHTML = `<strong>Score: ${top.opportunity_score.toFixed(1)}/100</strong> — demand is real, the competition is weak.`;
+    fetch('/api/opportunities?categoryKey=earth_essence&limit=1&sort=opportunity_score')
+      .then(r => r.json())
+      .then(data => {
+        const list = Array.isArray(data) ? data : (data.opportunities || []);
+        if (list[0]) {
+          document.getElementById('topScoreLabel').textContent = list[0].opportunity_score.toFixed(1);
+          document.getElementById('oppCount').textContent = '536+';
         }
-
-        const last = status.recentRuns?.find(r => r.status === 'completed');
-        if (last) {
-          document.getElementById('sLastScan').innerHTML = `<span class="v">${fmtTime(last.finished_at)}</span><span class="l">last scan</span>`;
-        }
-      } catch(e) {
-        document.getElementById('topApiTitle').textContent = 'Server offline';
-        document.getElementById('topApiDesc').textContent = 'Start the local server to see live opportunity data.';
-      }
-    }
-
-    load();
-    setInterval(load, 30000);
+      }).catch(() => {});
   </script>
+
 </body>
 </html>
