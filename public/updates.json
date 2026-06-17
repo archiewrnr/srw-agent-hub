@@ -1,6 +1,7 @@
 [
   {
     "date": "2026-06-15",
+    "category": "earth_essence",
     "items": [
       "Live-scored 28 new candidate niches across 3 rounds (glycine, zinc carnosine, black garlic, tongkat ali, mucuna pruriens, magnesium bisglycinate, creatine and more) — ~22 strong finds (score &gt;55) added to the hourly scan rotation.",
       "⭐ Biggest find: a <strong>\"Sleep &amp; Calm Gummies\"</strong> cluster — Melatonin Gummies (65.2), Magnesium Glycinate Gummies (63.1), Passionflower Gummies (60.5) and Glycine Capsules (64.4) all point to one flagship blend SKU that can out-quality 3.6★-4.0★ incumbents.",
@@ -19,37 +20,37 @@
     ],
     "images": [
       {
-        "src": "designs/lymphatic-support-capsules-v1-mockup.png",
+        "src": "designs/lymphatic-support-capsules-v1-mockup.jpg",
         "label": "Lymphatic Support Capsules",
         "link": "designs.html#lymphatic"
       },
       {
-        "src": "designs/aged-garlic-extract-twin-v1-mockup.png",
+        "src": "designs/aged-garlic-extract-twin-v1-mockup.jpg",
         "label": "Aged Garlic Extract — Twin Launch",
         "link": "designs.html#aged-garlic"
       },
       {
-        "src": "designs/sleep-calm-gummies-v1-mockup.png",
+        "src": "designs/sleep-calm-gummies-v1-mockup.jpg",
         "label": "Sleep &amp; Calm Gummies",
         "link": "designs.html#sleep-calm-gummies"
       },
       {
-        "src": "designs/cyperus-rotundus-oil-v1-apothecary-mockup.png",
+        "src": "designs/cyperus-rotundus-oil-v1-apothecary-mockup.jpg",
         "label": "Cyperus Rotundus Oil — Modern Apothecary",
         "link": "designs.html#rotundus"
       },
       {
-        "src": "designs/cyperus-rotundus-oil-v2-spanoir-mockup.png",
+        "src": "designs/cyperus-rotundus-oil-v2-spanoir-mockup.jpg",
         "label": "Cyperus Rotundus Oil — Spa Noir",
         "link": "designs.html#rotundus"
       },
       {
-        "src": "designs/cyperus-rotundus-oil-v4-botanical-mockup.png",
+        "src": "designs/cyperus-rotundus-oil-v4-botanical-mockup.jpg",
         "label": "Cyperus Rotundus Oil — Botanical Editorial",
         "link": "designs.html#rotundus"
       },
       {
-        "src": "designs/mens-health-pumpkin-saw-palmetto-v1-mockup.png",
+        "src": "designs/mens-health-pumpkin-saw-palmetto-v1-mockup.jpg",
         "label": "Pumpkin Seed Oil &amp; Saw Palmetto — \"Earth &amp; Essence Men\"",
         "link": "designs.html#mens-health"
       }

@@ -100,6 +100,7 @@ function switchCategory(key) {
   loadOpportunities();
   loadMyProducts();
   loadStatus();
+  loadUpdates();
 }
 
 async function loadOpportunities() {
@@ -113,7 +114,8 @@ async function loadUpdates() {
   if (!el) return;
   try {
     const res = await fetch('/updates.json', { cache: 'no-store' });
-    const updates = await res.json();
+    const allUpdates = await res.json();
+    const updates = allUpdates.filter((entry) => (entry.category || 'earth_essence') === currentCategory);
     if (!updates.length) {
       el.innerHTML = '<p class="empty-state">No updates yet.</p>';
       return;
