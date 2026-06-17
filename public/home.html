@@ -108,6 +108,26 @@
       .updates-bar { flex-direction: column; gap: 10px; }
       .stats-row { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* ═══════════════════════════════
+       SECTION 3b — PURE PLEASURE
+    ═══════════════════════════════ */
+    .pp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; margin-bottom: 28px; }
+    .pp-card {
+      background: rgba(255,255,255,0.04); border: 1.5px solid rgba(238,45,85,0.25);
+      border-radius: 14px; overflow: hidden; text-decoration: none; color: #fff;
+      transition: border-color 0.15s, background 0.15s; display: block;
+    }
+    .pp-card:hover { border-color: #ee2d55; background: rgba(238,45,85,0.06); }
+    .pp-card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #1e293b; }
+    .pp-card-body { padding: 14px 16px; }
+    .pp-rank { font-size: 9.5px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: #ee2d55; margin-bottom: 4px; }
+    .pp-name { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+    .pp-score { font-size: 12px; color: rgba(255,255,255,0.45); }
+    .pp-placeholder {
+      width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #2a0010 0%, #150020 100%); font-size: 30px; color: rgba(238,45,85,0.5);
+    }
   </style>
 </head>
 <body>
@@ -132,9 +152,9 @@
       <div class="ub-text">
         <p class="ub-title">What's changed since you last checked — <span id="todayDate">today</span></p>
         <ul class="ub-items">
-          <li class="ub-item"><strong>Round 13</strong> added — Lymphoria Wellness Drops (score 73.2, avg 16 reviews)</li>
-          <li class="ub-item"><strong>5 MoonBites ads</strong> generated in Higgsfield 4K</li>
-          <li class="ub-item"><strong>PWA installed</strong> — app now works as phone icon</li>
+          <li class="ub-item"><strong>Round 14</strong> added — Molybdenum Capsules (score 64.8, 14-review lead comp)</li>
+          <li class="ub-item"><strong>15 MoonBites ads</strong> generated in Higgsfield 4K</li>
+          <li class="ub-item"><strong>Pure Pleasure audit</strong> — Anal Beads, lowest competition in category (49.4)</li>
           <li class="ub-item"><strong>536+</strong> niches tracked · <strong id="topScoreLabel">75.8</strong> top score</li>
         </ul>
       </div>
@@ -144,7 +164,7 @@
     <span class="sl">Completed in the last 48 hours</span>
     <div class="stats-row">
       <div class="stat-card gold">
-        <div class="stat-num">13</div>
+        <div class="stat-num">14</div>
         <div class="stat-label">Launch plan rounds written up</div>
       </div>
       <div class="stat-card green">
@@ -152,7 +172,7 @@
         <div class="stat-label">AI TikTok scripts created</div>
       </div>
       <div class="stat-card purple">
-        <div class="stat-num">5</div>
+        <div class="stat-num">15</div>
         <div class="stat-label">MoonBites static ads generated (4K)</div>
       </div>
       <div class="stat-card blue">
@@ -235,6 +255,34 @@
 
     </div>
 
+    <!-- ── 3b. PURE PLEASURE ── -->
+    <span class="sl">❤️ Pure Pleasure — already launched</span>
+    <div class="pp-grid">
+      <a href="https://www.amazon.co.uk/dp/B0FS4FK4KP" target="_blank" rel="noopener" class="pp-card">
+        <img src="https://m.media-amazon.com/images/I/515n9JesknL._AC_SX679_.jpg" alt="PurePleasure Wand Vibrator" />
+        <div class="pp-card-body">
+          <span class="pp-tag" style="display:inline-block;font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-bottom:6px;background:#22c55e;color:#fff;">Live on Amazon</span>
+          <div class="pp-rank">Already launched</div>
+          <div class="pp-name">PurePleasure Wand Vibrator</div>
+          <div class="pp-score" id="ppWandStats">£9.99</div>
+        </div>
+      </a>
+      <a href="https://www.amazon.co.uk/dp/B0FM4LVJ5W" target="_blank" rel="noopener" class="pp-card">
+        <img src="https://m.media-amazon.com/images/I/51KiXgrKMOL._AC_SX679_.jpg" alt="PurePleasure Thrusting Rabbit Vibrator" />
+        <div class="pp-card-body">
+          <span class="pp-tag" style="display:inline-block;font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-bottom:6px;background:#22c55e;color:#fff;">Live on Amazon</span>
+          <div class="pp-rank">Already launched</div>
+          <div class="pp-name">PurePleasure Thrusting Rabbit Vibrator</div>
+          <div class="pp-score" id="ppRabbitStats">£23.99</div>
+        </div>
+      </a>
+    </div>
+
+    <span class="sl">❤️ Pure Pleasure — next launches, ranked by opportunity score</span>
+    <div class="pp-grid" id="ppNextGrid">
+      <p style="color:rgba(255,255,255,0.4);font-size:13px;">Loading…</p>
+    </div>
+
     <!-- ── 4. ALL AGENTS ── -->
     <span class="sl">All agents</span>
     <div class="agent-strip">
@@ -256,8 +304,8 @@
       <a href="moonbites.html" class="agent-tile">
         <div class="at-icon">🌙</div>
         <div class="at-name">MoonBites Ads</div>
-        <div class="at-sub">5 ads live · Higgsfield 4K</div>
-        <div class="at-status"><span class="at-dot" style="background:#8b5cf6;"></span><span style="color:#c4b5fd;">5 ads generated</span></div>
+        <div class="at-sub">15 ads live · Higgsfield 4K</div>
+        <div class="at-status"><span class="at-dot" style="background:#8b5cf6;"></span><span style="color:#c4b5fd;">15 ads generated</span></div>
       </a>
 
       <a href="/jarvis/" class="agent-tile">
@@ -270,7 +318,7 @@
       <a href="launch-plan.html" class="agent-tile">
         <div class="at-icon">📋</div>
         <div class="at-name">Launch Plan</div>
-        <div class="at-sub">13 rounds · growing</div>
+        <div class="at-sub">14 rounds · growing</div>
         <div class="at-status"><span class="at-dot"></span><span style="color:#86efac;">Updated today</span></div>
       </a>
 
@@ -297,6 +345,45 @@
           document.getElementById('oppCount').textContent = '536+';
         }
       }).catch(() => {});
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str ?? '';
+      return div.innerHTML;
+    }
+
+    fetch('/api/my-products?category=pure_pleasure')
+      .then(r => r.json())
+      .then(products => {
+        const wand = products.find(p => p.asin === 'B0FS4FK4KP');
+        const rabbit = products.find(p => p.asin === 'B0FM4LVJ5W');
+        if (wand) document.getElementById('ppWandStats').textContent = `£${wand.current_price} · ${wand.current_rating}★ · ${wand.current_review_count} reviews`;
+        if (rabbit) document.getElementById('ppRabbitStats').textContent = `£${rabbit.current_price} · ${rabbit.current_rating}★ · ${rabbit.current_review_count} reviews`;
+      }).catch(() => {});
+
+    fetch('/api/opportunities?limit=200&category=pure_pleasure')
+      .then(r => r.json())
+      .then(opportunities => {
+        const el = document.getElementById('ppNextGrid');
+        const top = [...opportunities].sort((a, b) => b.opportunity_score - a.opportunity_score).slice(0, 3);
+        if (!top.length) {
+          el.innerHTML = '<p style="color:rgba(255,255,255,0.4);font-size:13px;">No scored opportunities yet.</p>';
+          return;
+        }
+        el.innerHTML = top.map((o, i) => `
+          <a href="designs.html" class="pp-card">
+            <div class="pp-placeholder">❤️</div>
+            <div class="pp-card-body">
+              <span class="pp-tag" style="display:inline-block;font-size:9px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-bottom:6px;background:#3b82f6;color:#fff;">New</span>
+              <div class="pp-rank">#${i + 1} next launch</div>
+              <div class="pp-name">${escapeHtml(o.niche_keyword)}</div>
+              <div class="pp-score">Score ${o.opportunity_score} · Competition ${o.competition_score}</div>
+            </div>
+          </a>
+        `).join('');
+      }).catch(() => {
+        document.getElementById('ppNextGrid').innerHTML = '<p style="color:rgba(255,255,255,0.4);font-size:13px;">Could not load opportunities.</p>';
+      });
   </script>
 
 </body>
