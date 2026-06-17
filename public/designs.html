@@ -29,6 +29,17 @@
   </header>
 
   <main class="designs-main">
+    <section class="design-group" id="pure-pleasure-launched" style="border-color:rgba(238,45,85,0.3);">
+      <h2>❤️ Pure Pleasure — Already Launched</h2>
+      <p class="rationale">No packaging mockups yet for this category — product photography coming soon. The two live SKUs (PurePleasure Wand Vibrator, PurePleasure Thrusting Rabbit Vibrator) are tracked under <a href="index.html">Private Label → Pure Pleasure</a>.</p>
+    </section>
+
+    <section class="design-group" id="pure-pleasure-next" style="border-color:rgba(238,45,85,0.3);">
+      <h2>Pure Pleasure — Next Launches, Ranked by Opportunity Score</h2>
+      <p class="rationale">Live from the scan data — top scoring sex-toy niches not yet launched.</p>
+      <div id="ppNextList"><p style="color:rgba(255,255,255,0.4);font-size:13px;">Loading…</p></div>
+    </section>
+
     <section class="design-group" id="berberine">
       <h2>ðŸš€ Berberine Complex Capsules â€” Next Launch</h2>
       <p class="rationale">New capsule format, highest opportunity score in the dataset (73.5). Burgundy &amp; gold. 10 variants across 5 photography styles â€” pick a hero shot for the main listing image and 1-2 lifestyle/infographic shots for A+ content.</p>
@@ -420,6 +431,37 @@
       </div>
     </section>
   </main>
+
+  <script>
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str ?? '';
+      return div.innerHTML;
+    }
+
+    fetch('/api/opportunities?limit=200&category=pure_pleasure')
+      .then((res) => res.json())
+      .then((opportunities) => {
+        const el = document.getElementById('ppNextList');
+        const top = [...opportunities].sort((a, b) => b.opportunity_score - a.opportunity_score).slice(0, 8);
+        if (!top.length) {
+          el.innerHTML = '<p style="color:rgba(255,255,255,0.4);font-size:13px;">No scored opportunities yet — run a scan from the Private Label tab.</p>';
+          return;
+        }
+        el.innerHTML = '<div class="design-row" style="flex-direction:column;gap:10px;">' + top.map((o, i) => `
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(238,45,85,0.2);border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+            <div>
+              <strong style="color:#fff;">#${i + 1} ${escapeHtml(o.niche_keyword)}</strong>
+              <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px;">${escapeHtml((o.rationale || '').slice(0, 140))}</div>
+            </div>
+            <div style="font-size:20px;font-weight:800;color:#ee2d55;white-space:nowrap;">${o.opportunity_score}</div>
+          </div>
+        `).join('') + '</div>';
+      })
+      .catch(() => {
+        document.getElementById('ppNextList').innerHTML = '<p style="color:rgba(255,255,255,0.4);font-size:13px;">Could not load opportunities.</p>';
+      });
+  </script>
 </body>
 </html>
 
