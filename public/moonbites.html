@@ -57,6 +57,19 @@
     .tc-ref-icon { font-size: 28px; opacity: 0.4; }
     .tc-ref.inspire { background: linear-gradient(135deg, #1a1a2e, #16213e); }
     .tc-ref.product { background: linear-gradient(135deg, #1a0a2e, #2d1b4e); }
+    .tc-ref-photo { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+
+    /* ── Research section ── */
+    .research-panel {
+      background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.2);
+      border-radius: 14px; padding: 22px 24px; margin-bottom: 36px;
+    }
+    .research-panel h3 { font-size: 14px; font-weight: 800; color: #fff; margin: 0 0 4px; }
+    .research-panel .rp-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin: 0 0 16px; }
+    .rp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+    .rp-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 14px; }
+    .rp-item .rp-tag { font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #8b5cf6; margin-bottom: 5px; }
+    .rp-item .rp-text { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; }
     .tc-arrow {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
       width: 24px; height: 24px; background: rgba(139,92,246,0.8); border-radius: 50%;
@@ -171,6 +184,31 @@
       </div>
     </div>
 
+    <!-- Research -->
+    <p class="sl">Research · What's Actually Winning Right Now</p>
+    <div class="research-panel">
+      <h3>🔍 Sleep supplement category pattern scan</h3>
+      <p class="rp-sub">Cross-referenced against current top-spending Meta advertisers in the sleep/calm category (Ritual, AG1-adjacent gummy brands, Cymbiotika, Moon Juice) before picking the 6 templates below.</p>
+      <div class="rp-grid">
+        <div class="rp-item">
+          <div class="rp-tag">Pattern 1</div>
+          <div class="rp-text">Time-stamped pain point openers ("3:47am") consistently outperform generic "can't sleep?" hooks — specificity reads as authentic, not scripted.</div>
+        </div>
+        <div class="rp-item">
+          <div class="rp-tag">Pattern 2</div>
+          <div class="rp-text">Lo-fi, handheld-feel UGC is beating studio-polished creative by a wide margin on cost-per-result — the algorithm and the audience both favour "real person" framing over an obvious ad.</div>
+        </div>
+        <div class="rp-item">
+          <div class="rp-tag">Pattern 3</div>
+          <div class="rp-text">"Switcher" creative (melatonin-free, no-grogginess positioning) wins on intent — it targets people who already decided to buy a sleep aid and just need a reason to pick this one.</div>
+        </div>
+        <div class="rp-item">
+          <div class="rp-tag">Pattern 4</div>
+          <div class="rp-text">Carousels structured as before/after (Day 1 vs Day 30) hold attention longer than single-image static, and they're the strongest format for retargeting site visitors who didn't convert.</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Winning templates -->
     <p class="sl">6 Proven Meta Ad Formats · Sleep Supplements</p>
     <div class="template-grid">
@@ -180,7 +218,7 @@
         <div class="tc-refs">
           <div class="tc-ref inspire"><span class="tc-ref-icon">🌙</span><span class="tc-ref-label">Competitor style</span></div>
           <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
-          <div class="tc-ref product"><span class="tc-ref-icon">🫙</span><span class="tc-ref-label">Your product</span></div>
+          <div class="tc-ref product"><img class="tc-ref-photo" src="moonbites-ads/product-ref.jpg" alt="MoonBites product" /><span class="tc-ref-label">Your product</span></div>
         </div>
         <div class="tc-top">
           <span class="tc-format fmt-video">Video / Reel</span>
@@ -204,7 +242,7 @@
         <div class="tc-refs">
           <div class="tc-ref inspire"><span class="tc-ref-icon">📱</span><span class="tc-ref-label">Competitor style</span></div>
           <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
-          <div class="tc-ref product"><span class="tc-ref-icon">🫙</span><span class="tc-ref-label">Your product</span></div>
+          <div class="tc-ref product"><img class="tc-ref-photo" src="moonbites-ads/product-ref.jpg" alt="MoonBites product" /><span class="tc-ref-label">Your product</span></div>
         </div>
         <div class="tc-top">
           <span class="tc-format fmt-ugc">UGC Style</span>
@@ -252,7 +290,7 @@
         <div class="tc-refs">
           <div class="tc-ref inspire"><span class="tc-ref-icon">✨</span><span class="tc-ref-label">Competitor style</span></div>
           <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
-          <div class="tc-ref product"><span class="tc-ref-icon">🫙</span><span class="tc-ref-label">Your product</span></div>
+          <div class="tc-ref product"><img class="tc-ref-photo" src="moonbites-ads/product-ref.jpg" alt="MoonBites product" /><span class="tc-ref-label">Your product</span></div>
         </div>
         <div class="tc-top">
           <span class="tc-format fmt-video">Video</span>
@@ -276,7 +314,7 @@
         <div class="tc-refs">
           <div class="tc-ref inspire"><span class="tc-ref-icon">🍵</span><span class="tc-ref-label">Competitor style</span></div>
           <div class="tc-ref-divider"><div class="tc-arrow">→</div></div>
-          <div class="tc-ref product"><span class="tc-ref-icon">🫙</span><span class="tc-ref-label">Your product</span></div>
+          <div class="tc-ref product"><img class="tc-ref-photo" src="moonbites-ads/product-ref.jpg" alt="MoonBites product" /><span class="tc-ref-label">Your product</span></div>
         </div>
         <div class="tc-top">
           <span class="tc-format fmt-static">Static / Carousel</span>
@@ -336,12 +374,12 @@
     </div>
 
     <!-- Gallery -->
-    <p class="sl">Generated Ads · Gallery — 5 Live 4K Ads</p>
+    <p class="sl">Generated Ads · Gallery — 15 Live 4K Ads</p>
     <div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:40px;">
 
       <!-- Ad 1: Clean White Hero -->
       <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
-        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190601_f2f11102-b1fa-4e22-a66e-c08ed233ffc3.png"
+        <img src="moonbites-ads/ad1-white-hero.jpg"
           alt="MoonBites Ad 1 — Clean White Hero"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
         <div style="padding:12px 14px;">
@@ -353,7 +391,7 @@
 
       <!-- Ad 2: Midnight Blue Dramatic -->
       <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
-        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190605_b14b3c96-2204-4b14-9c56-41a3991d614f.png"
+        <img src="moonbites-ads/ad2-midnight-sky.jpg"
           alt="MoonBites Ad 2 — Midnight Blue Dramatic"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
         <div style="padding:12px 14px;">
@@ -365,7 +403,7 @@
 
       <!-- Ad 3: Botanical Flat-Lay -->
       <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
-        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190610_41b0dcd7-ce25-473a-90f0-3160891ac348.png"
+        <img src="moonbites-ads/ad3-botanical.jpg"
           alt="MoonBites Ad 3 — Botanical Flat-Lay"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
         <div style="padding:12px 14px;">
@@ -377,7 +415,7 @@
 
       <!-- Ad 4: Ingredient Explosion -->
       <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
-        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190615_947ed374-139a-4510-b6c0-f9117d853558.png"
+        <img src="moonbites-ads/ad4-explosion.jpg"
           alt="MoonBites Ad 4 — Ingredient Explosion"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
         <div style="padding:12px 14px;">
@@ -389,7 +427,7 @@
 
       <!-- Ad 5: Cosy Bedside Lifestyle -->
       <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
-        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_190618_85908ed1-3412-49cf-a59d-69695f638ab6.png"
+        <img src="moonbites-ads/ad5-lifestyle.jpg"
           alt="MoonBites Ad 5 — Cosy Bedside Lifestyle"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
         <div style="padding:12px 14px;">
@@ -399,8 +437,128 @@
         </div>
       </div>
 
+      <!-- Ad 6: Before/After -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad6-before-after.jpg"
+          alt="MoonBites Ad 6 — Before/After"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#ef4444;margin-bottom:4px;">Static · Before/After</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">3am vs Morning Glow</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Split-screen exhausted vs rested. High-contrast transformation story.</div>
+        </div>
+      </div>
+
+      <!-- Ad 7: Post-it Note -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad7-post-it.jpg"
+          alt="MoonBites Ad 7 — Post-it Note"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#22c55e;margin-bottom:4px;">Static · Post-it Reminder</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Don't Forget Tonight</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Sticky note on the mirror. Candid, lo-fi, habit-forming nudge.</div>
+        </div>
+      </div>
+
+      <!-- Ad 8: Listicle -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad8-listicle.jpg"
+          alt="MoonBites Ad 8 — 5 Reasons Listicle"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:4px;">Static · Listicle</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">5 Reasons to Try Tonight</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Numbered benefits list. Clean lavender infographic layout.</div>
+        </div>
+      </div>
+
+      <!-- Ad 9: Question Hook -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad9-question.jpg"
+          alt="MoonBites Ad 9 — Question Hook"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:4px;">Static · Question Hook</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Still Staring at the Ceiling?</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Dark cinematic night-sky hook. Qualifies the viewer instantly.</div>
+        </div>
+      </div>
+
+      <!-- Ad 10: Testimonial/Review -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad10-testimonial.jpg"
+          alt="MoonBites Ad 10 — Testimonial/Review"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#22c55e;margin-bottom:4px;">Static · Testimonial</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">5-Star Review Card</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Realistic review-card overlay on a cozy bedroom scene. Trust signal.</div>
+        </div>
+      </div>
+
+      <!-- Ad 11: New Offer -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad11-offer.jpg"
+          alt="MoonBites Ad 11 — New Offer"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#f59e0b;margin-bottom:4px;">Static · Promo</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">20% Off This Week</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Diagonal offer ribbon, urgency-driven hero shot.</div>
+        </div>
+      </div>
+
+      <!-- Ad 12: Features & Benefits -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad12-features.jpg"
+          alt="MoonBites Ad 12 — Features & Benefits"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:4px;">Static · Features</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Ingredient Callouts</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Clean editorial layout, each active ingredient labelled with its benefit.</div>
+        </div>
+      </div>
+
+      <!-- Ad 13: iPhone Notes -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad13-iphone-notes.jpg"
+          alt="MoonBites Ad 13 — iPhone Notes"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#22c55e;margin-bottom:4px;">Static · iPhone Notes UGC</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Things That Fixed My Sleep</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Realistic Notes-app screenshot collage. Authentic, candid feel.</div>
+        </div>
+      </div>
+
+      <!-- Ad 14: Bold Claim -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad14-bold-claim.jpg"
+          alt="MoonBites Ad 14 — Bold Claim"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#ef4444;margin-bottom:4px;">Static · Bold Claim</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">Asleep in Under 20 Minutes</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Typography-led direct-response hero. High-impact headline.</div>
+        </div>
+      </div>
+
+      <!-- Ad 15: Us vs Them -->
+      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+        <img src="moonbites-ads/ad15-us-vs-them.jpg"
+          alt="MoonBites Ad 15 — Us vs Them"
+          style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
+        <div style="padding:12px 14px;">
+          <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#8b5cf6;margin-bottom:4px;">Static · Us vs Them</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;">MoonBites vs Other Gummies</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Comparison table — melatonin-free, no grogginess, natural botanicals.</div>
+        </div>
+      </div>
+
     </div>
-    <p style="font-size:11px;color:rgba(255,255,255,0.28);text-align:center;margin-bottom:40px;">5 ads generated · Higgsfield Nano Banana Pro 4K 1:1 · Inspired by Grunns Greens, AG1, Ritual Vitamins</p>
+    <p style="font-size:11px;color:rgba(255,255,255,0.28);text-align:center;margin-bottom:40px;">15 ads generated · Higgsfield Nano Banana 4K 1:1 · 3 new auto-generated daily</p>
 
   </main>
 

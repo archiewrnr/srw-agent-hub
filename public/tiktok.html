@@ -119,8 +119,16 @@
       font-size: 32px;
       color: #333;
       overflow: hidden;
+      position: relative;
     }
     .day-card.today .day-thumb { background: linear-gradient(135deg, #2a0010 0%, #150020 100%); color: #ee2d55; }
+    .day-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .day-thumb-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: #fff; pointer-events: none;
+    }
 
     .day-info {
       padding: 8px 10px 10px;
@@ -204,7 +212,7 @@
     </div>
     <div class="tt-stats">
       <div class="tt-stat">
-        <div class="tsv">34</div>
+        <div class="tsv">35</div>
         <div class="tsl">Days Generated</div>
       </div>
       <div class="tt-stat">
@@ -232,39 +240,41 @@
   </div>
 
   <script>
-    // All 34 days of content — mapped from Google Drive (sorted newest first)
+    // All 35 days of content — mapped from Google Drive (sorted newest first)
+    // videoUrl = real Higgsfield CDN frame used as a live thumbnail (via <video>, no fake placeholders)
     const days = [
-      { day: 34, date: '2026-06-16', folderId: '1qVzbpqJm_g11bvJc0JfWu1lJqX-w3zI6', videos: 0 },
-      { day: 33, date: '2026-06-15', folderId: '1QTwZR3Q-cLYGNMTL9rb66LNpiNVPS1ze', videos: 0 },
-      { day: 32, date: '2026-06-14', folderId: '11HqJ3zT0a9Oik-IQ0la_MZ-WjOu0MBQ9', videos: 0 },
-      { day: 31, date: '2026-06-13', folderId: '1WF3m32FydTKRxyEQLUSc5UGV2nFz2HN7', videos: 0 },
-      { day: 30, date: '2026-06-12', folderId: '1CcQyKoVVm_sbddQcVZjCjsxrO8z4qAU_', videos: 0 },
-      { day: 29, date: '2026-06-11', folderId: '1Z9p4pI1u0PYRTJrBic5NgGMJvhdCMSFI', videos: 0 },
-      { day: 28, date: '2026-06-10', folderId: '1d9yzXs_zuNJJ0_xSRnC81lC2kNhlt_vB', videos: 0 },
-      { day: 27, date: '2026-06-09', folderId: '1lvy0w2wPdej9-lUyBr9auBFVaS4VOCMF', videos: 0 },
-      { day: 26, date: '2026-06-08', folderId: '1TpeIOQmRBxVIcBgwzME-itdjyjTs-Iqg', videos: 0 },
-      { day: 25, date: '2026-06-07', folderId: '1Yfj2kCxsUCy6vmjRq5ffhNZU1K145V9s', videos: 0 },
-      { day: 24, date: '2026-06-06', folderId: '1oApxRk5_-dfOOycrXNW470fW9J-PQBYN', videos: 0 },
-      { day: 23, date: '2026-06-05', folderId: '1Thrw3F5O66258O81W8xXNKVp0KcIlkKQ', videos: 0 },
-      { day: 22, date: '2026-06-04', folderId: '1d5Ew1TanN8g47ia2hiefL9pKhfn11A6l', videos: 0 },
-      { day: 21, date: '2026-06-02', folderId: '10aJAtJnBh2qS8JnsNnG5AV4twbysjUwG', videos: 0 },
-      { day: 20, date: '2026-05-31', folderId: '1s-yAP_nlDkMPJHHoFwOD8OrlDGTI9dLZ', videos: 0 },
-      { day: 19, date: '2026-05-30', folderId: '13fILD8YMseyz4TA2jlgIGdiH0cjSPqta', videos: 0 },
-      { day: 18, date: '2026-05-29', folderId: '1KObejkyMDHuY8-AT4JgH2gZ_aB6CMfV0', videos: 0 },
-      { day: 17, date: '2026-05-28', folderId: '1xu85gzCYWAgZU7FfLKwiuWgCzC3H_08I', videos: 5 },
-      { day: 16, date: '2026-05-27', folderId: '1lEYM21yceg0PrKq3ugUwoV2Or2sp6uZM', videos: 0 },
-      { day: 15, date: '2026-05-25', folderId: '1FhLG5V-6HHymnP4Vw5CG4uACAwUYbJ7z', videos: 5 },
-      { day: 14, date: '2026-05-24', folderId: '1SxPQJB7xjdmFHuAigdQotLrTXd3u2aRR', videos: 0 },
-      { day: 13, date: '2026-05-23', folderId: '1Whq8FBhu3VrVmETOCefdH9gHiKqMZU3U', videos: 0 },
-      { day: 12, date: '2026-05-22', folderId: '1L65HI553EP7gSCA4uJDhcHMiQg0BKWLU', videos: 0 },
-      { day: 11, date: '2026-05-20', folderId: '1lnlF-xQPgBV3YLlg7b5_2dqAON51B1Wi', videos: 0 },
-      { day: 10, date: '2026-05-19', folderId: '1wFHYX6rRPO-sGf8KIK8aJ81YBvziVIgR', videos: 1 },
-      { day: 9,  date: '2026-05-18', folderId: '1ew5PFaTD6WxiTp5ZWlDfIiwH9S55jHjz', videos: 3 },
-      { day: 8,  date: '2026-05-17', folderId: '1UPQuTXBIrlPwphL6OURiyatFWnbmBUer', videos: 3 },
-      { day: 7,  date: '2026-05-16', folderId: '1mIgR-ePVphCy6zkdFRnk6TZ9XBtbU_B0', videos: 1 },
-      { day: 6,  date: '2026-05-15', folderId: '1t4TwdQQfTMlRy4svBzomUYIsR6BCiW3z', videos: 0 },
-      { day: 5,  date: '2026-05-14', folderId: '1kzthlhKf3uqVHxETJRu4tReFiIWCrak9', videos: 0 },
-      { day: 4,  date: '2026-05-14', folderId: '1FBzispQiqr0JS9zC2hvwuCuyryaXflVq', videos: 1 },
+      { day: 35, date: '2026-06-17', folderId: '1iRxOYluyWfZKRO8CSH5trM3M0x0Rpp7D', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260617_080316_bf76a449-5672-41a7-866b-3e00fc62b5ec.mp4' },
+      { day: 34, date: '2026-06-16', folderId: '1qVzbpqJm_g11bvJc0JfWu1lJqX-w3zI6', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260616_080321_247c7335-b348-4582-b18d-fa8d3b4ffff7.mp4' },
+      { day: 33, date: '2026-06-15', folderId: '1QTwZR3Q-cLYGNMTL9rb66LNpiNVPS1ze', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260615_080351_033426cc-3249-459b-b4e5-e0ce8fc5d24e.mp4' },
+      { day: 32, date: '2026-06-14', folderId: '11HqJ3zT0a9Oik-IQ0la_MZ-WjOu0MBQ9', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260614_080431_98a8c4b3-6c28-4344-aff9-3d4f57048bae.mp4' },
+      { day: 31, date: '2026-06-13', folderId: '1WF3m32FydTKRxyEQLUSc5UGV2nFz2HN7', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260613_080304_ad09b370-4f65-41e6-bbb8-727eb4e90c04.mp4' },
+      { day: 30, date: '2026-06-12', folderId: '1CcQyKoVVm_sbddQcVZjCjsxrO8z4qAU_', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260612_080333_62d1527c-1580-48ff-bd6b-606a284bfccb.mp4' },
+      { day: 29, date: '2026-06-11', folderId: '1Z9p4pI1u0PYRTJrBic5NgGMJvhdCMSFI', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260611_080457_e249a0c7-3498-4699-a35f-89a9041b44f8.mp4' },
+      { day: 28, date: '2026-06-10', folderId: '1d9yzXs_zuNJJ0_xSRnC81lC2kNhlt_vB', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260610_081931_95e6f6b9-6399-4e01-b677-b27aba2625e7.mp4' },
+      { day: 27, date: '2026-06-09', folderId: '1lvy0w2wPdej9-lUyBr9auBFVaS4VOCMF', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260609_080851_7641fa0e-774e-4f9d-9b64-5557cb982143.mp4' },
+      { day: 26, date: '2026-06-08', folderId: '1TpeIOQmRBxVIcBgwzME-itdjyjTs-Iqg', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260608_080844_ad64e054-99c4-4564-9150-107a5a3ae099.mp4' },
+      { day: 25, date: '2026-06-07', folderId: '1Yfj2kCxsUCy6vmjRq5ffhNZU1K145V9s', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260607_080647_298a7716-8c7e-4a80-8677-3d649db811c0.mp4' },
+      { day: 24, date: '2026-06-06', folderId: '1oApxRk5_-dfOOycrXNW470fW9J-PQBYN', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260606_080638_bf328350-d9e6-4c93-988b-dba4ef31fce1.mp4' },
+      { day: 23, date: '2026-06-05', folderId: '1Thrw3F5O66258O81W8xXNKVp0KcIlkKQ', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260605_082601_46f78512-e63b-4e88-965c-9ad4a6fea3c0.mp4' },
+      { day: 22, date: '2026-06-04', folderId: '1d5Ew1TanN8g47ia2hiefL9pKhfn11A6l', videos: 0, failed: 'Higgsfield credits ran out before video generation' },
+      { day: 21, date: '2026-06-02', folderId: '10aJAtJnBh2qS8JnsNnG5AV4twbysjUwG', videos: 0, failed: 'Higgsfield credits ran out before video generation' },
+      { day: 20, date: '2026-05-31', folderId: '1s-yAP_nlDkMPJHHoFwOD8OrlDGTI9dLZ', videos: 0, failed: 'Higgsfield credits ran out before video generation' },
+      { day: 19, date: '2026-05-30', folderId: '13fILD8YMseyz4TA2jlgIGdiH0cjSPqta', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260530_090933_01709273-2621-4dc3-870d-f427095b1ab4.mp4' },
+      { day: 18, date: '2026-05-29', folderId: '1KObejkyMDHuY8-AT4JgH2gZ_aB6CMfV0', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260529_081218_567c522d-08fa-417a-b96b-467d5f70b62a.mp4' },
+      { day: 17, date: '2026-05-28', folderId: '1xu85gzCYWAgZU7FfLKwiuWgCzC3H_08I', videos: 5, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260528_081523_4d221ea5-fa5f-495a-bae9-d5275a4b0366.mp4' },
+      { day: 16, date: '2026-05-27', folderId: '1lEYM21yceg0PrKq3ugUwoV2Or2sp6uZM', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260527_081201_fdeac0f4-a1df-4f20-a223-a5444fc4456f.mp4' },
+      { day: 15, date: '2026-05-25', folderId: '1FhLG5V-6HHymnP4Vw5CG4uACAwUYbJ7z', videos: 5, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260525_081421_3e234798-823e-48dd-aa4a-47a6a52d2afd.mp4' },
+      { day: 14, date: '2026-05-24', folderId: '1SxPQJB7xjdmFHuAigdQotLrTXd3u2aRR', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260524_081033_b6c0022e-f34b-48c8-bd4d-3d05885d7ad7.mp4' },
+      { day: 13, date: '2026-05-23', folderId: '1Whq8FBhu3VrVmETOCefdH9gHiKqMZU3U', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260523_081006_059d7789-db08-4fc6-b2f2-0a446e67af8c.mp4' },
+      { day: 12, date: '2026-05-22', folderId: '1L65HI553EP7gSCA4uJDhcHMiQg0BKWLU', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260522_080449_9e4c4bdb-82ba-4aff-ac7e-cafd0a4448dd.mp4' },
+      { day: 11, date: '2026-05-20', folderId: '1lnlF-xQPgBV3YLlg7b5_2dqAON51B1Wi', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260520_081024_49420db6-d8e3-49c1-af6a-7c49f528b40f.mp4' },
+      { day: 10, date: '2026-05-19', folderId: '1wFHYX6rRPO-sGf8KIK8aJ81YBvziVIgR', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260519_080559_4c7fae30-9ab2-4aa8-b273-adbaba728076.mp4' },
+      { day: 9,  date: '2026-05-18', folderId: '1ew5PFaTD6WxiTp5ZWlDfIiwH9S55jHjz', videos: 3, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260518_080936_113ed0a5-8bde-4fe4-b159-2c113fbc1bdf.mp4' },
+      { day: 8,  date: '2026-05-17', folderId: '1UPQuTXBIrlPwphL6OURiyatFWnbmBUer', videos: 3, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260517_081157_2a9cac15-630f-4dc5-b630-6672cf677722.mp4' },
+      { day: 7,  date: '2026-05-16', folderId: '1mIgR-ePVphCy6zkdFRnk6TZ9XBtbU_B0', videos: 1, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260516_080537_63d17daf-32c9-449c-9c5c-f2d6a2b90907.mp4' },
+      { day: 6,  date: '2026-05-15', folderId: '1t4TwdQQfTMlRy4svBzomUYIsR6BCiW3z', videos: 3, videoUrl: 'https://d8j0ntlcm91z4.cloudfront.net/user_30R3eXL6BPUSKw0spLsPfz6tg4K/hf_20260515_080757_8932f79c-e69c-4b56-9d63-cd4f8572647d.mp4' },
+      { day: 5,  date: '2026-05-14', folderId: '1kzthlhKf3uqVHxETJRu4tReFiIWCrak9', videos: 3 },
+      { day: 4,  date: '2026-05-14', folderId: '1FBzispQiqr0JS9zC2hvwuCuyryaXflVq', videos: 3 },
     ];
 
     const todayStr = new Date().toISOString().slice(0,10);
@@ -302,13 +312,21 @@
       return 'day-card';
     }
 
+    function thumbHtml(d) {
+      if (d.videoUrl) {
+        return `<video src="${d.videoUrl}#t=0.5" muted playsinline preload="metadata"></video><span class="day-thumb-play">▶</span>`;
+      }
+      if (d.failed) return '⚠';
+      return '▶';
+    }
+
     const grid = document.getElementById('dayGrid');
     grid.innerHTML = days.map(d => `
       <a class="${cardClass(d)}"
          href="https://drive.google.com/drive/folders/${d.folderId}"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener" title="${d.failed || ''}">
         ${badgeFor(d)}
-        <div class="day-thumb">▶</div>
+        <div class="day-thumb">${thumbHtml(d)}</div>
         <div class="day-info">
           <div class="day-num">Day ${d.day}</div>
           <div class="day-date">${fmtDate(d.date)}</div>
