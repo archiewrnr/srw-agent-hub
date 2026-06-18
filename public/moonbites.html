@@ -59,6 +59,16 @@
     .tc-ref.product { background: linear-gradient(135deg, #1a0a2e, #2d1b4e); }
     .tc-ref-photo { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
 
+    /* ── Ad card download button ── */
+    .ad-dl {
+      position: absolute; top: 10px; right: 10px; z-index: 5;
+      background: rgba(11,0,16,0.75); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 8px; padding: 6px 10px; font-size: 11px; font-weight: 700;
+      color: #fff; text-decoration: none; display: flex; align-items: center; gap: 5px;
+      backdrop-filter: blur(4px); transition: background 0.15s;
+    }
+    .ad-dl:hover { background: #8b5cf6; }
+
     /* ── Research section ── */
     .research-panel {
       background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.2);
@@ -378,7 +388,7 @@
     <div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:40px;">
 
       <!-- Ad 1: Clean White Hero -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad1-white-hero.jpg"
           alt="MoonBites Ad 1 — Clean White Hero"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -390,7 +400,7 @@
       </div>
 
       <!-- Ad 6: Before/After -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad6-before-after.jpg"
           alt="MoonBites Ad 6 — Before/After"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -402,7 +412,7 @@
       </div>
 
       <!-- Ad 7: Post-it Note -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad7-post-it.jpg"
           alt="MoonBites Ad 7 — Post-it Note"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -414,7 +424,7 @@
       </div>
 
       <!-- Ad 8: Listicle -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad8-listicle.jpg"
           alt="MoonBites Ad 8 — 5 Reasons Listicle"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -426,7 +436,7 @@
       </div>
 
       <!-- Ad 9: Question Hook -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad9-question.jpg"
           alt="MoonBites Ad 9 — Question Hook"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -438,7 +448,7 @@
       </div>
 
       <!-- Ad 10: Testimonial/Review -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad10-testimonial.jpg"
           alt="MoonBites Ad 10 — Testimonial/Review"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -450,7 +460,7 @@
       </div>
 
       <!-- Ad 11: New Offer -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad11-offer.jpg"
           alt="MoonBites Ad 11 — New Offer"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -462,7 +472,7 @@
       </div>
 
       <!-- Ad 12: Features & Benefits -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad12-features.jpg"
           alt="MoonBites Ad 12 — Features & Benefits"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -474,7 +484,7 @@
       </div>
 
       <!-- Ad 13: iPhone Notes -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad13-iphone-notes.jpg"
           alt="MoonBites Ad 13 — iPhone Notes"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -486,7 +496,7 @@
       </div>
 
       <!-- Ad 14: Bold Claim -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad14-bold-claim.jpg"
           alt="MoonBites Ad 14 — Bold Claim"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -498,7 +508,7 @@
       </div>
 
       <!-- Ad 15: Us vs Them -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad15-us-vs-them.jpg"
           alt="MoonBites Ad 15 — Us vs Them"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -510,7 +520,7 @@
       </div>
 
       <!-- Ad 16: Text Message UGC -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad16-text-message.jpg"
           alt="MoonBites Ad 16 — Text Message UGC"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -522,7 +532,7 @@
       </div>
 
       <!-- Ad 17: TikTok Screenshot UGC -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" data-full="moonbites-ads/ad17-tiktok-screenshot-full.jpg" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad17-tiktok-screenshot.jpg"
           alt="MoonBites Ad 17 — TikTok Screenshot UGC"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -534,7 +544,7 @@
       </div>
 
       <!-- Ad 18: Doctor/Expert Recommends -->
-      <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;">
+      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad18-doctor-recommends.jpg"
           alt="MoonBites Ad 18 — Doctor Recommends"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -579,6 +589,21 @@
       document.getElementById('modalPrompt').value = PROMPTS[n];
       document.getElementById('modal').style.display = 'flex';
     }
+
+    // Adds a "Download HD" button to every ad card, pointing at the highest-quality
+    // file available for that ad (data-full override if set, otherwise the card's own image).
+    document.querySelectorAll('.ad-card').forEach((card) => {
+      const img = card.querySelector('img');
+      if (!img) return;
+      const fullSrc = card.dataset.full || img.getAttribute('src');
+      const link = document.createElement('a');
+      link.href = fullSrc;
+      link.download = '';
+      link.className = 'ad-dl';
+      link.title = 'Download highest quality version';
+      link.innerHTML = '⬇ HD';
+      card.appendChild(link);
+    });
 
     function closeModal() {
       document.getElementById('modal').style.display = 'none';
