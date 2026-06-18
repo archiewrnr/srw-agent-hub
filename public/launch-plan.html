@@ -1234,6 +1234,65 @@
       <p class="rationale" style="margin-top:4px;">Everything else above 58 that isn't already covered (Probiotic Gummies, Echinacea Drops, Lemon Balm Capsules, Guarana Extract Capsules, Potassium Capsules, Propolis Capsules) carries 74-85 competition scores with 140-590 average reviews on the leading comps — real niches, but not the kind of low-moat gap this audit is built to surface. A couple of entries ("chlorine tablets", "zine burdock powder") look like scraper noise rather than genuine supplement niches and should be excluded from future scoring rather than acted on.</p>
     </section>
 
+    <section class="plan-tier">
+      <h2>🆕 Round 15 — Re-Ranked by Actual Accessibility (Low Reviews + High Sales), Not Top-10 Average</h2>
+      <p class="rationale" style="margin-top:0;">Methodology fix: the opportunity score's competition component is partly driven by the <strong>top-10 average</strong> review count — which one entrenched competitor can drag up by hundreds, burying genuinely accessible niches under a misleadingly high number (this is exactly what happened with Tongkat Ali's "382 average reviews", driven by a single outlier while 9 of the 10 listings sit under 100). Built a proper re-ranking (<code>rank_by_accessibility.py</code>) that scores each niche by its <strong>single best accessible listing's sales-per-review ratio</strong> (bought-in-past-month ÷ review count) instead of the average. Re-ran it across both categories and picked the 3 strongest genuinely-unactioned results.</p>
+      <div class="plan-cards">
+
+        <article class="plan-card">
+          <div class="plan-head">
+            <div class="plan-rank">🆕</div>
+            <div class="plan-title">
+              <h3>Zinc Tablets <span class="plan-tag new">New — distinct from existing Zinc Carnosine SKU</span></h3>
+              <p class="plan-sub">Opportunity 61.6 · Best comp: 5 reviews, "1000+ bought in past month" (ratio 200)</p>
+            </div>
+            <div class="plan-scores"><div class="score-badge score-great"><span class="score-value">61.6</span><span class="score-label">Opp.</span></div></div>
+          </div>
+          <div class="plan-body">
+            <div class="plan-block plan-why">
+              <h4>Why</h4>
+              <p>The raw competition score (95) looks brutal because of total listing volume, but the actual best entry point has just 5 reviews and a "1000+ bought in past month" badge — among the strongest sales-per-review ratios found in this audit. Plain "Zinc Tablets" (general immune/mineral support) is a different search intent and product format from the already-covered Zinc L-Carnosine Capsules (gut-health niche) — no cannibalisation, same shelf logic as most supplement brands carrying both.</p>
+            </div>
+            <div class="plan-block plan-how">
+              <h4>How</h4>
+              <p>25mg zinc tablet (citrate or picolinate for absorption), large pill count (365-tablet "daily" format matches the leading comp's value positioning), general immune + skin support claims.</p>
+            </div>
+            <div class="plan-block plan-brand">
+              <h4>Packaging / Branding</h4>
+              <p><strong>4K design ready</strong> — see <a href="designs.html#zinc-tablets">Packaging Designs</a>. Slate-grey &amp; brushed silver with gold mineral-crystal line-art, distinct from every other palette in the range.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="plan-card">
+          <div class="plan-head">
+            <div class="plan-rank">🆕</div>
+            <div class="plan-title">
+              <h3>Thyroid Support Drops <span class="plan-tag new">New category for the brand</span></h3>
+              <p class="plan-sub">Opportunity 52.4 · Best comp: just 1 review, "200+ bought in past month" (ratio 200)</p>
+            </div>
+            <div class="plan-scores"><div class="score-badge score-ok"><span class="score-value">52.4</span><span class="score-label">Opp.</span></div></div>
+          </div>
+          <div class="plan-body">
+            <div class="plan-block plan-why">
+              <h4>Why</h4>
+              <p>The single best comp for this niche has only <strong>1 review</strong> with a "200+ bought in past month" badge — as accessible as anything found in either dataset. The overall opportunity score (52.4) is lower than top-tier picks because demand/competition averages are modest, but the specific entry point is exceptional. Iodine and selenium both carry authorised EFSA/UK health claims ("contributes to normal thyroid function") — compliant, well-precedented ingredient claims, not exotic regulatory risk.</p>
+            </div>
+            <div class="plan-block plan-how">
+              <h4>How</h4>
+              <p>60ml liquid dropper bottle, iodine (from kelp or potassium iodide) + selenium (matches the leading comp), "support" framing throughout — no treat/cure language. Brand-new category, no overlap with any existing SKU.</p>
+            </div>
+            <div class="plan-block plan-brand">
+              <h4>Packaging / Branding</h4>
+              <p><strong>4K design ready</strong> — see <a href="designs.html#thyroid-support">Packaging Designs</a>. Soft seafoam-teal with gold botanical line-art, calm/balance positioning.</p>
+            </div>
+          </div>
+        </article>
+
+      </div>
+      <p class="rationale" style="margin-top:4px;">❤️ A matching Pure Pleasure pick from the same re-ranking pass — <strong>Waterproof Vibrator for Women</strong> (opp 51.3, competition genuinely low at 40.3 — not just average-skewed, best comp just 1 review/"100+ bought") — is written up under <a href="designs.html#waterproof-vibrator">Pure Pleasure → Packaging Designs</a>.</p>
+    </section>
+
     <!-- ============ TIER 3 ============ -->
     <section class="plan-tier">
       <h2>🥉 Tier 3 — Watchlist (Monitor, Don't Commit Yet)</h2>
