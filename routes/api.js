@@ -3,6 +3,7 @@ import * as db from '../src/db.js';
 import * as scheduler from '../src/scheduler.js';
 import * as keepa from '../src/keepa.js';
 import { MY_PRODUCTS_BY_CATEGORY, isOwnProductNiche } from '../src/myProducts.js';
+import { isExcludedNiche } from '../src/excludedNiches.js';
 import { CATEGORIES, resolveCategory } from '../src/categories.js';
 
 const router = express.Router();
@@ -21,7 +22,8 @@ router.get('/opportunities', (req, res) => {
       limit: limit ? Number(limit) * 2 : undefined,
       categoryKey,
     })
-    .filter((o) => !isOwnProductNiche(o.niche_keyword, categoryKey));
+    .filter((o) => !isOwnProductNiche(o.niche_keyword, categoryKey))
+    .filter((o) => !isExcludedNiche(o.niche_keyword, categoryKey));
   res.json(limit ? opportunities.slice(0, Number(limit)) : opportunities);
 });
 

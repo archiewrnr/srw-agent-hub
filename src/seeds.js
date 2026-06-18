@@ -565,22 +565,8 @@ export const SEED_KEYWORDS_BY_CATEGORY = {
     'pelvic floor trainer',
     'ben wa balls',
 
-    // --- Lubricants & arousal ---
-    'water based lubricant',
-    'personal lubricant',
-    'anal lubricant gel',
-    'silicone based lubricant',
-    'flavoured lubricant',
-    'warming lubricant',
-    'arousal gel for women',
-    'clitoral arousal serum',
-    'lubricant gift set',
-
-    // --- Massage candles & oils ---
+    // --- Massage candles ---
     'massage candle',
-    'edible massage oil',
-    'warming massage oil gift set',
-    'couples massage oil set',
 
     // --- Bondage / BDSM accessories ---
     'bondage restraint kit',
@@ -614,7 +600,6 @@ export const SEED_KEYWORDS_BY_CATEGORY = {
     // --- Adult games / gifts ---
     'couples game adult',
     'sex dice game',
-    'massage oil candle gift set',
     'pheromone perfume for women',
 
     // --- Rotating & motion vibrators (non-rabbit) ---
@@ -696,23 +681,6 @@ export const SEED_KEYWORDS_BY_CATEGORY = {
     'rotating prostate massager',
     'waterproof prostate massager',
 
-    // --- Lubricants expansion ---
-    'hybrid lubricant water silicone',
-    'cbd intimate massage oil',
-    'long lasting personal lubricant',
-    'organic personal lubricant',
-    'lubricant pump dispenser bottle',
-    'travel size lubricant sachets',
-    'numbing gel for anal play',
-    'desensitising anal lubricant spray',
-    'thick silicone based lubricant',
-    'natural aloe vera lubricant',
-    'climax delay lubricant for men',
-    'tingling lubricant for women',
-    'lubricant applicator syringe',
-    'unscented sensitive skin lubricant',
-    'cooling sensation lubricant gel',
-
     // --- Vibrating panties & wearables ---
     'vibrating panties remote control women',
     'wearable panty vibrator app controlled',
@@ -793,29 +761,11 @@ export const SEED_KEYWORDS_BY_CATEGORY = {
     'date night game box for couples',
     'conversation cards for couples intimacy',
 
-    // --- Hygiene & intimate care ---
-    'feminine hygiene wash natural',
-    'intimate area wipes travel pack',
-    'vaginal moisturiser gel applicator',
-    'aftercare balm for intimate skin',
-    'ph balanced intimate wash for men',
-    'intimate deodorant spray for women',
-    'exfoliating scrub for intimate area',
+    // --- Toy cleaning ---
     'toy cleaning spray unscented',
     'antibacterial wipes for adult toys',
-    'intimate area soothing cream',
 
-    // --- Arousal & enhancement gels/creams ---
-    'clitoral stimulating gel',
-    'orgasm enhancement gel for women',
-    'female arousal cream',
-    'g spot arousal cream',
-    'libido boosting gel for women',
-    'arousal oil for couples',
-    'sensitizing gel for women',
-    'climax gel for women',
-    'arousal balm roll on',
-    'natural arousal serum for women',
+    // --- Libido gummies (edible supplement, not lube/gel) ---
     'maca root arousal gummies for women',
     'horny goat weed gummies for women',
 
@@ -845,10 +795,8 @@ export const SEED_KEYWORDS_BY_CATEGORY = {
 
     // --- Sensory play (candles, feathers, ice) ---
     'low temperature massage candle',
-    'ice and fire gel set for couples',
     'feather tickler and blindfold set',
     'sensory play kit for couples',
-    'hot and cold massage oil set',
     'fur lined cuffs and blindfold set',
     'flogger and feather sensory set',
     'temperature play massage candle gift set',
@@ -994,10 +942,6 @@ export const SEED_KEYWORDS_BY_CATEGORY = {
     'door sex sling',
 
     // --- Intimate wellness for women ---
-    'yoni steam herbs',
-    'vaginal tightening gel',
-    'feminine freshness spray',
-    'intimate area whitening cream',
     'app connected kegel exerciser',
     'electric pelvic floor stimulator',
     'vaginal dilator set',
@@ -1045,7 +989,6 @@ export const SEED_KEYWORDS_BY_CATEGORY = {
     'body massage roller for couples',
     'heated massage stones set',
     'erotic massage kit for couples',
-    'aromatherapy massage oil gift set for couples',
 
     // --- Mystery boxes & party gifts ---
     'mystery sex toy box',
