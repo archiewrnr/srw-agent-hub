@@ -8,6 +8,9 @@ total_old = 0
 total_new = 0
 for f in files:
     try:
+        if "-full." in os.path.basename(f):
+            print(f"  {os.path.basename(f)}: skipped (kept as uncompressed master)")
+            continue
         old_size = os.path.getsize(f) / 1024 / 1024
         if old_size < 2:
             print(f"  {os.path.basename(f)}: {old_size:.1f}MB -> skipped (already small)")
