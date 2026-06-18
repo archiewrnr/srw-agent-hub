@@ -15,11 +15,11 @@ for f in files:
         img = Image.open(f)
         img = img.convert("RGB")
         w, h = img.size
-        if w > 1600:
-            ratio = 1600 / w
-            img = img.resize((1600, int(h * ratio)), Image.LANCZOS)
+        if w > 2200:
+            ratio = 2200 / w
+            img = img.resize((2200, int(h * ratio)), Image.LANCZOS)
         out = os.path.splitext(f)[0] + ".jpg"
-        img.save(out, "JPEG", quality=82, optimize=True)
+        img.save(out, "JPEG", quality=92, optimize=True)
         new_size = os.path.getsize(out) / 1024 / 1024
         total_old += old_size
         total_new += new_size
