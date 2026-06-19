@@ -146,9 +146,54 @@
       color: #c4b5fd; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-family: monospace;
     }
 
+    /* ── References teaser (white, pops against the purple page; links to dedicated page) ── */
+    .ref-eyebrow {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #8b5cf6; margin: 0 0 6px;
+    }
+    .ref-title { font-size: 20px; font-weight: 900; color: #1a0a2e; margin: 0 0 6px; letter-spacing: -0.01em; }
+    .ref-teaser {
+      display: block; background: #fff; border-radius: 20px; padding: 24px 26px;
+      margin-bottom: 36px; box-shadow: 0 12px 40px rgba(0,0,0,0.35); text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .ref-teaser:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(139,92,246,0.3); }
+    .ref-teaser-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+    .ref-teaser-sub { font-size: 12.5px; color: #6b6480; line-height: 1.5; margin: 0; max-width: 480px; }
+    .ref-teaser-cta {
+      flex-shrink: 0; background: #8b5cf6; color: #fff; font-size: 12.5px; font-weight: 800;
+      padding: 9px 16px; border-radius: 20px; white-space: nowrap;
+    }
+    .ref-teaser-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .ref-teaser-card { background: #fcfbff; border: 1px solid #ece4ff; border-radius: 12px; overflow: hidden; }
+    .ref-teaser-imgwrap {
+      width: 100%; height: 130px; background: #1a0a2e; display: flex; align-items: center;
+      justify-content: center; overflow: hidden;
+    }
+    .ref-teaser-imgwrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .ref-teaser-cardbody { padding: 8px 12px 10px; }
+    .ref-card-brand { font-size: 10px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: #8b5cf6; margin-bottom: 3px; }
+    .ref-card-title { font-size: 12.5px; font-weight: 700; color: #1a0a2e; line-height: 1.3; }
+
+    /* ── Per-ad "sourced from" strip (under gallery cards) ── */
+    .ad-ref {
+      display: flex; gap: 9px; align-items: center; padding: 9px 12px 11px;
+      border-top: 1px dashed rgba(255,255,255,0.1); margin-top: -1px;
+    }
+    .ad-ref-thumb {
+      width: 38px; height: 38px; border-radius: 7px; object-fit: cover; flex-shrink: 0;
+      cursor: zoom-in; border: 1px solid rgba(255,255,255,0.18); transition: transform 0.15s;
+    }
+    .ad-ref-thumb:hover { transform: scale(1.08); border-color: #8b5cf6; }
+    .ad-ref-info { flex: 1; min-width: 0; }
+    .ad-ref-label { font-size: 8.5px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(139,92,246,0.9); margin-bottom: 2px; }
+    .ad-ref-title { font-size: 10.5px; color: rgba(255,255,255,0.55); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
     @media(max-width:580px) {
       .mb-headline { font-size: 26px; }
       .how-row { flex-direction: column; }
+      .ref-teaser { padding: 18px 16px; }
+      .ref-teaser-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -193,6 +238,41 @@
         <div class="how-d">Click "Generate" and Claude runs your MoonBites photos through Higgsfield Nano Banana Pro to create a polished 4K ad image ready for Meta.</div>
       </div>
     </div>
+
+    <!-- References teaser -->
+    <a class="ref-teaser" href="moonbites-references.html">
+      <div class="ref-teaser-head">
+        <div>
+          <p class="ref-eyebrow">📊 References · Live from Atria + SimilarWeb</p>
+          <h2 class="ref-title">What We're Actually Sourcing From</h2>
+          <p class="ref-teaser-sub">Real ads from supermush, Joey Mattress &amp; Burst Creatine — with traffic estimates, longevity, and an open scoring formula. Click to see all 10 + the full breakdown →</p>
+        </div>
+        <span class="ref-teaser-cta">See all references →</span>
+      </div>
+      <div class="ref-teaser-row">
+        <div class="ref-teaser-card">
+          <div class="ref-teaser-imgwrap"><img src="https://cdn.tryatria.com/adfiles/m323033823920982_10Z5RaxjP0Q.jpeg" alt="supermush — Pop a Gummy & Pass Out" loading="lazy" /></div>
+          <div class="ref-teaser-cardbody">
+            <div class="ref-card-brand">supermush</div>
+            <div class="ref-card-title">"Pop a Gummy &amp; Pass Out"</div>
+          </div>
+        </div>
+        <div class="ref-teaser-card">
+          <div class="ref-teaser-imgwrap"><img src="https://cdn.tryatria.com/adfiles/m1829062500862836_h1aagIxMMVY.jpeg" alt="supermush — Gummies For A Good Night's Rest" loading="lazy" /></div>
+          <div class="ref-teaser-cardbody">
+            <div class="ref-card-brand">supermush</div>
+            <div class="ref-card-title">"Gummies For A Good Night's Rest"</div>
+          </div>
+        </div>
+        <div class="ref-teaser-card">
+          <div class="ref-teaser-imgwrap"><img src="https://cdn.tryatria.com/adfiles/m1612869202582567_4rulAKKy12Y.jpeg" alt="Joey Mattress — Grab It Before It's Gone" loading="lazy" /></div>
+          <div class="ref-teaser-cardbody">
+            <div class="ref-card-brand">Joey Mattress</div>
+            <div class="ref-card-title">"Grab It Before It's Gone"</div>
+          </div>
+        </div>
+      </div>
+    </a>
 
     <!-- Research -->
     <p class="sl">Research · What's Actually Winning Right Now</p>
@@ -388,7 +468,7 @@
     <div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:40px;">
 
       <!-- Ad 43: The Truth (Atria: Burst Creatine "Coming Clean") -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad43" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad43-the-truth.jpg"
           alt="MoonBites Ad 43 — The Truth About Sleep Gummies"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -397,10 +477,17 @@
           <div style="font-size:13px;font-weight:700;color:#fff;">The Truth About Sleep Gummies</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Transparency angle from a real, currently-running creatine-gummy ad — recreated for MoonBites ingredient honesty.</div>
         </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m267896773072543_IybktIebCfM.jpeg" alt="Reference: Burst Creatine — Coming Clean" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=267896773072543')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">Burst Creatine — "Coming Clean"</div>
+          </div>
+        </div>
       </div>
 
       <!-- Ad 42: Ditch The Bedtime Pills (Atria: Burst Creatine "Ditch The Chalky Powder") -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad42" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad42-ditch-pills.jpg"
           alt="MoonBites Ad 42 — Ditch The Bedtime Pills"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -409,10 +496,17 @@
           <div style="font-size:13px;font-weight:700;color:#fff;">Ditch The Bedtime Pills</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Format proven on a long-running, currently active creatine-gummy ad — same "ditch the old format" comparison hook.</div>
         </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m2665438793622049_F1I0ksy2gFM.jpeg" alt="Reference: Burst Creatine — Ditch The Chalky Powder" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=2665438793622049')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">Burst Creatine — "Ditch The Chalky Powder"</div>
+          </div>
+        </div>
       </div>
 
       <!-- Ad 41: Grab It Before It's Gone (Atria: Joey Mattress scarcity) -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad41" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad41-low-stock.jpg"
           alt="MoonBites Ad 41 — Grab It Before It's Gone"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -421,10 +515,17 @@
           <div style="font-size:13px;font-weight:700;color:#fff;">Grab It Before It's Gone</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Low-stock urgency hook lifted from a real, currently active sleep-niche advertiser.</div>
         </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m1612869202582567_4rulAKKy12Y.jpeg" alt="Reference: Joey Mattress — Grab It Before It's Gone" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=1612869202582567')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">Joey Mattress — "Grab It Before It's Gone"</div>
+          </div>
+        </div>
       </div>
 
       <!-- Ad 40: No Morning Grogginess (Atria: supermush energy/no-crash format inverted) -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad40" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad40-no-grogginess.jpg"
           alt="MoonBites Ad 40 — All Night Calm, No Morning Grogginess"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -433,10 +534,17 @@
           <div style="font-size:13px;font-weight:700;color:#fff;">All Night Calm. No Morning Grogginess.</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Same "no downside" comparison structure supermush runs for their energy gummies, adapted for sleep.</div>
         </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m858382089304004_kNXtd9k5VLg.jpeg" alt="Reference: supermush — All-Day Energy, No Caffeine Crash" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=858382089304004')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">supermush — "All-Day Energy, No Caffeine Crash"</div>
+          </div>
+        </div>
       </div>
 
       <!-- Ad 39: So Much Calm In One Tiny Gummy (Atria: supermush "So Much Energy in a Tiny Little Gummy") -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad39" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad39-tiny-gummy.jpg"
           alt="MoonBites Ad 39 — So Much Calm In One Tiny Gummy"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -445,10 +553,17 @@
           <div style="font-size:13px;font-weight:700;color:#fff;">So Much Calm in One Tiny Gummy</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Direct recreation of a real, most-active supermush ad format — collectible tin styling, macro gummy detail.</div>
         </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m888432259143569_o9xjFjHYYKY.jpeg" alt="Reference: supermush — So Much Energy in a Tiny Little Gummy" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=888432259143569')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">supermush — "So Much Energy in a Tiny Little Gummy"</div>
+          </div>
+        </div>
       </div>
 
       <!-- Ad 38: Your Full Night Reset (Atria: supermush "Savor Life's Full Spectrum") -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad38" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad38-full-night-reset.jpg"
           alt="MoonBites Ad 38 — Your Full Night Reset"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -457,10 +572,17 @@
           <div style="font-size:13px;font-weight:700;color:#fff;">Your Full Night Reset</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Cosy bundle/ritual framing recreated from a real, long-running supermush ad.</div>
         </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m793134582826678_USt4YrpvJZ0.jpeg" alt="Reference: supermush — Savor Life's Full Spectrum" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=793134582826678')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">supermush — "Savor Life's Full Spectrum"</div>
+          </div>
+        </div>
       </div>
 
       <!-- Ad 37: Life Hack Listicle (Atria: supermush "Life Hack — Take Shrooms") -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad37" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad37-life-hack.jpg"
           alt="MoonBites Ad 37 — Life Hack Listicle"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -469,10 +591,17 @@
           <div style="font-size:13px;font-weight:700;color:#fff;">Life Hack: Take a Gummy 30 Min Before Bed</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Bold black-background listicle format from a real, most-active supermush bundle ad.</div>
         </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m1343109379662453_aRc4saxs0VI.jpeg" alt="Reference: supermush — Life Hack, Take Shrooms" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=1343109379662453')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">supermush — "Life Hack — Take Shrooms"</div>
+          </div>
+        </div>
       </div>
 
       <!-- Ad 36: Zero Calories Zero Sugar (Atria: supermush "Functional Mushroom Sleep Gummies") -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad36" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad36-zero-sugar.jpg"
           alt="MoonBites Ad 36 — Zero Calories Zero Sugar"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -481,10 +610,17 @@
           <div style="font-size:13px;font-weight:700;color:#fff;">Zero Calories. Zero Sugar.</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Macro flavour-forward shot recreated from a real, currently active supermush sleep-gummy ad.</div>
         </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m207878242363799_wmclsc6TDDs.jpeg" alt="Reference: supermush — Functional Mushroom Sleep Gummies" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=207878242363799')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">supermush — "Functional Mushroom Sleep Gummies"</div>
+          </div>
+        </div>
       </div>
 
       <!-- Ad 35: Saw Us On TikTok (Atria: supermush "Gummies For A Good Night's Rest" / "Saw us on Netflix" trust hook) -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad35" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad35-saw-tiktok.jpg"
           alt="MoonBites Ad 35 — Saw Us On TikTok"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -493,10 +629,17 @@
           <div style="font-size:13px;font-weight:700;color:#fff;">Saw Us On TikTok?</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Same "saw us on [platform]" trust-signal opener supermush uses, adapted to MoonBites' actual TikTok presence.</div>
         </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m1829062500862836_h1aagIxMMVY.jpeg" alt="Reference: supermush — Gummies For A Good Night's Rest" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=1829062500862836')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">supermush — "Gummies For A Good Night's Rest"</div>
+          </div>
+        </div>
       </div>
 
       <!-- Ad 34: Pop A Gummy & Pass Out (Atria: supermush, direct recreation) -->
-      <div class="ad-card" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
+      <div class="ad-card" id="ad34" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,92,246,0.3);border-radius:14px;overflow:hidden;position:relative;">
         <img src="moonbites-ads/ad34-pop-gummy-passout.jpg"
           alt="MoonBites Ad 34 — Pop A Gummy & Pass Out"
           style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" />
@@ -504,6 +647,13 @@
           <div style="font-size:9px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#22c55e;margin-bottom:4px;">Static · Bold Hook (Atria: supermush "Pop a Gummy & Pass Out" — direct recreation)</div>
           <div style="font-size:13px;font-weight:700;color:#fff;">Pop A Gummy & Pass Out</div>
           <div style="font-size:11px;color:rgba(255,255,255,0.45);margin-top:3px;">Direct recreation of a real, currently active, most-active supermush sleep-gummy headline — irreverent and scroll-stopping.</div>
+        </div>
+        <div class="ad-ref">
+          <img class="ad-ref-thumb" src="https://cdn.tryatria.com/adfiles/m323033823920982_10Z5RaxjP0Q.jpeg" alt="Reference: supermush — Pop a Gummy & Pass Out" onclick="openLightbox(this.src, this.alt, 'https://www.facebook.com/ads/library/?id=323033823920982')" />
+          <div class="ad-ref-info">
+            <div class="ad-ref-label">Sourced from</div>
+            <div class="ad-ref-title">supermush — "Pop a Gummy &amp; Pass Out"</div>
+          </div>
         </div>
       </div>
 
@@ -862,8 +1012,9 @@
   <div id="toast">Prompt copied!</div>
 
   <!-- Lightbox -->
-  <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:600;align-items:center;justify-content:center;cursor:zoom-out;padding:24px;">
-    <img id="lightboxImg" src="" alt="" style="max-width:92vw;max-height:92vh;object-fit:contain;border-radius:8px;box-shadow:0 10px 60px rgba(0,0,0,0.6);" />
+  <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:600;flex-direction:column;align-items:center;justify-content:center;cursor:zoom-out;padding:24px;">
+    <img id="lightboxImg" src="" alt="" style="max-width:92vw;max-height:80vh;object-fit:contain;border-radius:8px;box-shadow:0 10px 60px rgba(0,0,0,0.6);cursor:default;" onclick="event.stopPropagation()" />
+    <a id="lightboxLink" href="#" target="_blank" onclick="event.stopPropagation()" style="display:none;margin-top:16px;background:#8b5cf6;color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:10px 18px;border-radius:8px;cursor:pointer;">View original ad on Meta Ad Library ↗</a>
     <button onclick="closeLightbox(event)" style="position:absolute;top:20px;right:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;">✕</button>
   </div>
 
@@ -915,9 +1066,16 @@
       img.addEventListener('click', () => openLightbox(fullSrc, img.alt));
     });
 
-    function openLightbox(src, alt) {
+    function openLightbox(src, alt, linkUrl) {
       document.getElementById('lightboxImg').src = src;
       document.getElementById('lightboxImg').alt = alt || '';
+      const linkEl = document.getElementById('lightboxLink');
+      if (linkUrl) {
+        linkEl.href = linkUrl;
+        linkEl.style.display = 'inline-block';
+      } else {
+        linkEl.style.display = 'none';
+      }
       document.getElementById('lightbox').style.display = 'flex';
     }
 
@@ -925,6 +1083,7 @@
       if (e) e.stopPropagation();
       document.getElementById('lightbox').style.display = 'none';
       document.getElementById('lightboxImg').src = '';
+      document.getElementById('lightboxLink').style.display = 'none';
     }
 
     document.addEventListener('keydown', (e) => {

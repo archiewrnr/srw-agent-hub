@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MoonBites — Ad References — SRW</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#d4a017" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body { background: #0b0010; margin: 0; font-family: system-ui, -apple-system, sans-serif; color: #fff; }
+    main { max-width: 1100px; margin: 0 auto; padding: 36px 24px 72px; }
+
+    .back-link { display: inline-block; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.5); text-decoration: none; margin-bottom: 18px; }
+    .back-link:hover { color: #8b5cf6; }
+
+    .page-card { background: #fff; border-radius: 20px; padding: 30px 30px 26px; box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
+    .ref-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #8b5cf6; margin: 0 0 8px; }
+    .ref-title { font-size: 26px; font-weight: 900; color: #1a0a2e; margin: 0 0 16px; letter-spacing: -0.01em; }
+    .ref-honesty {
+      background: #faf8ff; border: 1px solid #ece4ff; border-radius: 12px; padding: 14px 18px;
+      font-size: 12.5px; color: #5b5570; line-height: 1.6; margin-bottom: 24px; max-width: 760px;
+    }
+    .ref-honesty strong { color: #1a0a2e; }
+
+    .ref-spotlight {
+      display: flex; gap: 18px; align-items: center; background: linear-gradient(135deg,#f6f1ff,#fdf8ff);
+      border: 1px solid #ece0ff; border-radius: 14px; padding: 18px 20px; margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .ref-spotlight-avatar { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .ref-spotlight-info { flex: 1; min-width: 240px; }
+    .ref-spotlight-name { font-size: 17px; font-weight: 800; color: #1a0a2e; margin-bottom: 3px; }
+    .ref-spotlight-link { font-size: 12px; font-weight: 600; color: #8b5cf6; text-decoration: none; margin-left: 8px; }
+    .ref-spotlight-link:hover { text-decoration: underline; }
+    .ref-spotlight-desc { font-size: 13px; color: #6b6480; margin-bottom: 12px; }
+    .ref-stat-row { display: flex; gap: 26px; flex-wrap: wrap; }
+    .ref-stat { display: flex; flex-direction: column; }
+    .ref-stat-num { font-size: 19px; font-weight: 900; color: #1a0a2e; line-height: 1.1; }
+    .ref-stat-label { font-size: 10.5px; color: #8a84a0; font-weight: 600; }
+    .ref-stat-label a { color: #8b5cf6; text-decoration: none; }
+    .ref-stat-label a:hover { text-decoration: underline; }
+
+    .sl-light { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #b3abc9; margin: 0 0 14px; }
+
+    .ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 18px; }
+    .ref-card {
+      background: #fcfbff; border: 1px solid #ece4ff; border-radius: 14px; overflow: hidden;
+      position: relative; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .ref-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,92,246,0.18); }
+    .ref-card-imgwrap {
+      width: 100%; height: 200px; background: #1a0a2e; display: flex; align-items: center;
+      justify-content: center; overflow: hidden; cursor: zoom-in; position: relative;
+    }
+    .ref-card-imgwrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .ref-score {
+      position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(26,10,46,0.9); color: #fff; font-size: 13px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; border: 2px solid #fff; z-index: 2;
+    }
+    .ref-card-body { padding: 11px 13px 13px; }
+    .ref-card-brand { font-size: 10px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: #8b5cf6; margin-bottom: 3px; }
+    .ref-card-title { font-size: 13px; font-weight: 700; color: #1a0a2e; line-height: 1.35; margin-bottom: 4px; }
+    .ref-card-meta { font-size: 10.5px; color: #9a93ad; margin-bottom: 6px; }
+    .ref-card-recreated { font-size: 11px; font-weight: 700; color: #16a34a; }
+    .ref-card-recreated a { color: #16a34a; text-decoration: underline; }
+
+    .ref-footnote { font-size: 11px; color: #9a93ad; line-height: 1.6; margin: 0; }
+
+    @media(max-width:580px) {
+      .page-card { padding: 20px 18px; }
+      .ref-spotlight { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="op-nav">
+    <span class="op-nav-brand">SRW</span>
+    <a href="home.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Hub</a>
+    <a href="index.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Private Label</a>
+    <a href="tiktok.html" class="op-nav-tab"><span class="op-nav-dot live"></span>TikTok</a>
+    <a href="moonbites.html" class="op-nav-tab active"><span class="op-nav-dot live"></span>MoonBites</a>
+    <a href="/jarvis/" class="op-nav-tab"><span class="op-nav-dot live"></span>JARVIS</a>
+    <a href="launch-plan.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Launch Plan</a>
+    <a href="designs.html" class="op-nav-tab"><span class="op-nav-dot live"></span>Designs</a>
+    <a href="settings.html" class="op-nav-tab"><span class="op-nav-dot"></span>Settings</a>
+  </nav>
+
+  <main>
+    <a class="back-link" href="moonbites.html">← Back to MoonBites</a>
+
+    <div class="page-card">
+      <p class="ref-eyebrow">📊 References · Live from Atria + SimilarWeb</p>
+      <h1 class="ref-title">What We're Actually Sourcing From</h1>
+      <div class="ref-honesty">
+        <strong>Honest note:</strong> no ad library — Meta's own or Atria's — exposes impressions, spend or conversions for anyone else's ads. That data is private to the ad account owner, full stop. What's real and checkable: how long an ad has stayed live (advertisers kill losers fast and keep funding winners), how many ads a brand is running in total, placement breadth, and public SimilarWeb traffic estimates for the brand's own site. The score on each card below is built from those three real signals — shown openly, not a black-box number.
+      </div>
+
+      <!-- Brand spotlight -->
+      <div class="ref-spotlight">
+        <img class="ref-spotlight-avatar" src="https://cdn.tryatria.com/adfiles/brand_103846552093700_uqEKpy-4aCA.jpeg" alt="supermush logo" />
+        <div class="ref-spotlight-info">
+          <div class="ref-spotlight-name">supermush <a href="http://supermush.com/" target="_blank" class="ref-spotlight-link">supermush.com ↗</a></div>
+          <div class="ref-spotlight-desc">Functional mushroom gummies — energy, sleep &amp; libido. Closest direct competitor we've found to MoonBites.</div>
+          <div class="ref-stat-row">
+            <div class="ref-stat"><span class="ref-stat-num">610</span><span class="ref-stat-label">ads tracked in library</span></div>
+            <div class="ref-stat"><span class="ref-stat-num">~11.2K</span><span class="ref-stat-label">est. visits / month <a href="https://www.similarweb.com/website/supermush.com/" target="_blank">(SimilarWeb)</a></span></div>
+            <div class="ref-stat"><span class="ref-stat-num">62%</span><span class="ref-stat-label">MoM traffic growth</span></div>
+            <div class="ref-stat"><span class="ref-stat-num">72%</span><span class="ref-stat-label">traffic from US</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="sl-light">All 10 Reference Ads · Click any image to preview, then choose to view the original</p>
+      <div class="ref-grid">
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m323033823920982_10Z5RaxjP0Q.jpeg','supermush — Pop a Gummy &amp; Pass Out','https://www.facebook.com/ads/library/?id=323033823920982')">
+            <img src="https://cdn.tryatria.com/adfiles/m323033823920982_10Z5RaxjP0Q.jpeg" alt="supermush — Pop a Gummy & Pass Out" loading="lazy" />
+          </div>
+          <div class="ref-score">96</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">supermush</div>
+            <div class="ref-card-title">"Pop a Gummy &amp; Pass Out"</div>
+            <div class="ref-card-meta">Live since Dec 2023 · 4 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad34">Ad 34</a></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m1829062500862836_h1aagIxMMVY.jpeg','supermush — Gummies For A Good Night\'s Rest','https://www.facebook.com/ads/library/?id=1829062500862836')">
+            <img src="https://cdn.tryatria.com/adfiles/m1829062500862836_h1aagIxMMVY.jpeg" alt="supermush — Gummies For A Good Night's Rest" loading="lazy" />
+          </div>
+          <div class="ref-score">96</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">supermush</div>
+            <div class="ref-card-title">"Gummies For A Good Night's Rest"</div>
+            <div class="ref-card-meta">Live since Dec 2023 · 4 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad35">Ad 35</a></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m207878242363799_wmclsc6TDDs.jpeg','supermush — Functional Mushroom Sleep Gummies','https://www.facebook.com/ads/library/?id=207878242363799')">
+            <img src="https://cdn.tryatria.com/adfiles/m207878242363799_wmclsc6TDDs.jpeg" alt="supermush — Functional Mushroom Sleep Gummies" loading="lazy" />
+          </div>
+          <div class="ref-score">96</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">supermush</div>
+            <div class="ref-card-title">"Functional Mushroom Sleep Gummies"</div>
+            <div class="ref-card-meta">Live since Dec 2023 · 4 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad36">Ad 36</a></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m1343109379662453_aRc4saxs0VI.jpeg','supermush — Life Hack, Take Shrooms','https://www.facebook.com/ads/library/?id=1343109379662453')">
+            <img src="https://cdn.tryatria.com/adfiles/m1343109379662453_aRc4saxs0VI.jpeg" alt="supermush — Life Hack, Take Shrooms" loading="lazy" />
+          </div>
+          <div class="ref-score">96</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">supermush</div>
+            <div class="ref-card-title">"Life Hack — Take Shrooms"</div>
+            <div class="ref-card-meta">Live since Dec 2023 · 4 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad37">Ad 37</a></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m793134582826678_USt4YrpvJZ0.jpeg','supermush — Savor Life\'s Full Spectrum','https://www.facebook.com/ads/library/?id=793134582826678')">
+            <img src="https://cdn.tryatria.com/adfiles/m793134582826678_USt4YrpvJZ0.jpeg" alt="supermush — Savor Life's Full Spectrum" loading="lazy" />
+          </div>
+          <div class="ref-score">96</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">supermush</div>
+            <div class="ref-card-title">"Savor Life's Full Spectrum"</div>
+            <div class="ref-card-meta">Live since Dec 2023 · 4 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad38">Ad 38</a></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m888432259143569_o9xjFjHYYKY.jpeg','supermush — So Much Energy in a Tiny Little Gummy','https://www.facebook.com/ads/library/?id=888432259143569')">
+            <img src="https://cdn.tryatria.com/adfiles/m888432259143569_o9xjFjHYYKY.jpeg" alt="supermush — So Much Energy in a Tiny Little Gummy" loading="lazy" />
+          </div>
+          <div class="ref-score">96</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">supermush</div>
+            <div class="ref-card-title">"So Much Energy in a Tiny Little Gummy"</div>
+            <div class="ref-card-meta">Live since Dec 2023 · 4 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad39">Ad 39</a></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m858382089304004_kNXtd9k5VLg.jpeg','supermush — All-Day Energy, No Caffeine Crash','https://www.facebook.com/ads/library/?id=858382089304004')">
+            <img src="https://cdn.tryatria.com/adfiles/m858382089304004_kNXtd9k5VLg.jpeg" alt="supermush — All-Day Energy, No Caffeine Crash" loading="lazy" />
+          </div>
+          <div class="ref-score">96</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">supermush</div>
+            <div class="ref-card-title">"All-Day Energy, No Caffeine Crash"</div>
+            <div class="ref-card-meta">Live since Dec 2023 · 4 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad40">Ad 40</a></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m1612869202582567_4rulAKKy12Y.jpeg','Joey Mattress — Grab It Before It\'s Gone','https://www.facebook.com/ads/library/?id=1612869202582567')">
+            <img src="https://cdn.tryatria.com/adfiles/m1612869202582567_4rulAKKy12Y.jpeg" alt="Joey Mattress — Grab It Before It's Gone" loading="lazy" />
+          </div>
+          <div class="ref-score">93</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">Joey Mattress · 494 ads tracked · ~20.7K visits/mo</div>
+            <div class="ref-card-title">"Grab It Before It's Gone"</div>
+            <div class="ref-card-meta">Live since Nov 2023 · 4 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad41">Ad 41</a></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m2665438793622049_F1I0ksy2gFM.jpeg','Burst Creatine — Ditch The Chalky Powder','https://www.facebook.com/ads/library/?id=2665438793622049')">
+            <img src="https://cdn.tryatria.com/adfiles/m2665438793622049_F1I0ksy2gFM.jpeg" alt="Burst Creatine — Ditch The Chalky Powder" loading="lazy" />
+          </div>
+          <div class="ref-score">64</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">Burst Creatine · 232 ads tracked · ~4K visits/mo</div>
+            <div class="ref-card-title">"Ditch The Chalky Powder"</div>
+            <div class="ref-card-meta">Live since Mar 2024 · 2 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad42">Ad 42</a></div>
+          </div>
+        </div>
+
+        <div class="ref-card">
+          <div class="ref-card-imgwrap" onclick="openLightbox('https://cdn.tryatria.com/adfiles/m267896773072543_IybktIebCfM.jpeg','Burst Creatine — Coming Clean','https://www.facebook.com/ads/library/?id=267896773072543')">
+            <img src="https://cdn.tryatria.com/adfiles/m267896773072543_IybktIebCfM.jpeg" alt="Burst Creatine — Coming Clean" loading="lazy" />
+          </div>
+          <div class="ref-score">64</div>
+          <div class="ref-card-body">
+            <div class="ref-card-brand">Burst Creatine · 232 ads tracked · ~4K visits/mo</div>
+            <div class="ref-card-title">"Coming Clean — Wanted To Be Transparent"</div>
+            <div class="ref-card-meta">Live since Mar 2024 · 2 placements</div>
+            <div class="ref-card-recreated">→ Recreated as <a href="moonbites.html#ad43">Ad 43</a></div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="ref-footnote">Score = longevity (days live ÷ 1000, max 50pts) + placement breadth (platforms ÷ 4, max 30pts) + brand investment scale (brand's total tracked ads ÷ 600, max 20pts). All inputs are public/checkable via the links above — this is a sourcing signal, not a guarantee. This page refreshes as we pull new reference ads for future MoonBites batches.</p>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:600;flex-direction:column;align-items:center;justify-content:center;cursor:zoom-out;padding:24px;">
+    <img id="lightboxImg" src="" alt="" style="max-width:92vw;max-height:80vh;object-fit:contain;border-radius:8px;box-shadow:0 10px 60px rgba(0,0,0,0.6);cursor:default;" onclick="event.stopPropagation()" />
+    <a id="lightboxLink" href="#" target="_blank" onclick="event.stopPropagation()" style="display:none;margin-top:16px;background:#8b5cf6;color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:10px 18px;border-radius:8px;cursor:pointer;">View original ad on Meta Ad Library ↗</a>
+    <button onclick="closeLightbox(event)" style="position:absolute;top:20px;right:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer;">✕</button>
+  </div>
+
+  <script>
+    function openLightbox(src, alt, linkUrl) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxImg').alt = alt || '';
+      const linkEl = document.getElementById('lightboxLink');
+      if (linkUrl) {
+        linkEl.href = linkUrl;
+        linkEl.style.display = 'inline-block';
+      } else {
+        linkEl.style.display = 'none';
+      }
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function closeLightbox(e) {
+      if (e) e.stopPropagation();
+      document.getElementById('lightbox').style.display = 'none';
+      document.getElementById('lightboxImg').src = '';
+      document.getElementById('lightboxLink').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
